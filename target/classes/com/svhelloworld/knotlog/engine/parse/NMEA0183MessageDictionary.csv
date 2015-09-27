@@ -1,0 +1,61 @@
+// NMEA 0183 message definitions.
+// 
+// Definitions are in the following comma-seperated format:
+//   * Sentence tag
+//   * Message class
+//   * Comma-seperated parameters to pass to message class
+//
+// Any integer values are presumed to be field indexes and the 
+// specified field value will be passed in to the message class.
+// Any string values will be passed in to the message class directly.
+// 
+// Jason Andersen
+// Feb 17, 2010
+
+//DBT - depth below transducer
+DBT,WaterDepth,1,FEET
+
+//GGA - GPS fix data
+GGA,TimeOfDayZulu,1
+GGA,GPSPosition,2,3,4,5
+GGA,PositionPrecision,8,METERS
+GGA,Altitude,9,METERS
+
+//GLL - geographic position, latitude and longitude
+GLL,GPSPosition,1,2,3,4
+GLL,TimeOfDayZulu,5
+
+//HDG - heading deviation and variation
+HDG,VesselHeading,1,MAGNETIC
+HDG,MagneticVariation,4,5
+
+//HDM - heading magnetic
+HDM,VesselHeading,1,MAGNETIC
+
+//HDT - heading true
+HDT,VesselHeading,1,TRUE
+
+//MTW - mean temperature of water
+MTW,SeaTemperature,1,CELSIUS
+
+//MWV - wind speed and angle
+MWV,WindDirection,1,2
+MWV,WindSpeed,3,4,2
+
+//RMC - minimum navigation data
+RMC,TimeOfDayZulu,1
+RMC,GPSPosition,3,4,5,6
+RMC,SpeedRelativeToGround,7,KNOTS
+RMC,DateZulu,9
+RMC,MagneticVariation,10,11
+
+//RSA - rudder angle
+RSA,RudderAngle,1,STARBOARD
+RSA,RudderAngle,3,PORT
+
+//VHW - water speed and heading
+VHW,SpeedRelativeToWater,5,KNOTS
+
+//VWR - relative wind speed and angle
+VWR,WindDirection,1,RELATIVE,2
+VWR,WindSpeed,3,KNOTS,RELATIVE

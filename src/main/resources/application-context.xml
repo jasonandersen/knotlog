@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+
+<bean id="nmea0183Parser" class="com.svhelloworld.knotlog.parse.NMEA0183Parser" />
+
+
+
+<bean id="testBean" class="org.springframework.beans.TestBean" scope="prototype">
+  <property name="age" value="10"/>
+  <property name="spouse">
+    <bean class="org.springframework.beans.TestBean">
+      <property name="age" value="11"/>
+    </bean>
+  </property>
+</bean>
+
+</beans>

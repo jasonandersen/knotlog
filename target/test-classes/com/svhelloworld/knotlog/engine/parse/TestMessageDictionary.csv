@@ -1,0 +1,32 @@
+// CSVMessageDictionaryTest message definitions.
+// 
+// Don't change these definitions without updating the
+// unit test.
+// 
+// Jason Andersen
+// Feb 17, 2010
+
+//DBT
+DBT,WaterDepth,1,FEET
+
+//RMC
+RMC,TimeOfDayZulu,1
+RMC,PositionMessage,2,3,4,5
+RMC,SpeedRelativeToGround,7,KNOTS
+RMC,DateZulu,9
+RMC,MagneticVariation,10,11
+
+//GGA
+GGA,TimeOfDayZulu,1
+GGA,PositionMessage,2,3,4,5
+GGA,HorizontalPositionPrecision,8,METERS
+GGA,Altitude,9,METERS
+GLL,PositionMessage,1,2,3,4
+GLL,TimeOfDayZulu,5
+
+//MTW
+MTW,WaterTemperature,1,CELSIUS
+
+//Random testing
+XXX,TestingNoParameters
+XXX,TestingLotsOfParameters,1,2,3,Here are some parameters,4,5,I like monkeys!,6,7,8,More clever things to say,9,10
