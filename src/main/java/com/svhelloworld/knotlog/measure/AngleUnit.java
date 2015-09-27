@@ -12,22 +12,20 @@ import com.svhelloworld.knotlog.i18n.Localizable;
  * @since Feb 15, 2010
  *
  */
-public enum AngleUnit implements MeasurementUnit, Localizable {
+public enum AngleUnit implements MeasurementUnit,Localizable {
     /**
-     * An angle in a 360� circle.
+     * An angle in a 360째 circle.
      */
-    DEGREES("angle.degrees", "angle.degrees.suffix", "degrees", "�", 
-            "degrees", "deg", "DEGREES", "DEG"),
-    /**
-     * A compass bearing relative to magnetic north.
-     */
-    DEGREES_MAGNETIC("angle.degrees.magnetic", "angle.degrees.magnetic.suffix", 
-            "degrees magnetic", "캫", "M", "m", "magnetic", "MAGNETIC"),
-    /**
-     * A compass bearing relative to true north.
-     */
-    DEGREES_TRUE("angle.degrees.true", "angle.degrees.true.suffix", 
-            "degrees true", "캴", "T", "t", "true", "TRUE");
+    DEGREES("angle.degrees", "angle.degrees.suffix", "degrees", "째",
+            "degrees", "deg", "DEGREES", "DEG"), /**
+                                                  * A compass bearing relative to magnetic north.
+                                                  */
+    DEGREES_MAGNETIC("angle.degrees.magnetic", "angle.degrees.magnetic.suffix",
+            "degrees magnetic", "째M", "M", "m", "magnetic", "MAGNETIC"), /**
+                                                                          * A compass bearing relative to true north.
+                                                                          */
+    DEGREES_TRUE("angle.degrees.true", "angle.degrees.true.suffix",
+            "degrees true", "째T", "T", "t", "true", "TRUE");
 
     /**
      * Resolves an abbreviation out to a AngleUnit.
@@ -45,7 +43,7 @@ public enum AngleUnit implements MeasurementUnit, Localizable {
         }
         return null;
     }
-    
+
     /**
      * Description key
      */
@@ -58,7 +56,7 @@ public enum AngleUnit implements MeasurementUnit, Localizable {
      * Abbreviations for this measurement unit.
      */
     private String[] abbreviations;
-    
+
     /**
      * Constructor
      */
@@ -75,10 +73,11 @@ public enum AngleUnit implements MeasurementUnit, Localizable {
     public String getSuffix() {
         return BabelFish.localizeKey(suffixKey);
     }
-    
+
     /**
      * @return an array of abbreviations for this measurement unit
      */
+    @Override
     public String[] getAbbreviations() {
         return this.abbreviations;
     }
@@ -106,7 +105,7 @@ public enum AngleUnit implements MeasurementUnit, Localizable {
     public String getDescription() {
         return BabelFish.localizeKey(descKey);
     }
-    
+
     /**
      * @see java.lang.Enum#toString()
      */

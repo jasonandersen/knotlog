@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
@@ -16,15 +16,15 @@ import com.svhelloworld.knotlog.measure.DistanceUnit;
  * @since Mar 5, 2010
  *
  */
-public class WaterDepthTest extends 
-        BaseQuantitativeMessageTest<WaterDepth, DistanceUnit>{
-    
+public class WaterDepthTest extends
+        BaseQuantitativeMessageTest<WaterDepth, DistanceUnit> {
+
     private static final float DEPTH = 349.512f;
-    
+
     private static final DistanceUnit UNIT = DistanceUnit.FEET;
-    
+
     private WaterDepth depth;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -38,7 +38,7 @@ public class WaterDepthTest extends
      */
     @Test
     public void testGetDistance() {
-        assertEquals(DEPTH, depth.getDistance());
+        assertEquals(DEPTH, depth.getDistance(), 0.001);
     }
 
     /**

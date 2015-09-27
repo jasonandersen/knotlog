@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.svhelloworld.knotlog.engine.parse.NMEA0183ParserTest
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.744 sec
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.355 sec

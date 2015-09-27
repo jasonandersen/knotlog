@@ -25,9 +25,6 @@ import com.svhelloworld.knotlog.messages.MockVesselMessage;
 import com.svhelloworld.knotlog.messages.PreparseMessage;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.output.OutputProtocol;
-import com.svhelloworld.knotlog.output.TextOutput;
-import com.svhelloworld.knotlog.output.ThreadedOutput;
 
 /**
  * Unit test for the <tt>ThreadedOutput</tt> class.
@@ -37,11 +34,11 @@ import com.svhelloworld.knotlog.output.ThreadedOutput;
  *
  */
 public class ThreadedMessageOutputTest {
-    
+
     private ThreadedOutput target;
-    
+
     private ExecutorService threadPool;
-    
+
     /**
      * @throws Exception 
      * 
@@ -112,7 +109,7 @@ public class ThreadedMessageOutputTest {
         //no exception? then we're good
         target.messageDiscoveryComplete();
     }
-    
+
     /**
      * Ensure listener throws an exception when vesselMessagesFound() is
      * called after messageDiscoveryComplete()
@@ -128,7 +125,7 @@ public class ThreadedMessageOutputTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.output.ThreadedOutput#run()}.
      */
@@ -139,25 +136,25 @@ public class ThreadedMessageOutputTest {
         PrintStream sysOut = System.out;
         OutputStreamWriter osw = new OutputStreamWriter(sysOut);
         TestTextOutput output = new TestTextOutput(threadPool, new BufferedWriter(osw));
-        
+
         StreamedSource source = new ClassPathFileSource(
-                "com/svhelloworld/knotlog/ui/output/GarminDiagFeedSmall.csv");
+                "com/svhelloworld/knotlog/output/GarminDiagFeedSmall.csv");
         NMEA0183Parser parser = new NMEA0183Parser();
         parser.setSource(source);
         parser.addMessageListener(output);
         parser.addUnrecognizedMessageListener(output);
         parser.addPreparseListener(output);
-        
+
         parser.run();
     }
-    
+
     /**
      * Create a mock vessel message.
      */
     private VesselMessage generateMessage() {
         return new MockVesselMessage();
     }
-    
+
     /**
      * Test text output
      */
@@ -200,12 +197,12 @@ public class ThreadedMessageOutputTest {
             super.processPreparseData();
         }
         */
-        
+
         private String getThreadName() {
             return Thread.currentThread().getName();
         }
     }
-    
+
     /**
      * Test output protocol.
      */
@@ -250,7 +247,7 @@ public class ThreadedMessageOutputTest {
         public String preparseMessage(PreparseMessage preparse) {
             return "[" + getThreadName() + "] " + getThreadName();
         }
-        
+
         private String getThreadName() {
             return Thread.currentThread().getName();
         }

@@ -1,6 +1,7 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
 
@@ -17,13 +18,13 @@ import com.svhelloworld.knotlog.measure.AngleUnit;
  */
 public class VesselHeadingTest
         extends BaseQuantitativeMessageTest<VesselHeading, AngleUnit> {
-    
+
     private static final float HEADING = 192.502f;
-    
+
     private static final AngleUnit UNIT = AngleUnit.DEGREES_MAGNETIC;
-    
+
     private VesselHeading heading;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -76,7 +77,7 @@ public class VesselHeadingTest
      */
     @Test
     public void testGetVesselHeading() {
-        assertEquals(HEADING, heading.getVesselHeading());
+        assertEquals(HEADING, heading.getVesselHeading(), 0.001);
     }
 
     /**
@@ -84,7 +85,7 @@ public class VesselHeadingTest
      */
     @Override
     protected String getExpectedDisplayString() {
-        return "heading 193°M";
+        return "heading 193Â°M";
     }
 
     /**

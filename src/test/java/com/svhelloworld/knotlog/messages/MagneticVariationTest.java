@@ -11,7 +11,6 @@ import org.junit.Test;
 import com.svhelloworld.knotlog.measure.AngleUnit;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
 
-
 /**
  * Unit test for <tt>MagneticVariation</tt> class.
  * 
@@ -19,15 +18,15 @@ import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
  * @since Mar 6, 2010
  *
  */
-public class MagneticVariationTest extends 
-        BaseQuantitativeMessageTest<MagneticVariation, AngleUnit>{
-    
+public class MagneticVariationTest extends
+        BaseQuantitativeMessageTest<MagneticVariation, AngleUnit> {
+
     private static final float VARIATION = 10.123f;
-    
+
     private static final LongitudinalHemisphere HEMISPHERE = LongitudinalHemisphere.EAST;
-    
+
     private MagneticVariation variation;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -35,7 +34,7 @@ public class MagneticVariationTest extends
     public void setUp() throws Exception {
         variation = new MagneticVariation(source, timestamp, VARIATION, HEMISPHERE);
     }
-    
+
     /*
      * constructor tests:
      * var < 0
@@ -44,7 +43,7 @@ public class MagneticVariationTest extends
      * hem = SOUTH
      * hem = null
      */
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.MagneticVariation#MagneticVariation(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
@@ -89,7 +88,7 @@ public class MagneticVariationTest extends
      */
     @Test
     public void testGetMagneticVariation() {
-        assertEquals(VARIATION, variation.getMagneticVariation());
+        assertEquals(VARIATION, variation.getMagneticVariation(), 0.001);
     }
 
     /**
@@ -105,7 +104,7 @@ public class MagneticVariationTest extends
      */
     @Override
     protected String getExpectedDisplayString() {
-        return "magnetic variation 10.1°E";
+        return "magnetic variation 10.1Â°E";
     }
 
     /**

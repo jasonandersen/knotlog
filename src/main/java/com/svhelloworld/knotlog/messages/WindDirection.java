@@ -16,7 +16,7 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  *
  */
 public class WindDirection extends BaseQuantitativeMessage<AngleUnit> {
-    
+
     /**
      * Basis for wind direction measurement.
      */
@@ -25,14 +25,14 @@ public class WindDirection extends BaseQuantitativeMessage<AngleUnit> {
      * Determines which side of the vessel the wind is on.
      */
     private final VesselArea vesselSide;
-    
+
     /**
      * Constructor.
      * @param source message source
      * @param timestamp timestamp of message event
-     * @param direction wind direction, can be passed as circular degrees (0° - 360°) 
-     *          with the bow of the vessel at 0° or can be passed as semi-circular
-     *          degrees (0° - 180°) and coupled with the <tt>vesselSide</tt> 
+     * @param direction wind direction, can be passed as circular degrees (0Â° - 360Â°) 
+     *          with the bow of the vessel at 0Â° or can be passed as semi-circular
+     *          degrees (0Â° - 180Â°) and coupled with the <tt>vesselSide</tt> 
      *          argument to determine which side of the vessel the wind is coming from
      * @param basis describes whether the wind direction measurement is relative
      *          or true
@@ -48,12 +48,12 @@ public class WindDirection extends BaseQuantitativeMessage<AngleUnit> {
      *          than 360.
      */
     public WindDirection(
-            final VesselMessageSource source, 
-            final Date timestamp, 
+            final VesselMessageSource source,
+            final Date timestamp,
             final float direction,
             final MeasurementBasis basis,
             final VesselArea vesselSide) {
-        
+
         super(source, timestamp, direction, AngleUnit.DEGREES);
         if (basis == null) {
             throw new NullPointerException("measurement basis cannot be null");
@@ -71,19 +71,19 @@ public class WindDirection extends BaseQuantitativeMessage<AngleUnit> {
             windAngle = 360 - direction;
             this.vesselSide = VesselArea.PORT;
         } else {
-            this.vesselSide = vesselSide == null? VesselArea.STARBOARD : vesselSide;
+            this.vesselSide = vesselSide == null ? VesselArea.STARBOARD : vesselSide;
         }
         super.quantity = windAngle;
         this.basis = basis;
     }
-    
+
     /**
      * @return wind direction in degrees relative to the bow of the vessel
      */
     public float getWindDirection() {
         return quantity;
     }
-    
+
     /**
      * @return determines whether wind direction is measured
      * as relative wind or true wind
@@ -91,7 +91,7 @@ public class WindDirection extends BaseQuantitativeMessage<AngleUnit> {
     public MeasurementBasis getBasis() {
         return basis;
     }
-    
+
     /**
      * @return determines which side of the vessel the wind 
      * is passing over
@@ -99,7 +99,7 @@ public class WindDirection extends BaseQuantitativeMessage<AngleUnit> {
     public VesselArea getVesselSide() {
         return vesselSide;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.i18n.Localizable#getLocalizeParams()
      */
@@ -107,7 +107,7 @@ public class WindDirection extends BaseQuantitativeMessage<AngleUnit> {
     public List<Object> getLocalizeParams() {
         return MiscUtil.varargsToList(basis, quantity, unit.getSuffix(), vesselSide);
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getDisplayKey()
      */

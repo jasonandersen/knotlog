@@ -17,15 +17,15 @@ import com.svhelloworld.knotlog.measure.VesselArea;
  * @since Mar 6, 2010
  *
  */
-public class RudderAngleTest extends 
-        BaseQuantitativeMessageTest<RudderAngle, VesselArea>{
-    
+public class RudderAngleTest extends
+        BaseQuantitativeMessageTest<RudderAngle, VesselArea> {
+
     private final static float ANGLE = 12.2f;
-    
+
     private final static VesselArea SIDE = VesselArea.STARBOARD;
-    
+
     private RudderAngle angle;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -33,14 +33,14 @@ public class RudderAngleTest extends
     public void setUp() throws Exception {
         angle = new RudderAngle(source, timestamp, ANGLE, SIDE);
     }
-    
+
     /*
      * constructor tests
      * angle < 0
      * angle > 180
      * side = null
      */
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.RudderAngle#RudderAngle(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
@@ -53,7 +53,7 @@ public class RudderAngleTest extends
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.RudderAngle#RudderAngle(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
@@ -66,7 +66,7 @@ public class RudderAngleTest extends
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.RudderAngle#RudderAngle(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
@@ -82,7 +82,7 @@ public class RudderAngleTest extends
      */
     @Test
     public void testGetRudderAngle() {
-        assertEquals(ANGLE, angle.getRudderAngle());
+        assertEquals(ANGLE, angle.getRudderAngle(), 0.1);
     }
 
     /**
@@ -98,7 +98,7 @@ public class RudderAngleTest extends
      */
     @Override
     protected String getExpectedDisplayString() {
-        return "starboard rudder angle 12°";
+        return "starboard rudder angle 12Â°";
     }
 
     /**

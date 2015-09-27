@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
@@ -18,13 +18,13 @@ import com.svhelloworld.knotlog.measure.TemperatureUnit;
  */
 public class SeaTemperatureTest extends
         BaseQuantitativeMessageTest<SeaTemperature, TemperatureUnit> {
-    
+
     private static final float TEMP = 72.48f;
-    
+
     private static final TemperatureUnit UNIT = TemperatureUnit.FAHRENHEIT;
-    
+
     private SeaTemperature temp;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -38,7 +38,7 @@ public class SeaTemperatureTest extends
      */
     @Test
     public void testGetTemperature() {
-        assertEquals(TEMP, temp.getTemperature());
+        assertEquals(TEMP, temp.getTemperature(), 0.001);
     }
 
     /**
@@ -46,7 +46,7 @@ public class SeaTemperatureTest extends
      */
     @Override
     protected String getExpectedDisplayString() {
-        return "sea temperature 72.5°F";
+        return "sea temperature 72.5Â°F";
     }
 
     /**

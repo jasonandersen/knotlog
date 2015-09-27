@@ -1,8 +1,8 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,21 +17,21 @@ import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
  *
  */
 public class PositionImplTest {
-    
+
     private static final String STRING_LAT = "2530.941";
-    
+
     private static final String STRING_LON = "11103.702";
-    
+
     private static final float NUMERIC_LAT = 25.51569f;
-    
+
     private static final float NUMERIC_LON = 111.06171f;
-    
+
     private static final LatitudinalHemisphere LAT_HEM = LatitudinalHemisphere.NORTH;
-    
+
     private static final LongitudinalHemisphere LON_HEM = LongitudinalHemisphere.WEST;
-    
+
     private PositionImpl target;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -39,7 +39,7 @@ public class PositionImplTest {
     public void setUp() throws Exception {
         target = new PositionImpl(STRING_LAT, LAT_HEM, STRING_LON, LON_HEM);
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
      */
@@ -52,7 +52,7 @@ public class PositionImplTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
      */
@@ -65,7 +65,7 @@ public class PositionImplTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
      */
@@ -78,7 +78,7 @@ public class PositionImplTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
      */
@@ -91,7 +91,7 @@ public class PositionImplTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
      */
@@ -104,7 +104,7 @@ public class PositionImplTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
      */
@@ -117,19 +117,19 @@ public class PositionImplTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatHemFloatHem() {
         target = new PositionImpl(NUMERIC_LAT, LAT_HEM, NUMERIC_LON, LON_HEM);
-        assertEquals(NUMERIC_LAT, target.getLatitude());
-        assertEquals(NUMERIC_LON, target.getLongitude());
+        assertEquals(NUMERIC_LAT, target.getLatitude(), 0.001);
+        assertEquals(NUMERIC_LON, target.getLongitude(), 0.001);
         assertEquals(LAT_HEM, target.getLatitudinalHemisphere());
         assertEquals(LON_HEM, target.getLongitudinalHemisphere());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
      */
@@ -188,9 +188,9 @@ public class PositionImplTest {
     @Test
     public void testConstructorFloatFloatPosLatLon() {
         target = new PositionImpl(NUMERIC_LAT, NUMERIC_LON);
-        assertEquals(NUMERIC_LAT, target.getLatitude());
+        assertEquals(NUMERIC_LAT, target.getLatitude(), 0.001);
         assertEquals(LatitudinalHemisphere.NORTH, target.getLatitudinalHemisphere());
-        assertEquals(NUMERIC_LON, target.getLongitude());
+        assertEquals(NUMERIC_LON, target.getLongitude(), 0.001);
         assertEquals(LongitudinalHemisphere.EAST, target.getLongitudinalHemisphere());
     }
 
@@ -200,9 +200,9 @@ public class PositionImplTest {
     @Test
     public void testConstructorFloatFloatNegLat() {
         target = new PositionImpl(0 - NUMERIC_LAT, NUMERIC_LON);
-        assertEquals(NUMERIC_LAT, target.getLatitude());
+        assertEquals(NUMERIC_LAT, target.getLatitude(), 0.001);
         assertEquals(LatitudinalHemisphere.SOUTH, target.getLatitudinalHemisphere());
-        assertEquals(NUMERIC_LON, target.getLongitude());
+        assertEquals(NUMERIC_LON, target.getLongitude(), 0.001);
         assertEquals(LongitudinalHemisphere.EAST, target.getLongitudinalHemisphere());
     }
 
@@ -212,12 +212,12 @@ public class PositionImplTest {
     @Test
     public void testConstructorFloatFloatNegLon() {
         target = new PositionImpl(NUMERIC_LAT, 0 - NUMERIC_LON);
-        assertEquals(NUMERIC_LAT, target.getLatitude());
+        assertEquals(NUMERIC_LAT, target.getLatitude(), 0.001);
         assertEquals(LatitudinalHemisphere.NORTH, target.getLatitudinalHemisphere());
-        assertEquals(NUMERIC_LON, target.getLongitude());
+        assertEquals(NUMERIC_LON, target.getLongitude(), 0.001);
         assertEquals(LongitudinalHemisphere.WEST, target.getLongitudinalHemisphere());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
@@ -256,7 +256,7 @@ public class PositionImplTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
@@ -308,7 +308,7 @@ public class PositionImplTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
@@ -327,7 +327,7 @@ public class PositionImplTest {
      */
     @Test
     public void testGetLatitude() {
-        assertEquals(NUMERIC_LAT, target.getLatitude());
+        assertEquals(NUMERIC_LAT, target.getLatitude(), 0.001);
     }
 
     /**
@@ -343,7 +343,7 @@ public class PositionImplTest {
      */
     @Test
     public void testGetLongitude() {
-        assertEquals(NUMERIC_LON, target.getLongitude());
+        assertEquals(NUMERIC_LON, target.getLongitude(), 0.001);
     }
 
     /**

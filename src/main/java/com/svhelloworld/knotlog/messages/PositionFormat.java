@@ -15,28 +15,28 @@ import com.svhelloworld.knotlog.i18n.Localizable;
 public enum PositionFormat implements Localizable {
     /**
      * Formats position as degrees only. Example:
-     * <tt>25.51569°N 111.06171°W</tt>
+     * <tt>25.51569Â°N 111.06171Â°W</tt>
      */
     DEGREES(
-            "position.format.deg", 
-            "%2.5f°%s %3.5f°%s") {
+            "position.format.deg",
+            "%2.5fÂ°%s %3.5fÂ°%s") {
         @Override
         public String format(Position position) {
             return String.format(
-                    this.pattern, 
-                    position.getLatitude(), 
-                    position.getLatitudinalHemisphere().getSuffix(), 
-                    position.getLongitude(), 
+                    this.pattern,
+                    position.getLatitude(),
+                    position.getLatitudinalHemisphere().getSuffix(),
+                    position.getLongitude(),
                     position.getLongitudinalHemisphere().getSuffix());
         }
     },
     /**
      * Formats position as degrees minutes. Example:
-     * <tt>25°30.941'N 111°03.702'W</tt>
+     * <tt>25Â°30.941'N 111Â°03.702'W</tt>
      */
     DEGREES_MINUTES(
-            "position.format.deg.min", 
-            "%02.0f°%06.3f'%s %03.0f°%06.3f'%s"){
+            "position.format.deg.min",
+            "%02.0fÂ°%06.3f'%s %03.0fÂ°%06.3f'%s") {
         @Override
         public String format(Position position) {
             return String.format(
@@ -51,11 +51,11 @@ public enum PositionFormat implements Localizable {
     },
     /**
      * Formats position as degrees minutes seconds. Example:
-     * <tt>25°30'56.6"N 111°03'42.3"W</tt>
+     * <tt>25Â°30'56.6"N 111Â°03'42.3"W</tt>
      */
     DEGREES_MINUTES_SECONDS(
-            "position.format.deg.min.sec", 
-            "%02.0f°%02.0f'%04.1f\"%s %03.0f°%02.0f'%04.1f\"%s"){
+            "position.format.deg.min.sec",
+            "%02.0fÂ°%02.0f'%04.1f\"%s %03.0fÂ°%02.0f'%04.1f\"%s") {
         @Override
         public String format(Position position) {
             return String.format(
@@ -70,19 +70,19 @@ public enum PositionFormat implements Localizable {
                     position.getLongitudinalHemisphere().getSuffix());
         }
     };
-    
+
     /**
      * The system default position format.
      */
     private static PositionFormat defaultFormat = PositionFormat.DEGREES_MINUTES;
-    
+
     /**
      * @return the system default position format.
      */
     public static PositionFormat getDefaultFormat() {
         return defaultFormat;
     }
-    
+
     /**
      * Sets a system wide default position format.
      * @param newFormat new default position format
@@ -92,7 +92,7 @@ public enum PositionFormat implements Localizable {
             defaultFormat = newFormat;
         }
     }
-    
+
     /**
      * key to localize description
      */
@@ -101,7 +101,7 @@ public enum PositionFormat implements Localizable {
      * printf style pattern string
      */
     protected final String pattern;
-    
+
     /**
      * Constructor.
      * @param descKey description key
@@ -111,14 +111,14 @@ public enum PositionFormat implements Localizable {
         this.descKey = descKey;
         this.pattern = pattern;
     }
-    
+
     /**
      * Formats a <tt>Position</tt> object.
      * @param position
      * @return formatted string
      */
     public abstract String format(Position position);
-    
+
     /**
      * @see com.svhelloworld.knotlog.i18n.Localizable#getLocalizeKey()
      */
@@ -134,7 +134,7 @@ public enum PositionFormat implements Localizable {
     public List<Object> getLocalizeParams() {
         return null;
     }
-    
+
     /**
      * @see java.lang.Enum#toString()
      */
@@ -142,16 +142,16 @@ public enum PositionFormat implements Localizable {
     public String toString() {
         return BabelFish.localize(this);
     }
-    
+
     /**
      * Calculates minutes from a given degrees.
      * @param degrees
      * @return minutes
      */
     protected float getMinutes(float degrees) {
-        return (float)((degrees - Math.floor(degrees)) * 60);
+        return (float) ((degrees - Math.floor(degrees)) * 60);
     }
-    
+
     /**
      * Calculates the seconds from a given degrees.
      * @param degrees
@@ -159,6 +159,6 @@ public enum PositionFormat implements Localizable {
      */
     protected float getSeconds(float degrees) {
         float minutes = getMinutes(degrees);
-        return (float)((minutes - Math.floor(minutes)) * 60);
+        return (float) ((minutes - Math.floor(minutes)) * 60);
     }
 }

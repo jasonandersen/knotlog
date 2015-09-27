@@ -12,15 +12,14 @@ import com.svhelloworld.knotlog.i18n.Localizable;
  * @since Feb 15, 2010
  *
  */
-public enum TemperatureUnit implements MeasurementUnit, Localizable {
+public enum TemperatureUnit implements MeasurementUnit,Localizable {
     /**
      * Temperature in celsius.
      */
-    CELSIUS("temp.celsius", "temp.celsius.suffix", "celsius", "CELSIUS", "°C", "C", "c"),
-    /**
-     * Temperature in fahrenheit.
-     */
-    FAHRENHEIT("temp.fahrenheit", "temp.fahrenheit.suffix", "fahrenheit", "FAHRENHEIT", "°F", "F", "f");
+    CELSIUS("temp.celsius", "temp.celsius.suffix", "celsius", "CELSIUS", "Â°C", "C", "c"), /**
+                                                                                           * Temperature in fahrenheit.
+                                                                                           */
+    FAHRENHEIT("temp.fahrenheit", "temp.fahrenheit.suffix", "fahrenheit", "FAHRENHEIT", "Â°F", "F", "f");
 
     /**
      * Description key
@@ -34,7 +33,7 @@ public enum TemperatureUnit implements MeasurementUnit, Localizable {
      * temperature abbreviations
      */
     private String[] abbreviations;
-    
+
     /**
      * Constructor
      */
@@ -59,10 +58,11 @@ public enum TemperatureUnit implements MeasurementUnit, Localizable {
     public String getSuffix() {
         return BabelFish.localizeKey(suffixKey);
     }
-    
+
     /**
      * @return an array of abbreviations for this temperature unit
      */
+    @Override
     public String[] getAbbreviations() {
         return abbreviations;
     }
@@ -82,7 +82,7 @@ public enum TemperatureUnit implements MeasurementUnit, Localizable {
     public List<Object> getLocalizeParams() {
         return null;
     }
-    
+
     /**
      * @see java.lang.Enum#toString()
      */

@@ -1,6 +1,7 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
 
@@ -16,15 +17,15 @@ import com.svhelloworld.knotlog.measure.DistanceUnit;
  * @since Mar 5, 2010
  *
  */
-public class PositionPrecisionTest extends 
-    BaseQuantitativeMessageTest<PositionPrecision, DistanceUnit> {
-    
+public class PositionPrecisionTest extends
+        BaseQuantitativeMessageTest<PositionPrecision, DistanceUnit> {
+
     private static final float PRECISION = 18.215f;
-    
+
     private static final DistanceUnit UNIT = DistanceUnit.FEET;
-    
+
     private PositionPrecision precision;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -45,7 +46,7 @@ public class PositionPrecisionTest extends
         } catch (IllegalArgumentException e) {
             //expected
         }
-        
+
     }
 
     /**
@@ -53,7 +54,7 @@ public class PositionPrecisionTest extends
      */
     @Test
     public void testGetHorizontalPrecision() {
-        assertEquals(PRECISION, precision.getPositionPrecision());
+        assertEquals(PRECISION, precision.getPositionPrecision(), 0.001);
     }
 
     /**
@@ -61,7 +62,7 @@ public class PositionPrecisionTest extends
      */
     @Test
     public void testGetDistance() {
-        assertEquals(PRECISION, precision.getDistance());
+        assertEquals(PRECISION, precision.getDistance(), 0.001);
     }
 
     /**

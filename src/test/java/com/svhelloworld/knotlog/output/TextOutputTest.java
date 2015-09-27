@@ -9,9 +9,6 @@ import com.svhelloworld.knotlog.engine.parse.NMEA0183Parser;
 import com.svhelloworld.knotlog.engine.parse.Parser;
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
-import com.svhelloworld.knotlog.output.OutputProtocol;
-import com.svhelloworld.knotlog.output.PlainTextProtocol;
-import com.svhelloworld.knotlog.output.TextOutput;
 
 /**
  * Unit test for <tt>TextOutput</tt> class.
@@ -21,18 +18,17 @@ import com.svhelloworld.knotlog.output.TextOutput;
  *
  */
 public class TextOutputTest {
-    
-    private final static String INPUT_PATH = 
-        "com/svhelloworld/knotlog/engine/parsers/nmea0183/GarminDiagFeed.csv";
-    
+
+    private final static String INPUT_PATH = "com/svhelloworld/knotlog/engine/parse/GarminDiagFeed.csv";
+
     private Parser parser;
-    
+
     private TextOutput output;
-    
+
     private OutputProtocol protocol;
-    
+
     private StreamedSource source;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -47,7 +43,6 @@ public class TextOutputTest {
         parser.addUnrecognizedMessageListener(output);
         parser.addPreparseListener(output);
     }
-    
 
     /**
      * Test method for {@link com.svhelloworld.knotlog.output.TextOutput#vesselMessagesFound(com.svhelloworld.knotlog.messages.VesselMessage[])}.
@@ -57,7 +52,7 @@ public class TextOutputTest {
         //test default setup
         parser.run();
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.output.TextOutput#vesselMessagesFound(com.svhelloworld.knotlog.messages.VesselMessage[])}.
      */
@@ -71,7 +66,7 @@ public class TextOutputTest {
         parser.addMessageListener(output);
         parser.addUnrecognizedMessageListener(output);
         parser.addPreparseListener(output);
-        
+
         parser.run();
     }
 

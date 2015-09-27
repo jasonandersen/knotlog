@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
@@ -18,25 +18,25 @@ import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
  *
  */
 public class GPSPositionTest {
-    
+
     private static final String LATITUDE = "2530.941";
-    
+
     private static final String LONGITUDE = "11103.702";
-    
+
     private static final float EXPECTED_LAT = 25.51569f;
-    
+
     private static final float EXPECTED_LON = 111.06171f;
-    
+
     private static final LatitudinalHemisphere LAT_HEM = LatitudinalHemisphere.NORTH;
-    
+
     private static final LongitudinalHemisphere LON_HEM = LongitudinalHemisphere.WEST;
-    
+
     private static final VesselMessageSource SOURCE = VesselMessageSource.NMEA0183;
-    
+
     private static final Date TIMESTAMP = new Date();
-    
+
     private GPSPosition target;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -51,7 +51,7 @@ public class GPSPositionTest {
      */
     @Test
     public void testGetLatitude() {
-        assertEquals(EXPECTED_LAT, target.getLatitude());
+        assertEquals(EXPECTED_LAT, target.getLatitude(), 0.001);
     }
 
     /**
@@ -67,7 +67,7 @@ public class GPSPositionTest {
      */
     @Test
     public void testGetLongitude() {
-        assertEquals(EXPECTED_LON, target.getLongitude());
+        assertEquals(EXPECTED_LON, target.getLongitude(), 0.001);
     }
 
     /**
@@ -99,7 +99,7 @@ public class GPSPositionTest {
      */
     @Test
     public void testGetDisplayMessage() {
-        final String expected = "GPS position 25°30.941'N 111°03.702'W";
+        final String expected = "GPS position 25Â°30.941'N 111Â°03.702'W";
         assertEquals(expected, target.getDisplayMessage());
     }
 
@@ -116,7 +116,7 @@ public class GPSPositionTest {
      */
     @Test
     public void testToString() {
-        final String expected = "GPS position 25°30.941'N 111°03.702'W";
+        final String expected = "GPS position 25Â°30.941'N 111Â°03.702'W";
         assertEquals(expected, target.toString());
         System.out.println(target);
     }

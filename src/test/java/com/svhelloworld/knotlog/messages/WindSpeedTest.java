@@ -19,16 +19,15 @@ import com.svhelloworld.knotlog.measure.SpeedUnit;
  *
  */
 public class WindSpeedTest extends BaseQuantitativeMessageTest<WindSpeed, SpeedUnit> {
-    
+
     private static final float SPEED = 18.419f;
-    
+
     private static final SpeedUnit UNIT = SpeedUnit.KNOTS;
 
     private MeasurementBasis BASIS = MeasurementBasis.RELATIVE;
-    
+
     private WindSpeed speed;
-    
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -56,7 +55,7 @@ public class WindSpeedTest extends BaseQuantitativeMessageTest<WindSpeed, SpeedU
      */
     @Test
     public void testGetWindSpeed() {
-        assertEquals(SPEED, speed.getWindSpeed());
+        assertEquals(SPEED, speed.getWindSpeed(), 0.001);
     }
 
     /**
@@ -72,7 +71,7 @@ public class WindSpeedTest extends BaseQuantitativeMessageTest<WindSpeed, SpeedU
      */
     @Test
     public void testGetSpeed() {
-        assertEquals(SPEED, speed.getSpeed());
+        assertEquals(SPEED, speed.getSpeed(), 0.001);
     }
 
     /**

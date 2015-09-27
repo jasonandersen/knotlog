@@ -1,13 +1,13 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
-import com.svhelloworld.knotlog.measure.DistanceUnit;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import com.svhelloworld.knotlog.measure.DistanceUnit;
 
 /**
  * Unit test for <tt>Altitude</tt> class.
@@ -17,13 +17,13 @@ import org.junit.Test;
  *
  */
 public class AltitudeTest extends BaseQuantitativeMessageTest<Altitude, DistanceUnit> {
-    
+
     private static final float ALTITUDE = 3715.693f;
-    
+
     private static final DistanceUnit UNIT = DistanceUnit.FEET;
-    
+
     private Altitude altitude;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -37,7 +37,7 @@ public class AltitudeTest extends BaseQuantitativeMessageTest<Altitude, Distance
      */
     @Test
     public void testGetDistance() {
-        assertEquals(ALTITUDE, altitude.getDistance());
+        assertEquals(ALTITUDE, altitude.getDistance(), 0.001);
     }
 
     /**
@@ -53,7 +53,7 @@ public class AltitudeTest extends BaseQuantitativeMessageTest<Altitude, Distance
      */
     @Test
     public void testGetAltitude() {
-        assertEquals(ALTITUDE, altitude.getAltitude());
+        assertEquals(ALTITUDE, altitude.getAltitude(), 0.001);
     }
 
     /**

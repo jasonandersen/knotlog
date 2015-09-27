@@ -1,6 +1,7 @@
 package com.svhelloworld.knotlog.engine.parse;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
@@ -13,14 +14,15 @@ import com.svhelloworld.knotlog.engine.sources.StreamedSource;
  * @since Apr 11, 2010
  *
  */
+@Ignore //FIXME not finished
 public class GPXParserTest {
-    
+
     private static final String GPX_PATH = "com/svhelloworld/knotlog/engine/parse/Tracks.gpx";
-    
+
     private StreamedSource source;
-    
+
     private GPXParser target;
-    
+
     /**
      * @throws java.lang.Exception
      */

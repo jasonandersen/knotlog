@@ -1,6 +1,7 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
 
@@ -16,15 +17,15 @@ import com.svhelloworld.knotlog.measure.SpeedUnit;
  * @since Mar 5, 2010
  *
  */
-public class SpeedRelativeToGroundTest extends 
+public class SpeedRelativeToGroundTest extends
         BaseQuantitativeMessageTest<SpeedRelativeToGround, SpeedUnit> {
-    
+
     private static final float SPEED = 18.692f;
-    
+
     private static final SpeedUnit UNIT = SpeedUnit.KNOTS;
-    
+
     private SpeedRelativeToGround sog;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -52,7 +53,7 @@ public class SpeedRelativeToGroundTest extends
      */
     @Test
     public void testGetSpeed() {
-        assertEquals(SPEED, sog.getSpeed());
+        assertEquals(SPEED, sog.getSpeed(), 0.001);
     }
 
     /**

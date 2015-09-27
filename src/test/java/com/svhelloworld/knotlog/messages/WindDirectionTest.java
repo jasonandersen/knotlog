@@ -19,16 +19,16 @@ import com.svhelloworld.knotlog.measure.VesselArea;
  *
  */
 public class WindDirectionTest extends
-        BaseQuantitativeMessageTest<WindDirection, MeasurementBasis>{
-    
+        BaseQuantitativeMessageTest<WindDirection, MeasurementBasis> {
+
     private static final float DIRECTION = 88.681f;
-    
+
     private static final MeasurementBasis BASIS = MeasurementBasis.RELATIVE;
-    
+
     private static final VesselArea SIDE = VesselArea.PORT;
-    
+
     private WindDirection direction;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -36,7 +36,7 @@ public class WindDirectionTest extends
     public void setUp() throws Exception {
         direction = new WindDirection(source, timestamp, DIRECTION, BASIS, SIDE);
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
@@ -64,25 +64,25 @@ public class WindDirectionTest extends
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals0() {
         WindDirection target = new WindDirection(source, timestamp, 0, BASIS, null);
-        assertEquals(0, target.getWindDirection());
+        assertEquals(0, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.STARBOARD, target.getVesselSide());
     }
-        
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals360() {
         WindDirection target = new WindDirection(source, timestamp, 360, BASIS, null);
-        assertEquals(0, target.getWindDirection());
+        assertEquals(0, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
@@ -93,18 +93,18 @@ public class WindDirectionTest extends
     @Test
     public void testConstructorDirEquals179() {
         WindDirection target = new WindDirection(source, timestamp, 179, BASIS, null);
-        assertEquals(179, target.getWindDirection());
+        assertEquals(179, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.STARBOARD, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals180() {
         WindDirection target = new WindDirection(source, timestamp, 180, BASIS, null);
-        assertEquals(180, target.getWindDirection());
+        assertEquals(180, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.STARBOARD, target.getVesselSide());
     }
@@ -115,161 +115,161 @@ public class WindDirectionTest extends
     @Test
     public void testConstructorDirEquals181() {
         WindDirection target = new WindDirection(source, timestamp, 181, BASIS, null);
-        assertEquals(179, target.getWindDirection());
+        assertEquals(179, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals45() {
         WindDirection target = new WindDirection(source, timestamp, 45, BASIS, null);
-        assertEquals(45, target.getWindDirection());
+        assertEquals(45, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.STARBOARD, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals90() {
         WindDirection target = new WindDirection(source, timestamp, 90, BASIS, null);
-        assertEquals(90, target.getWindDirection());
+        assertEquals(90, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.STARBOARD, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals135() {
         WindDirection target = new WindDirection(source, timestamp, 135, BASIS, null);
-        assertEquals(135, target.getWindDirection());
+        assertEquals(135, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.STARBOARD, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals225() {
         WindDirection target = new WindDirection(source, timestamp, 225, BASIS, null);
-        assertEquals(135, target.getWindDirection());
+        assertEquals(135, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals270() {
         WindDirection target = new WindDirection(source, timestamp, 270, BASIS, null);
-        assertEquals(90, target.getWindDirection());
+        assertEquals(90, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals315() {
         WindDirection target = new WindDirection(source, timestamp, 315, BASIS, null);
-        assertEquals(45, target.getWindDirection());
+        assertEquals(45, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorLessThan180PORT() {
         WindDirection target = new WindDirection(source, timestamp, 90, BASIS, VesselArea.PORT);
-        assertEquals(90, target.getWindDirection());
+        assertEquals(90, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorLessThan180STARBOARD() {
         WindDirection target = new WindDirection(source, timestamp, 90, BASIS, VesselArea.STARBOARD);
-        assertEquals(90, target.getWindDirection());
+        assertEquals(90, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.STARBOARD, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorGreaterThan180PORT() {
         WindDirection target = new WindDirection(source, timestamp, 270, BASIS, VesselArea.PORT);
-        assertEquals(90, target.getWindDirection());
+        assertEquals(90, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorGreaterThan180STARBOARD() {
         WindDirection target = new WindDirection(source, timestamp, 270, BASIS, VesselArea.STARBOARD);
-        assertEquals(90, target.getWindDirection());
+        assertEquals(90, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals180STARBOARD() {
         WindDirection target = new WindDirection(source, timestamp, 180, BASIS, VesselArea.STARBOARD);
-        assertEquals(180, target.getWindDirection());
+        assertEquals(180, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.STARBOARD, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals180PORT() {
         WindDirection target = new WindDirection(source, timestamp, 180, BASIS, VesselArea.PORT);
-        assertEquals(180, target.getWindDirection());
+        assertEquals(180, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals0STARBOARD() {
         WindDirection target = new WindDirection(source, timestamp, 0, BASIS, VesselArea.STARBOARD);
-        assertEquals(0, target.getWindDirection());
+        assertEquals(0, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.STARBOARD, target.getVesselSide());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals0PORT() {
         WindDirection target = new WindDirection(source, timestamp, 0, BASIS, VesselArea.PORT);
-        assertEquals(0, target.getWindDirection());
+        assertEquals(0, target.getWindDirection(), 0.001);
         assertEquals(BASIS, target.getBasis());
         assertEquals(VesselArea.PORT, target.getVesselSide());
     }
@@ -295,7 +295,7 @@ public class WindDirectionTest extends
      */
     @Override
     protected String getExpectedDisplayString() {
-        return "relative wind direction 89° to port";
+        return "relative wind direction 89Â° to port";
     }
 
     /**

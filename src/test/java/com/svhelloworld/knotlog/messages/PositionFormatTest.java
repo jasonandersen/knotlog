@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +16,9 @@ import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
  *
  */
 public class PositionFormatTest {
-    
+
     private PositionImpl position;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -32,7 +32,7 @@ public class PositionFormatTest {
      */
     @Test
     public void testFormatDeg() {
-        final String expected = "25.51568°N 111.06170°W";
+        final String expected = "25.51568Â°N 111.06170Â°W";
         final String result = PositionFormat.DEGREES.format(position);
         assertEquals(expected, result);
         System.out.println(result);
@@ -43,7 +43,7 @@ public class PositionFormatTest {
      */
     @Test
     public void testFormatDegMin() {
-        final String expected = "25°30.941'N 111°03.702'W";
+        final String expected = "25Â°30.941'N 111Â°03.702'W";
         assertEquals(expected, PositionFormat.DEGREES_MINUTES.format(position));
     }
 
@@ -52,9 +52,8 @@ public class PositionFormatTest {
      */
     @Test
     public void testFormatDegMinSec() {
-        final String expected = "25°30'56.5\"N 111°03'42.1\"W";
+        final String expected = "25Â°30'56.5\"N 111Â°03'42.1\"W";
         assertEquals(expected, PositionFormat.DEGREES_MINUTES_SECONDS.format(position));
     }
-
 
 }
