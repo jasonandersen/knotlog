@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.svhelloworld.knotlog.messages.PositionImplTest
--------------------------------------------------------------------------------
-Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 sec
