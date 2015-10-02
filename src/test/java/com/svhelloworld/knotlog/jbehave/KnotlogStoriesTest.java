@@ -8,11 +8,14 @@ import java.util.List;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.io.CodeLocations;
+import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.io.StoryFinder;
 import org.jbehave.core.junit.JUnitStories;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
+
+import com.svhelloworld.knotlog.jbehave.parse.NMEA0183ParseSteps;
 
 /**
  * Sets up the JBehave environment in order to run acceptance tests.
@@ -28,6 +31,7 @@ public class KnotlogStoriesTest extends JUnitStories {
         reporterBuilder.withDefaultFormats().withFormats(CONSOLE, TXT);
         Configuration configuration = super.hasConfiguration() ? super.configuration() : new MostUsefulConfiguration();
         configuration.useStoryReporterBuilder(reporterBuilder);
+        configuration.useStoryLoader(new LoadFromClasspath());
         return configuration;
     }
 
@@ -41,7 +45,9 @@ public class KnotlogStoriesTest extends JUnitStories {
 
     @Override
     protected List<String> storyPaths() {
-        return new StoryFinder().findPaths(CodeLocations.codeLocationFromPath("src/test/resources/bdd"),
-                "**/*.story", "");
+        StoryFinder finder = new StoryFinder();
+        List<String> paths = finder.findPaths(
+                CodeLocations.codeLocationFromPath("src/test/resources/stories/Parse"), "**/*.story", "");
+        return paths;
     }
 }

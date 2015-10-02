@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.jbehave;
+package com.svhelloworld.knotlog.jbehave.parse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
