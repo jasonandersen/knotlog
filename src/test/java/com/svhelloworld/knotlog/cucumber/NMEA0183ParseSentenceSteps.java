@@ -1,19 +1,15 @@
 package com.svhelloworld.knotlog.cucumber;
 
-import static com.svhelloworld.knotlog.measure.LatitudinalHemisphere.NORTH;
-import static com.svhelloworld.knotlog.measure.LongitudinalHemisphere.WEST;
 import static org.junit.Assert.fail;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.svhelloworld.knotlog.messages.GPSPosition;
 import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.messages.validate.MessageValidator;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
+import com.svhelloworld.knotlog.service.impl.NMEA0183ParseServiceImpl;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.Before;
@@ -35,6 +31,7 @@ public class NMEA0183ParseSentenceSteps {
 
     @Before
     public void setup() {
+        parseService = new NMEA0183ParseServiceImpl(); //FIXME - should be injected by Spring
         messages = new LinkedList<VesselMessage>();
     }
 
@@ -51,10 +48,7 @@ public class NMEA0183ParseSentenceSteps {
          * 
          * 25°31.3369'N 111°4.4274'W
          */
-        GPSPosition message = new GPSPosition(VesselMessageSource.NMEA0183, new Date(), "2531.3369", NORTH, "11104.4274", WEST);
-        messages.add(message);
-
-        //messages = parseService.parseSentence(candidateSentence);
+        messages = parseService.parseSentence(candidateSentence);
     }
 
     @Then("^(.+) is returned$")
