@@ -1,5 +1,7 @@
 package com.svhelloworld.knotlog.service;
 
+import java.util.List;
+
 import com.svhelloworld.knotlog.messages.VesselMessage;
 
 /**
@@ -8,10 +10,10 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
 public interface NMEA0183ParseService {
 
     /**
-     * Parses a single NMEA0183 sentence into a vessel message.
+     * Parses a single NMEA0183 sentence into a list of vessel messages.
      * @param sentence
      * @return a properly formed vessel message
      */
-    VesselMessage parseSentence(String sentence);
+    List<VesselMessage> parseSentence(String sentence);
 
 }
