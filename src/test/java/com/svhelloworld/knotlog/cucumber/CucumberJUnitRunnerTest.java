@@ -11,6 +11,11 @@ import cucumber.api.junit.Cucumber;
 /**
  * Cucumber JUnit runner class
  */
+
+/*
+ * FIXME - paths are pretty jacked up here, figure out how to create directories for feature files
+ */
+
 @RunWith(Cucumber.class)
 @CucumberOptions(format = { "pretty", "html:target/cucumber" }, features = "classpath:GGASentence.feature")
 public class CucumberJUnitRunnerTest {

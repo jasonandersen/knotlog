@@ -46,5 +46,7 @@ Feature:
     Scenario: Parse time of day from a GGA sentence
         When the NMEA0183 sentence is parsed
         Then this time of day is returned:
-            | time of day (GMT) | 13:00:04 |
-            | source            | NMEA0183 |
+            | date        | [today]  |
+            | time of day | 13:00:04 |
+            | time zone   | GMT      |
+            | source      | NMEA0183 |

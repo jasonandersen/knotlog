@@ -11,6 +11,11 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
  */
 public class BaseValidator {
 
+    /*
+     * FIXME - doesn't guarantee all expected attributes are asserted, change so an unknown
+     * expected attribute will generate a failed assertion.
+     */
+
     private static final String SOURCE = "source";
 
     /**
