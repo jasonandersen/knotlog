@@ -14,20 +14,23 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
  */
 public class VesselMessages implements List<VesselMessage> {
 
-    private final List<VesselMessage> list;
+    private final List<VesselMessage> vesselMessages;
+
+    private final List<UnrecognizedMessage> unrecognizedMessages;
 
     /**
      * Constructor.
      */
     public VesselMessages() {
-        list = new LinkedList<VesselMessage>();
+        vesselMessages = new LinkedList<VesselMessage>();
+        unrecognizedMessages = new LinkedList<UnrecognizedMessage>();
     }
 
     /**
      * @return true if this list has at least one {@link UnrecognizableMessage}
      */
     public boolean containsUnrecognizedMessage() {
-        return containsMessageType(UnrecognizedMessage.class);
+        return !unrecognizedMessages.isEmpty();
     }
 
     /**
@@ -35,7 +38,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @return true if this list contains at least one message that is that type.
      */
     public boolean containsMessageType(Class<? extends VesselMessage> messageType) {
-        for (VesselMessage message : list) {
+        for (VesselMessage message : vesselMessages) {
             if (message.getClass().equals(messageType)) {
                 return true;
             }
@@ -48,13 +51,18 @@ public class VesselMessages implements List<VesselMessage> {
      *      in order of insertion. Will never return null but can return an empty list.
      */
     public List<UnrecognizedMessage> getUnrecognizedMessages() {
-        List<UnrecognizedMessage> messages = new LinkedList<UnrecognizedMessage>();
-        for (VesselMessage message : list) {
-            if (message instanceof UnrecognizedMessage) {
-                messages.add((UnrecognizedMessage) message);
-            }
+        return unrecognizedMessages;
+    }
+
+    /**
+     * @see java.util.List#add(java.lang.Object)
+     */
+    @Override
+    public boolean add(VesselMessage e) {
+        if (e instanceof UnrecognizedMessage) {
+            return unrecognizedMessages.add((UnrecognizedMessage) e);
         }
-        return messages;
+        return vesselMessages.add(e);
     }
 
     /*
@@ -66,7 +74,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public int size() {
-        return list.size();
+        return vesselMessages.size();
     }
 
     /**
@@ -74,7 +82,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean isEmpty() {
-        return list.isEmpty();
+        return vesselMessages.isEmpty();
     }
 
     /**
@@ -82,7 +90,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean contains(Object o) {
-        return list.contains(o);
+        return vesselMessages.contains(o);
     }
 
     /**
@@ -90,7 +98,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public Iterator<VesselMessage> iterator() {
-        return list.iterator();
+        return vesselMessages.iterator();
     }
 
     /**
@@ -98,7 +106,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public Object[] toArray() {
-        return list.toArray();
+        return vesselMessages.toArray();
     }
 
     /**
@@ -106,15 +114,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public <T> T[] toArray(T[] a) {
-        return list.toArray(a);
-    }
-
-    /**
-     * @see java.util.List#add(java.lang.Object)
-     */
-    @Override
-    public boolean add(VesselMessage e) {
-        return list.add(e);
+        return vesselMessages.toArray(a);
     }
 
     /**
@@ -122,7 +122,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean remove(Object o) {
-        return list.remove(o);
+        return vesselMessages.remove(o);
     }
 
     /**
@@ -130,7 +130,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean containsAll(Collection<?> c) {
-        return list.containsAll(c);
+        return vesselMessages.containsAll(c);
     }
 
     /**
@@ -138,7 +138,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean addAll(Collection<? extends VesselMessage> c) {
-        return list.addAll(c);
+        return vesselMessages.addAll(c);
     }
 
     /**
@@ -146,7 +146,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean addAll(int index, Collection<? extends VesselMessage> c) {
-        return list.addAll(index, c);
+        return vesselMessages.addAll(index, c);
     }
 
     /**
@@ -154,7 +154,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean removeAll(Collection<?> c) {
-        return list.removeAll(c);
+        return vesselMessages.removeAll(c);
     }
 
     /**
@@ -162,7 +162,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean retainAll(Collection<?> c) {
-        return list.retainAll(c);
+        return vesselMessages.retainAll(c);
     }
 
     /**
@@ -170,7 +170,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public void clear() {
-        list.clear();
+        vesselMessages.clear();
     }
 
     /**
@@ -178,7 +178,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public VesselMessage get(int index) {
-        return list.get(index);
+        return vesselMessages.get(index);
     }
 
     /**
@@ -186,7 +186,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public VesselMessage set(int index, VesselMessage element) {
-        return list.set(index, element);
+        return vesselMessages.set(index, element);
     }
 
     /**
@@ -194,7 +194,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public void add(int index, VesselMessage element) {
-        list.add(index, element);
+        vesselMessages.add(index, element);
     }
 
     /**
@@ -202,7 +202,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public VesselMessage remove(int index) {
-        return list.remove(index);
+        return vesselMessages.remove(index);
     }
 
     /**
@@ -210,7 +210,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public int indexOf(Object o) {
-        return list.indexOf(o);
+        return vesselMessages.indexOf(o);
     }
 
     /**
@@ -218,7 +218,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public int lastIndexOf(Object o) {
-        return list.lastIndexOf(o);
+        return vesselMessages.lastIndexOf(o);
     }
 
     /**
@@ -226,7 +226,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public ListIterator<VesselMessage> listIterator() {
-        return list.listIterator();
+        return vesselMessages.listIterator();
     }
 
     /**
@@ -234,7 +234,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public ListIterator<VesselMessage> listIterator(int index) {
-        return list.listIterator(index);
+        return vesselMessages.listIterator(index);
     }
 
     /**
@@ -242,7 +242,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public List<VesselMessage> subList(int fromIndex, int toIndex) {
-        return list.subList(fromIndex, toIndex);
+        return vesselMessages.subList(fromIndex, toIndex);
     }
 
 }

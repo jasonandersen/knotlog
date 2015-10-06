@@ -32,14 +32,14 @@ Feature:
     Scenario: Parse position precision from a GGA sentence
         When the NMEA0183 sentence is parsed
         Then this position precision is returned:
-            | position precision | 1.7 meters |
+            | position precision | 0.9 meters |
             | source             | NMEA0183   |
 
     @Altitude
     Scenario: Parse altitude from a GGA sentence
         When the NMEA0183 sentence is parsed
         Then this altitude is returned:
-            | altitude | -31.5 meters |
+            | altitude | 1.7 meters |
             | source   | NMEA0183     |
 
     @TimeOfDayZulu

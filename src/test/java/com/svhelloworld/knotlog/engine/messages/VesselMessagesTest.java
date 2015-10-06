@@ -3,6 +3,7 @@ package com.svhelloworld.knotlog.engine.messages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,7 @@ import com.svhelloworld.knotlog.messages.GPSPosition;
 import com.svhelloworld.knotlog.messages.PositionMessage;
 import com.svhelloworld.knotlog.messages.QuantitativeMessage;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
+import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.messages.WaterDepth;
 
@@ -76,6 +78,26 @@ public class VesselMessagesTest {
         messages.add(waterDepth);
         messages.add(whut);
         assertTrue(messages.containsUnrecognizedMessage());
+    }
+
+    @Test
+    public void testUnrecognizedMessagesDontCountInSize() {
+        messages.add(waterDepth);
+        messages.add(position);
+        messages.add(whut);
+        assertEquals(2, messages.size());
+    }
+
+    @Test
+    public void testUnrecognizedMessagesDontGetIterated() {
+        messages.add(waterDepth);
+        messages.add(position);
+        messages.add(whut);
+        for (VesselMessage message : messages) {
+            if (message instanceof UnrecognizedMessage) {
+                fail("found an unrecognized message");
+            }
+        }
     }
 
     @Test

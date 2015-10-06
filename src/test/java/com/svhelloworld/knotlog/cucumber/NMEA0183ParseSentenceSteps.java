@@ -6,10 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.svhelloworld.knotlog.engine.parse.NMEA0183SentenceParser;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.validate.MessageValidator;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
-import com.svhelloworld.knotlog.service.impl.NMEA0183ParseServiceImpl;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.Before;
@@ -31,7 +31,7 @@ public class NMEA0183ParseSentenceSteps {
 
     @Before
     public void setup() {
-        parseService = new NMEA0183ParseServiceImpl(); //FIXME - should be injected by Spring
+        parseService = new NMEA0183SentenceParser();
         messages = new LinkedList<VesselMessage>();
     }
 
@@ -42,12 +42,6 @@ public class NMEA0183ParseSentenceSteps {
 
     @When("^the NMEA0183 sentence is parsed$")
     public void theNMEA0183SentenceIsParsed() throws Throwable {
-        /*
-         * FIXME
-         * This is just test code to see if my test code (whut?) works.
-         * 
-         * 25°31.3369'N 111°4.4274'W
-         */
         messages = parseService.parseSentence(candidateSentence);
     }
 

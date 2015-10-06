@@ -99,7 +99,9 @@ public class NMEA0183Parser extends BaseThreadedParser {
         }
         externalProcessing(messages.toArray(new VesselMessage[0]));
         if (messages.containsUnrecognizedMessage() && hasUnrecognizedMessageListeners()) {
-            throwUnrecognizedMessageEvent(messages.getUnrecognizedMessages().toArray(new UnrecognizedMessage[0]));
+            for (UnrecognizedMessage message : messages.getUnrecognizedMessages()) {
+                throwUnrecognizedMessageEvent(message);
+            }
         }
     }
 

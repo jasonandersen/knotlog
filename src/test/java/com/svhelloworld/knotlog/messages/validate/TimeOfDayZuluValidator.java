@@ -1,7 +1,10 @@
 package com.svhelloworld.knotlog.messages.validate;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 import com.svhelloworld.knotlog.messages.TimeOfDayZulu;
 
@@ -27,7 +30,10 @@ public class TimeOfDayZuluValidator extends BaseValidator implements MessageVali
      */
     private void assertTimeOfDayValid(TimeOfDayZulu message, Map<String, String> expectedAttributes) {
         Instant instant = Instant.ofEpochMilli(message.getTimeMilliseconds());
-        String actualTimeOfDay = String.format("%tT", instant); //FIXME - this probably isn't in GMT
+        Date date = Date.from(instant);
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String actualTimeOfDay = format.format(date);
         assertAttribute(message, expectedAttributes, TIME_OF_DAY, actualTimeOfDay);
     }
 

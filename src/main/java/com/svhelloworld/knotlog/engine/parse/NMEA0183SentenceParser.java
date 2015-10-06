@@ -7,11 +7,12 @@ import com.svhelloworld.knotlog.engine.messages.VesselMessages;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessageSource;
+import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 
 /**
  * Parses a single NMEA0183 sentence.
  */
-public class NMEA0183SentenceParser {
+public class NMEA0183SentenceParser implements NMEA0183ParseService {
 
     /**
      * Message source
@@ -51,6 +52,7 @@ public class NMEA0183SentenceParser {
      * @param line
      * @return a list of {@link VesselMessage}s.
      */
+    @Override
     public VesselMessages parseSentence(String line) {
         NMEA0183Sentence sentence = new NMEA0183Sentence(line);
         return interpretSentence(sentence);

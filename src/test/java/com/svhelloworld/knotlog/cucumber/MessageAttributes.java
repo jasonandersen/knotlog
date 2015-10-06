@@ -1,18 +1,24 @@
 package com.svhelloworld.knotlog.cucumber;
 
+import com.svhelloworld.knotlog.messages.Altitude;
 import com.svhelloworld.knotlog.messages.GPSPosition;
+import com.svhelloworld.knotlog.messages.PositionPrecision;
 import com.svhelloworld.knotlog.messages.TimeOfDayZulu;
 import com.svhelloworld.knotlog.messages.VesselMessage;
+import com.svhelloworld.knotlog.messages.validate.AltitudeValidator;
 import com.svhelloworld.knotlog.messages.validate.GPSPositionValidator;
 import com.svhelloworld.knotlog.messages.validate.MessageValidator;
+import com.svhelloworld.knotlog.messages.validate.PositionPrecisionValidator;
 import com.svhelloworld.knotlog.messages.validate.TimeOfDayZuluValidator;
 
 /**
  * Attributes specific to a {@link VesselMessage} used for testing.
  */
 public enum MessageAttributes {
-    TIME_OF_DAY("time of day", TimeOfDayZulu.class, new TimeOfDayZuluValidator()),
-    GPS_POSITION("GPS position", GPSPosition.class, new GPSPositionValidator());
+    ALTITUDE("altitude", Altitude.class, new AltitudeValidator()),
+    GPS_POSITION("GPS position", GPSPosition.class, new GPSPositionValidator()),
+    POSITION_PRECISION("position precision", PositionPrecision.class, new PositionPrecisionValidator()),
+    TIME_OF_DAY("time of day", TimeOfDayZulu.class, new TimeOfDayZuluValidator());
 
     /**
      * Finds an MessageAttributes by the description.
