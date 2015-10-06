@@ -4,7 +4,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import com.svhelloworld.knotlog.engine.VesselMessageListener;
-import com.svhelloworld.knotlog.engine.parse.NMEA0183Parser;
+import com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser;
 import com.svhelloworld.knotlog.engine.parse.Parser;
 import com.svhelloworld.knotlog.engine.sources.PortConfig;
 import com.svhelloworld.knotlog.engine.sources.SerialPortSource;
@@ -38,7 +38,7 @@ public class SerialPortParser {
         Executor threadPool = Executors.newFixedThreadPool(5);
         PortConfig config = PortConfig.getDefaultGpsConfig("COM6");
         StreamedSource source = new SerialPortSource(config);
-        Parser parser = new NMEA0183Parser();
+        Parser parser = new NMEA0183SourceParser();
         parser.setSource(source);
         
         //file output

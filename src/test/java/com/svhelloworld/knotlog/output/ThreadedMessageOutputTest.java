@@ -17,7 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.svhelloworld.knotlog.engine.MessageRejectedException;
-import com.svhelloworld.knotlog.engine.parse.NMEA0183Parser;
+import com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser;
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
 import com.svhelloworld.knotlog.i18n.BabelFish;
@@ -139,7 +139,7 @@ public class ThreadedMessageOutputTest {
 
         StreamedSource source = new ClassPathFileSource(
                 "com/svhelloworld/knotlog/output/GarminDiagFeedSmall.csv");
-        NMEA0183Parser parser = new NMEA0183Parser();
+        NMEA0183SourceParser parser = new NMEA0183SourceParser();
         parser.setSource(source);
         parser.addMessageListener(output);
         parser.addUnrecognizedMessageListener(output);

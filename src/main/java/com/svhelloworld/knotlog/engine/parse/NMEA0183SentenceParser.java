@@ -20,31 +20,18 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
     private static final VesselMessageSource SOURCE = VesselMessageSource.NMEA0183;
 
     /**
-     * Path to CSV message dictionary
-     * 
-     * FIXME - inject this with Spring
-     */
-    private static final String DICTIONARY_PATH = "com/svhelloworld/knotlog/engine/parse/NMEA0183MessageDictionary.csv";
-
-    /**
      * Message dictionary defining what messages are associated 
      * with individual sentences.
+     * 
+     * FIXME - this should be injected with Spring
      */
-    private MessageDictionary dictionary;
+    private NMEA0183MessageDictionary dictionary;
 
     /**
      * Constructor
      */
     public NMEA0183SentenceParser() {
-        initializeDictionary();
-    }
-
-    /**
-     * Initializes NMEA 0183 message dictionary 
-     */
-    private void initializeDictionary() {
-        dictionary = new CSVMessageDictionary();
-        dictionary.initialize(DICTIONARY_PATH);
+        dictionary = new NMEA0183MessageDictionary();
     }
 
     /**

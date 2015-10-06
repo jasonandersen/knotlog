@@ -16,11 +16,12 @@ import com.svhelloworld.knotlog.messages.PreparseMessage;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessageSource;
+import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 
 /**
  * Reads from NMEA0183 sources and converts NMEA0183 sentences into {@link VesselMessage}s.
  */
-public class NMEA0183Parser extends BaseThreadedParser {
+public class NMEA0183SourceParser extends BaseThreadedParser {
 
     /*
      * TODO create InstrumentMessageTimestamper class
@@ -57,14 +58,14 @@ public class NMEA0183Parser extends BaseThreadedParser {
      * 
      * FIXME - inject this with Spring!
      */
-    private NMEA0183SentenceParser sentenceParser;
+    private NMEA0183ParseService parseService;
 
     /**
      * Constructor.
      */
-    public NMEA0183Parser() {
+    public NMEA0183SourceParser() {
         super(initExternalProcessors());
-        sentenceParser = new NMEA0183SentenceParser();
+        parseService = new NMEA0183SentenceParser();
     }
 
     /**
@@ -93,7 +94,7 @@ public class NMEA0183Parser extends BaseThreadedParser {
     private void parseLine(final String line) {
         //throw the original line to any preparse listeners
         preparse(line);
-        VesselMessages messages = sentenceParser.parseSentence(line);
+        VesselMessages messages = parseService.parseSentence(line);
         if (messages.isEmpty()) {
             return;
         }

@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.svhelloworld.knotlog.engine.parse.NMEA0183Parser;
+import com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser;
 import com.svhelloworld.knotlog.engine.parse.Parser;
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
@@ -39,7 +39,7 @@ public class FileOutputTest {
     @Before
     public void setUp() throws Exception {
         source = new ClassPathFileSource(INPUT_PATH);
-        parser = new NMEA0183Parser();
+        parser = new NMEA0183SourceParser();
         parser.setSource(source);
         protocol = new PlainTextProtocol();
         output = new FileOutput(Executors.newSingleThreadExecutor(), OUTPUT_PATH, protocol);

@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.svhelloworld.knotlog.engine.parse.NMEA0183Parser;
+import com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser;
 import com.svhelloworld.knotlog.engine.parse.Parser;
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
@@ -37,7 +37,7 @@ public class TextOutputTest {
     @Before
     public void setUp() throws Exception {
         source = new ClassPathFileSource(INPUT_PATH);
-        parser = new NMEA0183Parser();
+        parser = new NMEA0183SourceParser();
         parser.setSource(source);
         output = new ConsoleOutput(Executors.newSingleThreadExecutor());
         //setup listeners
@@ -61,7 +61,7 @@ public class TextOutputTest {
     @Test
     public void testUnrecognizedMessageOutput() {
         protocol = new PlainTextProtocol();
-        parser = new NMEA0183Parser();
+        parser = new NMEA0183SourceParser();
         parser.setSource(source);
         output = new TextOutput(Executors.newSingleThreadExecutor(), System.out, protocol);
         //setup listeners
