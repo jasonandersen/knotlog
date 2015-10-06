@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.engine.messages;
+package com.svhelloworld.knotlog.messages;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

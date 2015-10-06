@@ -1,13 +1,10 @@
-package com.svhelloworld.knotlog.engine.messages;
+package com.svhelloworld.knotlog.messages;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.VesselMessage;
 
 /**
  * A list of {@link VesselMessage} objects.

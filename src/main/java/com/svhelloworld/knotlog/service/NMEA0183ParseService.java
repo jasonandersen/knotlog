@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.service;
 
-import com.svhelloworld.knotlog.engine.messages.VesselMessages;
+import com.svhelloworld.knotlog.messages.VesselMessages;
 
 /**
  * Provides NMEA0183 parsing facilities.

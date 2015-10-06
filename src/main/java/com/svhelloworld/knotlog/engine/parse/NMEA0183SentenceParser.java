@@ -3,10 +3,10 @@ package com.svhelloworld.knotlog.engine.parse;
 import java.util.Date;
 import java.util.List;
 
-import com.svhelloworld.knotlog.engine.messages.VesselMessages;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessageSource;
+import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 
 /**

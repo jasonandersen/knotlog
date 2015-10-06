@@ -3,7 +3,7 @@
 @GGA
 
 Feature:
-    As a vessel operator using a GPS that transmits NMEA0183 sentences
+    As a vessel operator using a GPS that transmits NMEA0183
     I want GGA (Global Positioning System Fix Data) sentences parsed 
     So that I get an accurate fix on my location
 

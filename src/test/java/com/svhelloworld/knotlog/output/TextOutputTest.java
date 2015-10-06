@@ -3,7 +3,6 @@ package com.svhelloworld.knotlog.output;
 import java.util.concurrent.Executors;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser;
@@ -18,7 +17,7 @@ import com.svhelloworld.knotlog.engine.sources.StreamedSource;
  * @since Mar 16, 2010
  *
  */
-@Ignore //FIXME marking this as @Ignore because it takes a really long time to run
+//@Ignore //FIXME marking this as @Ignore because it takes a really long time to run
 public class TextOutputTest {
 
     private final static String INPUT_PATH = "com/svhelloworld/knotlog/engine/parse/GarminDiagFeed.csv";
