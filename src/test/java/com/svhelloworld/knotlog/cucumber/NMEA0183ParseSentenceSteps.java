@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.svhelloworld.knotlog.engine.parse.NMEA0183SentenceParser;
 import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.messages.validate.MessageValidator;
+import com.svhelloworld.knotlog.messages.validate.MessageAttributeValidator;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 
 import cucumber.api.DataTable;
@@ -57,8 +57,9 @@ public class NMEA0183ParseSentenceSteps {
     public void thisMessageIsReturned(String messageDesc, DataTable attributesTable) throws Throwable {
         MessageAttributes attribs = MessageAttributes.findByDescription(messageDesc);
         Map<String, String> expectedAttributes = attributesTable.asMap(String.class, String.class);
-        MessageValidator validator = attribs.getValidator();
-        validator.assertValid(getMessage(attribs.getType()), expectedAttributes);
+        MessageAttributeValidator validator = attribs.getValidator();
+        VesselMessage message = getMessage(attribs.getType());
+        validator.assertMessageAttributes(message, expectedAttributes);
     }
 
     /**

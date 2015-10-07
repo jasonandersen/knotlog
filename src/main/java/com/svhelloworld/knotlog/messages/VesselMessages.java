@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * A list of {@link VesselMessage} objects.
+ * A list of {@link VesselMessage} objects. Will also track any {@link UnrecognizedMessage}s found
+ * during a parsing event.
  */
 public class VesselMessages implements List<VesselMessage> {
 
@@ -135,7 +136,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean addAll(Collection<? extends VesselMessage> c) {
-        return vesselMessages.addAll(c);
+        throw new UnsupportedOperationException("Currently do not support add all operations.");
     }
 
     /**
@@ -143,7 +144,7 @@ public class VesselMessages implements List<VesselMessage> {
      */
     @Override
     public boolean addAll(int index, Collection<? extends VesselMessage> c) {
-        return vesselMessages.addAll(index, c);
+        throw new UnsupportedOperationException("Currently do not support add all operations.");
     }
 
     /**

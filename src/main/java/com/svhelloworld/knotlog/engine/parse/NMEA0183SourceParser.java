@@ -19,7 +19,8 @@ import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 
 /**
- * Reads from NMEA0183 sources and converts NMEA0183 sentences into {@link VesselMessage}s.
+ * Reads from NMEA0183 sources and converts NMEA0183 sentences into {@link VesselMessage}s. Manages
+ * parse events and communicates to listeners. Handles multi-threaded parsing.
  */
 public class NMEA0183SourceParser extends BaseThreadedParser {
 

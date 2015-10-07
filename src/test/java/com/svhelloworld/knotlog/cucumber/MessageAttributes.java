@@ -7,7 +7,7 @@ import com.svhelloworld.knotlog.messages.TimeOfDayZulu;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.validate.AltitudeValidator;
 import com.svhelloworld.knotlog.messages.validate.GPSPositionValidator;
-import com.svhelloworld.knotlog.messages.validate.MessageValidator;
+import com.svhelloworld.knotlog.messages.validate.MessageAttributeValidator;
 import com.svhelloworld.knotlog.messages.validate.PositionPrecisionValidator;
 import com.svhelloworld.knotlog.messages.validate.TimeOfDayZuluValidator;
 
@@ -38,7 +38,7 @@ public enum MessageAttributes {
 
     private final Class<? extends VesselMessage> type;
 
-    private final MessageValidator<? extends VesselMessage> validator;
+    private final MessageAttributeValidator<? extends VesselMessage> validator;
 
     /**
      * Constructor.
@@ -47,7 +47,7 @@ public enum MessageAttributes {
      * @param validator
      */
     MessageAttributes(String description, Class<? extends VesselMessage> type,
-            MessageValidator<? extends VesselMessage> validator) {
+            MessageAttributeValidator<? extends VesselMessage> validator) {
         this.description = description;
         this.type = type;
         this.validator = validator;
@@ -70,7 +70,7 @@ public enum MessageAttributes {
     /**
      * @return the validator instance used to validate messages
      */
-    public MessageValidator<? extends VesselMessage> getValidator() {
+    public MessageAttributeValidator<? extends VesselMessage> getValidator() {
         return validator;
     }
 

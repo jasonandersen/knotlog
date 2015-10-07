@@ -10,7 +10,7 @@ import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 
 /**
- * Parses a single NMEA0183 sentence.
+ * Parses single NMEA0183 sentences.
  */
 public class NMEA0183SentenceParser implements NMEA0183ParseService {
 
@@ -54,39 +54,36 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
      *          Any unrecognized messages will be included.
      */
     private VesselMessages interpretSentence(final NMEA0183Sentence sentence) {
-        assert sentence != null;
-        assert sentence.isValid();
-        assert dictionary != null;
-
         VesselMessages messages = new VesselMessages();
-
         String tag = sentence.getTag();
-        List<String> fields = sentence.getFields();
         List<InstrumentMessageDefinition> definitions = dictionary.getDefinitions(tag);
-
         if (!sentence.isValid()) {
-            //invalid sentence
-            messages.add(invalidSentenceMessage(sentence));
+            messages.add(buildInvalidSentenceMessage(sentence));
         } else if (definitions.isEmpty()) {
-            //unrecognized sentence tag
-            messages.add(undefinedSentenceMessage(sentence));
+            messages.add(buildUndefinedSentenceMessage(sentence));
         } else {
-            //valid sentence and found dictionary definitions
             for (InstrumentMessageDefinition definition : definitions) {
-                Date timestamp = sentence.getTimestamp() >= 0 ? new Date(sentence.getTimestamp()) : new Date();
-                VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
-                        SOURCE, timestamp, definition, fields);
-                messages.add(message);
+                messages.add(buildDefinedVesselMessage(definition, sentence));
             }
         }
         return messages;
     }
 
     /**
+     * @param definition
+     * @param sentence
+     * @return a properly defined {@link VesselMessage} based on the sentence and tag definition
+     */
+    private VesselMessage buildDefinedVesselMessage(InstrumentMessageDefinition definition, NMEA0183Sentence sentence) {
+        Date timestamp = sentence.getTimestamp() >= 0 ? new Date(sentence.getTimestamp()) : new Date();
+        return InstrumentMessageFactory.createInstrumentMessage(SOURCE, timestamp, definition, sentence.getFields());
+    }
+
+    /**
      * @param sentence
      * @return an {@link UnrecognizedMessage} indicating the sentence had a tag that has not been defined
      */
-    private VesselMessage undefinedSentenceMessage(NMEA0183Sentence sentence) {
+    private VesselMessage buildUndefinedSentenceMessage(NMEA0183Sentence sentence) {
         /*
          * sentence tag has not been defined so create an unrecognized message
          * event and return an empty message list
@@ -104,7 +101,7 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
      * @param sentence
      * @return an {@link UnrecognizedMessage} indicating the sentence was invalid
      */
-    private VesselMessage invalidSentenceMessage(NMEA0183Sentence sentence) {
+    private VesselMessage buildInvalidSentenceMessage(NMEA0183Sentence sentence) {
         Date timestamp = sentence.getTimestamp() > 0 ? new Date(sentence.getTimestamp()) : new Date();
         MessageFailure failureMode = MessageFailure.MALFORMED_SENTENCE;
         List<String> fields = sentence.getFields();

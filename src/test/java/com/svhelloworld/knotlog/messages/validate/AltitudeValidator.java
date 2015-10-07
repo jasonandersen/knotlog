@@ -7,26 +7,19 @@ import com.svhelloworld.knotlog.messages.Altitude;
 /**
  * Asserts {@link Altitude} objects are valid.
  */
-public class AltitudeValidator extends BaseValidator implements MessageValidator<Altitude> {
+public class AltitudeValidator extends MessageAttributeValidator<Altitude> {
 
     private final static String ALTITUDE = "altitude";
 
     /**
-     * @see com.svhelloworld.knotlog.messages.validate.MessageValidator#assertValid(com.svhelloworld.knotlog.messages.VesselMessage, java.util.Map)
+     * @see com.svhelloworld.knotlog.messages.validate.MessageAttributeValidator#buildActualAttributes(com.svhelloworld.knotlog.messages.VesselMessage, java.util.Map)
      */
     @Override
-    public void assertValid(Altitude message, Map<String, String> expectedAttributes) {
-        assertAltitude(message, expectedAttributes);
-        assertSource(message, expectedAttributes);
-    }
+    protected void buildActualAttributes(Altitude message,
+            Map<String, MessageAttributeValidator<Altitude>.Attribute> attributes) {
 
-    /**
-     * @param message
-     * @param expectedAttributes
-     */
-    private void assertAltitude(Altitude message, Map<String, String> expectedAttributes) {
         String actualValue = String.format("%.1f %s", message.getDistance(), message.getDistanceUnit().toString());
-        assertAttribute(message, expectedAttributes, ALTITUDE, actualValue);
+        setActualAttributeValue(ALTITUDE, attributes, actualValue);
     }
 
 }

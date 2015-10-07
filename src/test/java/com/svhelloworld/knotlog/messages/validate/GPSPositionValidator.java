@@ -8,26 +8,19 @@ import com.svhelloworld.knotlog.messages.PositionFormat;
 /**
  * Will validate {@link GPSPosition} messages against expected values.
  */
-public class GPSPositionValidator extends BaseValidator implements MessageValidator<GPSPosition> {
+public class GPSPositionValidator extends MessageAttributeValidator<GPSPosition> {
 
     private static final String POSITION = "position";
 
     /**
-     * @see com.svhelloworld.knotlog.messages.validate.MessageValidator#assertValid(com.svhelloworld.knotlog.messages.VesselMessage, java.util.Map)
+     * @see com.svhelloworld.knotlog.messages.validate.MessageAttributeValidator#buildActualAttributes(com.svhelloworld.knotlog.messages.VesselMessage, java.util.Map)
      */
     @Override
-    public void assertValid(GPSPosition message, Map<String, String> expectedAttributes) {
-        assertPosition(message, expectedAttributes);
-        assertSource(message, expectedAttributes);
-    }
+    protected void buildActualAttributes(GPSPosition message,
+            Map<String, MessageAttributeValidator<GPSPosition>.Attribute> attributes) {
 
-    /**
-     * @param message
-     * @param expectedAttributes
-     */
-    private void assertPosition(GPSPosition message, Map<String, String> expectedAttributes) {
         String actualPosition = PositionFormat.DEGREES_MINUTES.format(message);
-        assertAttribute(message, expectedAttributes, POSITION, actualPosition);
+        setActualAttributeValue(POSITION, attributes, actualPosition);
     }
 
 }
