@@ -26,7 +26,7 @@ Feature:
         When the NMEA0183 sentence is parsed
         Then this GPS position is returned:
             | position   | 25°31.337'N 111°04.427'W |
-            | source     | NMEA0183                  |
+            | source     | NMEA0183                 |
     
     @PositionPrecision
     Scenario: Parse position precision from a GGA sentence
