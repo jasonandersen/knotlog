@@ -25,30 +25,9 @@ public class TimeOfDayZuluValidator extends MessageAttributeValidator<TimeOfDayZ
      */
     @Override
     protected void buildActualAttributes(TimeOfDayZulu message, Map<String, Attribute> attributes) {
-        buildActualDate(message, attributes);
-        buildActualTime(message, attributes);
-        buildActualTimeZone(message, attributes);
-    }
-
-    /**
-     * @param message
-     * @param attributes
-     */
-    private void buildActualTime(TimeOfDayZulu message, Map<String, Attribute> attributes) {
-    }
-
-    /**
-     * @param message
-     * @param attributes
-     */
-    private void buildActualDate(TimeOfDayZulu message, Map<String, Attribute> attributes) {
-    }
-
-    /**
-     * @param message
-     * @param attributes
-     */
-    private void buildActualTimeZone(TimeOfDayZulu message, Map<String, Attribute> attributes) {
+        setActualAttributeValue(TIME_OF_DAY, attributes, message.getTimeOfDay());
+        setActualAttributeValue(DATE, attributes, message.getDate());
+        setActualAttributeValue(TIME_ZONE, attributes, message.getTimeZone());
     }
 
 }

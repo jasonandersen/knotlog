@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.util.Date;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -18,20 +17,21 @@ import org.junit.Test;
  */
 public class TimeOfDayZuluTest {
 
-    private static final String EXPECTED_DISPLAY = "time 19:56:02UTC";
+    private static final String EXPECTED_DISPLAY = "time 2015-10-10T19:56:02Z";
 
     private VesselMessageSource source = VesselMessageSource.NMEA0183;
 
     private Date timestamp = new Date();
 
-    private TimeOfDayZulu target;
+    private TimeOfDayZulu message;
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        target = new TimeOfDayZulu(source, timestamp, "195602.39");
+        message = new TimeOfDayZulu(source, timestamp, "195602.39");
+        System.out.println(message.getDate());
     }
 
     /**
@@ -41,7 +41,7 @@ public class TimeOfDayZuluTest {
     @Test
     public void testTimeOfDayZulu() throws ParseException {
         String time = "083422.12";
-        target = new TimeOfDayZulu(source, timestamp, time);
+        message = new TimeOfDayZulu(source, timestamp, time);
     }
 
     /**
@@ -49,8 +49,8 @@ public class TimeOfDayZuluTest {
      */
     @Test
     public void testGetTimeOfDay() {
-        long expected = (long) (19 * 60 * 60 * 100 + 56 * 60 * 100 + 02.39 * 100);
-        assertEquals(expected, target.getTimeMilliseconds());
+        String expectedTimeOfDay = "19:56:02";
+        assertEquals(expectedTimeOfDay, message.getTimeOfDay());
     }
 
     /**
@@ -58,7 +58,7 @@ public class TimeOfDayZuluTest {
      */
     @Test
     public void testGetSource() {
-        assertEquals(target.getSource(), source);
+        assertEquals(message.getSource(), source);
     }
 
     /**
@@ -66,7 +66,7 @@ public class TimeOfDayZuluTest {
      */
     @Test
     public void testGetTimestamp() {
-        assertEquals(target.getTimestamp(), timestamp);
+        assertEquals(message.getTimestamp(), timestamp);
     }
 
     /**
@@ -74,25 +74,23 @@ public class TimeOfDayZuluTest {
      */
     @Test
     public void testGetName() {
-        assertEquals("time", target.getName());
+        assertEquals("time", message.getName());
     }
 
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getLocalizeKey()}.
      */
-    @Ignore //FIXME - there is a straight up defect in the time zone handling here, need to change to JDK8 time API
     @Test
     public void testGetDisplayMessage() {
-        assertEquals(EXPECTED_DISPLAY, target.getDisplayMessage());
+        assertEquals(EXPECTED_DISPLAY, message.getDisplayMessage());
     }
 
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#toString()}.
      */
-    @Ignore //FIXME - there is a straight up defect in the time zone handling here, need to change to JDK8 time API
     @Test
     public void testToString() {
-        assertEquals(EXPECTED_DISPLAY, target.toString());
+        assertEquals(EXPECTED_DISPLAY, message.toString());
     }
 
 }
