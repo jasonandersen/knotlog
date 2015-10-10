@@ -56,6 +56,7 @@ public class NMEA0183ParseSentenceSteps {
     @Then("^this (.+) is returned:$")
     public void thisMessageIsReturned(String messageDesc, DataTable attributesTable) throws Throwable {
         MessageAttributes attribs = MessageAttributes.findByDescription(messageDesc);
+        assertMessageTypeWasReturned(attribs.getType(), messageDesc);
         Map<String, String> expectedAttributes = attributesTable.asMap(String.class, String.class);
         MessageAttributeValidator validator = attribs.getValidator();
         VesselMessage message = getMessage(attribs.getType());

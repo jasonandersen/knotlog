@@ -2,15 +2,19 @@ package com.svhelloworld.knotlog.cucumber;
 
 import com.svhelloworld.knotlog.messages.Altitude;
 import com.svhelloworld.knotlog.messages.GPSPosition;
+import com.svhelloworld.knotlog.messages.MagneticVariation;
 import com.svhelloworld.knotlog.messages.PositionPrecision;
 import com.svhelloworld.knotlog.messages.TimeOfDayZulu;
+import com.svhelloworld.knotlog.messages.VesselHeading;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.WaterDepth;
 import com.svhelloworld.knotlog.messages.validate.AltitudeValidator;
 import com.svhelloworld.knotlog.messages.validate.GPSPositionValidator;
+import com.svhelloworld.knotlog.messages.validate.MagneticVariationValidator;
 import com.svhelloworld.knotlog.messages.validate.MessageAttributeValidator;
 import com.svhelloworld.knotlog.messages.validate.PositionPrecisionValidator;
 import com.svhelloworld.knotlog.messages.validate.TimeOfDayZuluValidator;
+import com.svhelloworld.knotlog.messages.validate.VesselHeadingValidator;
 import com.svhelloworld.knotlog.messages.validate.WaterDepthValidator;
 
 /**
@@ -19,8 +23,10 @@ import com.svhelloworld.knotlog.messages.validate.WaterDepthValidator;
 public enum MessageAttributes {
     ALTITUDE("altitude", Altitude.class, new AltitudeValidator()),
     GPS_POSITION("GPS position", GPSPosition.class, new GPSPositionValidator()),
+    MAGNETIC_VARIATION("magnetic variation", MagneticVariation.class, new MagneticVariationValidator()),
     POSITION_PRECISION("position precision", PositionPrecision.class, new PositionPrecisionValidator()),
     TIME_OF_DAY("time of day", TimeOfDayZulu.class, new TimeOfDayZuluValidator()),
+    VESSEL_HEADING("vessel heading", VesselHeading.class, new VesselHeadingValidator()),
     WATER_DEPTH("water depth", WaterDepth.class, new WaterDepthValidator());
 
     /**
