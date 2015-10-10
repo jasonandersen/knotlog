@@ -21,9 +21,9 @@ Feature:
 Scenario: Parse a water depth message from a DBT sentence
     Given this NMEA0183 sentence from an instrument: "IIDBT,020.8,f,006.3,M,003.4,F"
     When  the NMEA0183 sentence is parsed
-    Then  this water depth message is returned:
-        | water depth | source   |
-        | 20.8 feet   | NMEA0183 |
+    Then  this water depth is returned:
+        | water depth | 20.8 feet |
+        | source      | NMEA0183  |
 
 
 
