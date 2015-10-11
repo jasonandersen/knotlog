@@ -2,12 +2,15 @@ package com.svhelloworld.knotlog.cucumber;
 
 import static org.junit.Assert.fail;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
+import org.junit.Assert;
+
+import com.svhelloworld.knotlog.engine.parse.MessageFailure;
 import com.svhelloworld.knotlog.engine.parse.NMEA0183SentenceParser;
+import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
+import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.messages.validate.MessageAttributeValidator;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 
@@ -27,12 +30,11 @@ public class NMEA0183ParseSentenceSteps {
 
     private String candidateSentence;
 
-    private List<VesselMessage> messages;
+    private VesselMessages messages;
 
     @Before
     public void setup() {
         parseService = new NMEA0183SentenceParser();
-        messages = new LinkedList<VesselMessage>();
     }
 
     @Given("^this NMEA0183 sentence from an instrument: \"([^\"]*)\"$")
@@ -61,6 +63,36 @@ public class NMEA0183ParseSentenceSteps {
         MessageAttributeValidator validator = attribs.getValidator();
         VesselMessage message = getMessage(attribs.getType());
         validator.assertMessageAttributes(message, expectedAttributes);
+    }
+
+    @Then("^a proper vessel message was found$")
+    public void aProperVesselMessageWasFound() {
+        Assert.assertFalse(messages.isEmpty());
+    }
+
+    @Then("^there are no unrecognized messages$")
+    public void thereAreNoUnrecognizedMessages() throws Throwable {
+        Assert.assertTrue(messages.getUnrecognizedMessages().isEmpty());
+    }
+
+    @Then("^the sentence is not recognized$")
+    public void aMessageIsReturnThatIndicatesThatSentenceWasNotRecognized() throws Throwable {
+        assertMessageFailure(MessageFailure.UNRECOGNIZED_SENTENCE);
+    }
+
+    @Then("^the sentence is malformed$")
+    public void aMessageIsReturnThatIndicatesThatSentenceWasMalformed() throws Throwable {
+        assertMessageFailure(MessageFailure.MALFORMED_SENTENCE);
+    }
+
+    /**
+     * Asserts that an unrecognized message was returned with the proper failure type
+     * @param failure
+     */
+    private void assertMessageFailure(MessageFailure failure) {
+        Assert.assertFalse(messages.getUnrecognizedMessages().isEmpty());
+        UnrecognizedMessage message = messages.getUnrecognizedMessages().get(0);
+        Assert.assertEquals(failure, message.getFailureMode());
     }
 
     /**
