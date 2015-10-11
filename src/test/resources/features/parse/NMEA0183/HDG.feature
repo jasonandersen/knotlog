@@ -8,6 +8,8 @@ Feature:
     So that I can accurately plot my vessel heading to stay on course
     And understand magnetic variation so I can accurately calculate true heading from magnetic headings
 
+    ################### HDG Sentence Structure ###################
+    #
     #         1  2  3 4  5 6
     #         |  |  | |  | |
     # $--HDG,x.x,x.x,a,x.x,a*hh<CR><LF>
@@ -19,6 +21,8 @@ Feature:
     # - Magnetic Variation degrees
     # - Magnetic Variation direction, E = Easterly, W = Westerly
     # - Checksum
+    # 
+    ##############################################################
 
     Background:
         Given this NMEA0183 sentence from an instrument: "AGHDG,288.6,,,,"
@@ -30,7 +34,7 @@ Feature:
         Then vessel heading is returned
         And magnetic variation is returned
 
-    @GPSPosition
+    @VesselHeading
     Scenario: Parse vessel heading from HDG sentence
         When the NMEA0183 sentence is parsed
         Then this vessel heading is returned:
