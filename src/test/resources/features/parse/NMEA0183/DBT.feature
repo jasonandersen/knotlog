@@ -3,7 +3,7 @@
 @DBT
 @WaterDepth
 
-Feature: 
+Feature: NMEA0183 DBT sentence
     As a vessel operator using a depth transducer that transmits NMEA0183 sentences 
     I want to have DBT (Depth Below Transducer) messages parsed correctly 
     So that my vessel doesn't hit bottom and cause damage or endanger my crew 

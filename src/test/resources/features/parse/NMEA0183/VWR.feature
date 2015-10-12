@@ -1,8 +1,8 @@
 @NMEA0183
 @Parse
 
-Feature: 
-    As a vessel operator using a wind instrument that transmits NMEA0183 sentences 
+Feature: NMEA0183 VWR sentence
+    As a vessel operator using an anomometer that transmits NMEA0183 sentences 
     I want to have VWR (Relative Wind Speed and Angle) messages parsed correctly 
     So that I can trim sails properly and maintain the correct wind angle 
 
@@ -24,26 +24,33 @@ Feature:
     # 
     ##############################################################
 
-    Background:
-        Given this NMEA0183 sentence from an instrument: ""
-        
-
     @WindDirection
     @WindSpeed
     Scenario: Parse a VWR sentence
+        Given this NMEA0183 sentence from an instrument: "$IIVWR,67,L,,,,,,"
         When the NMEA0183 sentence is parsed
         Then wind direction is returned
         And wind speed is returned
 
     @WindDirection
-    Scenario: Parse wind direction from a VWR sentence
+    Scenario: Parse starboard wind direction from a VWR sentence
+        Given this NMEA0183 sentence from an instrument: ""
         When the NMEA0183 sentence is parsed
         Then this wind direction is returned:
             | wind direction | 20° starboard |
             | source         | NMEA0183      |
 
+    @WindDirection
+    Scenario: Parse port wind direction from a VWR sentence
+        Given this NMEA0183 sentence from an instrument: ""
+        When the NMEA0183 sentence is parsed
+        Then this wind direction is returned:
+            | wind direction | 20° port |
+            | source         | NMEA0183 |
+
     @WindSpeed
     Scenario: Parse wind speed from a VWR sentence
+        Given this NMEA0183 sentence from an instrument: "$IIVWR,67,L,,,,,,"
         When the NMEA0183 sentence is parsed
         Then this wind speed is returned:
             | wind speed | 20 knots |

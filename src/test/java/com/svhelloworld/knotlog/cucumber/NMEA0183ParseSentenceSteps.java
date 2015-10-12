@@ -8,10 +8,10 @@ import org.junit.Assert;
 
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
 import com.svhelloworld.knotlog.engine.parse.NMEA0183SentenceParser;
+import com.svhelloworld.knotlog.messages.MessageAttributeValidator;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessages;
-import com.svhelloworld.knotlog.messages.validate.MessageAttributeValidator;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 
 import cucumber.api.DataTable;
@@ -85,12 +85,17 @@ public class NMEA0183ParseSentenceSteps {
         assertMessageFailure(MessageFailure.MALFORMED_SENTENCE);
     }
 
+    @Then("^the sentence has invalid sentence fields$")
+    public void theSentenceHasInvalidSentenceFields() throws Throwable {
+        assertMessageFailure(MessageFailure.INVALID_SENTENCE_FIELDS);
+    }
+
     /**
      * Asserts that an unrecognized message was returned with the proper failure type
      * @param failure
      */
     private void assertMessageFailure(MessageFailure failure) {
-        Assert.assertFalse(messages.getUnrecognizedMessages().isEmpty());
+        Assert.assertFalse("No unrecognized messages were found", messages.getUnrecognizedMessages().isEmpty());
         UnrecognizedMessage message = messages.getUnrecognizedMessages().get(0);
         Assert.assertEquals(failure, message.getFailureMode());
     }

@@ -2,8 +2,7 @@
 @Parse
 @GGA
 
-
-Feature:
+Feature: NMEA0183 GGA sentence
     As a vessel operator using a GPS that transmits NMEA0183
     I want GGA (Global Positioning System Fix Data) sentences parsed 
     So that I get an accurate fix on my location

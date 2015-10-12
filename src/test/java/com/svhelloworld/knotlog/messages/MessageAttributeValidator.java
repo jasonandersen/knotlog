@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.messages.validate;
+package com.svhelloworld.knotlog.messages;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

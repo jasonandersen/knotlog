@@ -2,7 +2,7 @@
 @Parse
 @HDG
 
-Feature:
+Feature: NMEA0183 HDG sentence
     As a vessel operator using a GPS that transmits NMEA0183
     I want HDG (Heading Deviation and Variation) sentences parsed 
     So that I can accurately plot my vessel heading to stay on course

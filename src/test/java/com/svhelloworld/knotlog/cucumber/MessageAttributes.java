@@ -107,7 +107,8 @@ public enum MessageAttributes {
             new MessageAttributeValidator<WaterDepth>() {
                 @Override
                 protected void buildActualAttributes(WaterDepth message, Map<String, Attribute> attributes) {
-                    setActualAttributeValue("water depth", attributes, message.toString());
+                    String actualValue = String.format("%.1f %s", message.getDistance(), message.getDistanceUnit().toString());
+                    setActualAttributeValue("water depth", attributes, actualValue);
                 }
             }),
 
