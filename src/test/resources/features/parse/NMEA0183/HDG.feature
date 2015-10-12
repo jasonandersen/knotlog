@@ -25,7 +25,7 @@ Feature: NMEA0183 HDG sentence
     ##############################################################
 
     Background:
-        Given this NMEA0183 sentence from an instrument: "AGHDG,288.6,,,,"
+        Given this NMEA0183 sentence from an instrument: "$AGHDG,288.6,,,,"
 
     @VesselHeading
     @MagneticVariation

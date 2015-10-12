@@ -27,31 +27,31 @@ Feature: NMEA0183 VWR sentence
     @WindDirection
     @WindSpeed
     Scenario: Parse a VWR sentence
-        Given this NMEA0183 sentence from an instrument: "$IIVWR,67,L,,,,,,"
+        Given this NMEA0183 sentence from an instrument: "$IIVWR,67.8,L,18.4,N,,,,"
         When the NMEA0183 sentence is parsed
         Then wind direction is returned
         And wind speed is returned
 
     @WindDirection
     Scenario: Parse starboard wind direction from a VWR sentence
-        Given this NMEA0183 sentence from an instrument: ""
+        Given this NMEA0183 sentence from an instrument: "$IIVWR,34.4,R,18.4,N,,,,"
         When the NMEA0183 sentence is parsed
         Then this wind direction is returned:
-            | wind direction | 20° starboard |
-            | source         | NMEA0183      |
+            | wind direction | relative wind direction 34° to starboard |
+            | source         | NMEA0183                                 |
 
     @WindDirection
     Scenario: Parse port wind direction from a VWR sentence
-        Given this NMEA0183 sentence from an instrument: ""
+        Given this NMEA0183 sentence from an instrument: "$IIVWR,67.9,L,18.4,N,,,,"
         When the NMEA0183 sentence is parsed
         Then this wind direction is returned:
-            | wind direction | 20° port |
-            | source         | NMEA0183 |
+            | wind direction | relative wind direction 68° to port |
+            | source         | NMEA0183                            |
 
     @WindSpeed
     Scenario: Parse wind speed from a VWR sentence
-        Given this NMEA0183 sentence from an instrument: "$IIVWR,67,L,,,,,,"
+        Given this NMEA0183 sentence from an instrument: "$IIVWR,34.4,R,18.4,N,,,,"
         When the NMEA0183 sentence is parsed
         Then this wind speed is returned:
-            | wind speed | 20 knots |
-            | source     | NMEA0183 |
+            | wind speed | relative wind speed 18.4 knots |
+            | source     | NMEA0183                       |

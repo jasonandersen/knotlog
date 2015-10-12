@@ -118,7 +118,7 @@ public enum MessageAttributes {
             new MessageAttributeValidator<WindDirection>() {
                 @Override
                 protected void buildActualAttributes(WindDirection message, Map<String, Attribute> attributes) {
-                    throw new UnsupportedOperationException("still haven't built this yet.");
+                    setActualAttributeValue("wind direction", attributes, message.toString());
                 }
             }),
 
@@ -128,7 +128,7 @@ public enum MessageAttributes {
             new MessageAttributeValidator<WindSpeed>() {
                 @Override
                 protected void buildActualAttributes(WindSpeed message, Map<String, Attribute> attributes) {
-                    throw new UnsupportedOperationException("still haven't built this yet.");
+                    setActualAttributeValue("wind speed", attributes, message.toString());
                 }
             })
 

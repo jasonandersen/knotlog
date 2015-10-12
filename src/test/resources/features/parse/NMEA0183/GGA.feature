@@ -7,7 +7,7 @@ Feature: NMEA0183 GGA sentence
     I want GGA (Global Positioning System Fix Data) sentences parsed 
     So that I get an accurate fix on my location
 
-    ################### GGA Sentence Structure ###################
+    ######## GGA (Global Positioning System Fix Data) Sentence Structure #######
     #
     #                                                       11
     #          1        2      3 4        5 6 7  8  9  10 |  12 13  14  15
@@ -40,10 +40,10 @@ Feature: NMEA0183 GGA sentence
     # - Differential reference station ID, 0000-1023
     # - Checksum
     #
-    ###############################################################
+    ###########################################################################
 
     Background:
-        Given this NMEA0183 sentence from an instrument: "GPGGA,130004,2531.3369,N,11104.4274,W,2,09,0.9,1.7,M,-31.5,M,,"
+        Given this NMEA0183 sentence from an instrument: "$GPGGA,130004,2531.3369,N,11104.4274,W,2,09,0.9,1.7,M,-31.5,M,,"
 
     @GPSPosition
     @PositionPrecision
