@@ -23,25 +23,25 @@ public class TimeOfDayZuluTest {
 
     private Date timestamp = new Date();
 
-    private TimeOfDayZulu message;
+    private TimeOfDay message;
 
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception {
-        message = new TimeOfDayZulu(source, timestamp, "195602.39");
+        message = new TimeOfDay(source, timestamp, "195602.39");
         System.out.println(message.getDate());
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.TimeOfDayZulu#TimeOfDayZulu(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, java.lang.String)}.
+     * Test method for {@link com.svhelloworld.knotlog.messages.TimeOfDay#TimeOfDayZulu(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, java.lang.String)}.
      * @throws ParseException 
      */
     @Test
     public void testTimeOfDayZulu() throws ParseException {
         String time = "083422.12";
-        message = new TimeOfDayZulu(source, timestamp, time);
+        message = new TimeOfDay(source, timestamp, time);
     }
 
     /**

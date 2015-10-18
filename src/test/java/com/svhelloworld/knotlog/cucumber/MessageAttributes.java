@@ -8,7 +8,7 @@ import com.svhelloworld.knotlog.messages.MagneticVariation;
 import com.svhelloworld.knotlog.messages.MessageAttributeValidator;
 import com.svhelloworld.knotlog.messages.PositionFormat;
 import com.svhelloworld.knotlog.messages.PositionPrecision;
-import com.svhelloworld.knotlog.messages.TimeOfDayZulu;
+import com.svhelloworld.knotlog.messages.TimeOfDay;
 import com.svhelloworld.knotlog.messages.VesselHeading;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.WaterDepth;
@@ -81,11 +81,11 @@ public enum MessageAttributes {
 
     TIME_OF_DAY(
             "time of day",
-            TimeOfDayZulu.class,
-            new MessageAttributeValidator<TimeOfDayZulu>() {
+            TimeOfDay.class,
+            new MessageAttributeValidator<TimeOfDay>() {
                 @Override
-                protected void buildActualAttributes(TimeOfDayZulu message, Map<String, Attribute> attributes) {
-                    setActualAttributeValue("time", attributes, message.getTimeOfDay());
+                protected void buildActualAttributes(TimeOfDay message, Map<String, Attribute> attributes) {
+                    setActualAttributeValue("time of day", attributes, message.getTimeOfDay());
                     setActualAttributeValue("date", attributes, message.getDate());
                     setActualAttributeValue("time zone", attributes, message.getTimeZone());
                 }
