@@ -2,7 +2,9 @@ package com.svhelloworld.knotlog.messages;
 
 import static org.junit.Assert.assertEquals;
 
-import java.text.ParseException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import org.junit.Before;
@@ -17,7 +19,7 @@ import org.junit.Test;
  */
 public class TimeOfDayZuluTest {
 
-    private static final String EXPECTED_DISPLAY = "time 2015-10-10T19:56:02Z";
+    private String expectedDisplay;
 
     private VesselMessageSource source = VesselMessageSource.NMEA0183;
 
@@ -30,18 +32,11 @@ public class TimeOfDayZuluTest {
      */
     @Before
     public void setUp() throws Exception {
+        ZonedDateTime dateTime = ZonedDateTime.now(ZoneId.of("GMT"));
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+        expectedDisplay = String.format("time %sT19:56:02Z", formatter.format(dateTime));
         message = new TimeOfDay(source, timestamp, "195602.39");
         System.out.println(message.getDate());
-    }
-
-    /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.TimeOfDay#TimeOfDayZulu(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, java.lang.String)}.
-     * @throws ParseException 
-     */
-    @Test
-    public void testTimeOfDayZulu() throws ParseException {
-        String time = "083422.12";
-        message = new TimeOfDay(source, timestamp, time);
     }
 
     /**
@@ -82,7 +77,7 @@ public class TimeOfDayZuluTest {
      */
     @Test
     public void testGetDisplayMessage() {
-        assertEquals(EXPECTED_DISPLAY, message.getDisplayMessage());
+        assertEquals(expectedDisplay, message.getDisplayMessage());
     }
 
     /**
@@ -90,7 +85,7 @@ public class TimeOfDayZuluTest {
      */
     @Test
     public void testToString() {
-        assertEquals(EXPECTED_DISPLAY, message.toString());
+        assertEquals(expectedDisplay, message.toString());
     }
 
 }
