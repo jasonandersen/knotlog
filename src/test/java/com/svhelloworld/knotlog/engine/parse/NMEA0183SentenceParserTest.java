@@ -18,4 +18,10 @@ public class NMEA0183SentenceParserTest {
         VesselMessages messages = parser.parseSentence("$IIDBT,,,,");
         assertFalse(messages.getUnrecognizedMessages().isEmpty());
     }
+
+    @Test
+    public void testTKW() {
+        VesselMessages messages = parser.parseSentence("54059,V,SRL,PTTKW,4,P,2,B,0,,,,,,,,,,,,,,,");
+        assertFalse(messages.getUnrecognizedMessages().isEmpty());
+    }
 }

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.svhelloworld.knotlog.engine.MessageStreamProcessor;
 import com.svhelloworld.knotlog.engine.TimeStamper;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
@@ -23,6 +25,8 @@ import com.svhelloworld.knotlog.service.NMEA0183ParseService;
  * parse events and communicates to listeners. Handles multi-threaded parsing.
  */
 public class NMEA0183SourceParser extends BaseThreadedParser {
+
+    private static final Logger log = Logger.getLogger(NMEA0183SourceParser.class);
 
     /*
      * TODO create InstrumentMessageTimestamper class
@@ -67,6 +71,7 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
     public NMEA0183SourceParser() {
         super(initExternalProcessors());
         parseService = new NMEA0183SentenceParser();
+        log.info("Starting up");
     }
 
     /**
@@ -74,6 +79,9 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
      */
     @Override
     protected void parse() {
+
+        log.info("Starting parse");
+
         BufferedReader reader = openSource();
         String line;
 
@@ -86,6 +94,8 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
         } finally {
             closeSource(reader);
         }
+
+        log.info("Parse complete");
     }
 
     /**
@@ -96,7 +106,7 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
         //throw the original line to any preparse listeners
         preparse(line);
         VesselMessages messages = parseService.parseSentence(line);
-        if (messages.isEmpty()) {
+        if (messages.isEmpty() && messages.getUnrecognizedMessages().isEmpty()) {
             return;
         }
         externalProcessing(messages.toArray(new VesselMessage[0]));
@@ -124,6 +134,7 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
      * @throws NullPointerException if the underlying source is null.
      */
     private BufferedReader openSource() {
+        log.debug("Opening source");
         StreamedSource source = getSource();
         if (source == null) {
             throw new NullPointerException("source cannot be null");
@@ -138,6 +149,7 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
      * @param stream
      */
     private void closeSource(BufferedReader stream) {
+        log.debug("Closing source");
         try {
             stream.close();
         } catch (IOException e) {

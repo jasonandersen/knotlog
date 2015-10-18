@@ -8,6 +8,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.log4j.Logger;
+
 import com.svhelloworld.knotlog.engine.MessageDiscoveryListener;
 import com.svhelloworld.knotlog.engine.MessageStreamProcessor;
 import com.svhelloworld.knotlog.engine.PreparseListener;
@@ -48,7 +50,9 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
          */
         COMPLETE
     }
-    
+
+    private static final Logger log = Logger.getLogger(BaseThreadedParser.class);
+
     /**
      * Indicates the processing state of this parser.
      */
@@ -57,7 +61,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
      * Lock to acquire for reading and writing the state variable.
      */
     private final ReadWriteLock stateLock;
-    
+
     /*
      * Note - I'm not currently using read/write locks on the three listener
      * sets. I believe the CopyOnWriteArraySet implementation should be sufficient
@@ -84,25 +88,25 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
      * Source object to parse.
      */
     private StreamedSource source;
-    
+
     /**
      * Contains the parsing code.
      */
     protected abstract void parse();
-    
+
     /**
      * Method called when external processors complete.
      * @param messages message stream post-processing
      */
-    protected abstract void externalProcessingComplete(VesselMessage...messages);
-    
+    protected abstract void externalProcessingComplete(VesselMessage... messages);
+
     /**
      * Constructor with no external message processors.
      */
     protected BaseThreadedParser() {
         this(new ArrayList<MessageStreamProcessor>());
     }
-    
+
     /**
      * Constructor
      * @param externalProcessors any external message processors to act on the
@@ -113,7 +117,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
         preparseListeners = new CopyOnWriteArraySet<PreparseListener>();
         unrecognizedListeners = new CopyOnWriteArraySet<UnrecognizedMessageListener>();
         stateLock = new ReentrantReadWriteLock();
-        
+
         //setup external processor chain
         if (externalProcessors == null || externalProcessors.isEmpty()) {
             externalProcessingChain = null;
@@ -133,20 +137,22 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
             externalProcessingChain = externalProcessors.get(0);
         }
     }
-    
+
     /**
      * Runs the parsing process.
      * @see java.lang.Runnable#run()
      */
     @Override
     public void run() {
+        log.info("Run started");
         setState(State.PARSING);
         throwParsingStartedEvent();
         parse();
         setState(State.COMPLETE);
         throwParsingCompleteEvent();
+        log.info("Run complete");
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.engine.parse.Parser#addMessageListener(com.svhelloworld.knotlog.engine.VesselMessageListener)
      */
@@ -162,6 +168,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
     public void addUnrecognizedMessageListener(UnrecognizedMessageListener listener) {
         unrecognizedListeners.add(listener);
     }
+
     /**
      * @see com.svhelloworld.knotlog.engine.parse.Parser#addPreparseListener(com.svhelloworld.knotlog.engine.PreparseListener)
      */
@@ -193,7 +200,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
     public boolean removePreparseListener(PreparseListener listener) {
         return preparseListeners.remove(listener);
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.engine.parse.Parser#removeUnrecognizedMessageListener(com.svhelloworld.knotlog.engine.UnrecognizedMessageListener)
      */
@@ -201,7 +208,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
     public boolean removeUnrecognizedMessageListener(UnrecognizedMessageListener listener) {
         return unrecognizedListeners.remove(listener);
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.engine.parse.Parser#setSource(com.svhelloworld.knotlog.engine.sources.StreamedSource)
      */
@@ -209,7 +216,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
     public void setSource(StreamedSource source) {
         this.source = source;
     }
-    
+
     /**
      * Callback method for external <tt>MessageStreamProcessor</tt> objects.
      * @see com.svhelloworld.knotlog.engine.MessageStreamProcessor#processMessages(com.svhelloworld.knotlog.messages.VesselMessage[])
@@ -226,14 +233,14 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
     public final void setNextProcessor(MessageStreamProcessor next) {
         //this object is the end of the chain, there is no next processor
     }
-    
+
     /**
      * @return the parsing source.
      */
     protected StreamedSource getSource() {
         return source;
     }
-    
+
     /**
      * Sends any parsed vessel messages to the external message stream
      * processing chain for further refining.
@@ -255,7 +262,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
             externalProcessingChain.processMessages(messages);
         }
     }
-    
+
     /**
      * Alerts all the listeners that parsing has begun.
      */
@@ -264,7 +271,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
             listener.messageDiscoveryStart();
         }
     }
-    
+
     /**
      * Alerts all the listeners that parsing is complete.
      */
@@ -273,59 +280,62 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
             listener.messageDiscoveryComplete();
         }
     }
-    
+
     /**
      * Alerts all the preparse listeners of preparsed data.
      * @param preparsed preparsed text
      */
     protected void throwPreparseEvent(PreparseMessage preparsed) {
+        log.debug(String.format("preparse event: %s", preparsed));
         for (PreparseListener listener : preparseListeners) {
             listener.preparsedInput(preparsed);
         }
     }
-    
+
     /**
      * Alerts all the message listeners of vessel messages parsed.
      * @param messages vessel messages parsed.
      */
     protected void throwMessageEvent(VesselMessage... messages) {
+        log.debug(String.format("%d vessel messages found", messages.length));
         for (VesselMessageListener listener : messageListeners) {
             listener.vesselMessagesFound(messages);
         }
     }
-    
+
     /**
      * Alerts all unrecognized message listeners that unrecognized messages
      * have been found.
      * @param messages unrecognized messages
      */
     protected void throwUnrecognizedMessageEvent(UnrecognizedMessage... messages) {
+        log.debug(String.format("%d unrecognized messages found", messages.length));
         for (UnrecognizedMessageListener listener : unrecognizedListeners) {
             listener.unrecognizedMessagesFound(messages);
         }
     }
-    
+
     /**
      * @return true if this parser has any vessel message listeners
      */
     protected boolean hasVesselMessageListeners() {
         return !messageListeners.isEmpty();
     }
-    
+
     /**
      * @return true if this parser has unrecognized message listeners
      */
     protected boolean hasUnrecognizedMessageListeners() {
         return !unrecognizedListeners.isEmpty();
     }
-    
+
     /**
      * @return true if this parser has preparse message listeners
      */
     protected boolean hasPreparseListeners() {
         return !preparseListeners.isEmpty();
     }
-    
+
     /**
      * @return a set containing all listener objects.
      */
@@ -336,7 +346,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
         out.addAll(preparseListeners);
         return out;
     }
-    
+
     /**
      * @return the processing state of this parser.
      */
@@ -350,7 +360,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
         }
         return out;
     }
-    
+
     /**
      * Change the processing state of this parser.
      * @param newState new processing state
