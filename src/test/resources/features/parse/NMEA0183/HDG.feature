@@ -25,7 +25,7 @@ Feature: NMEA0183 HDG sentence
     ##############################################################
 
     Background:
-        Given this NMEA0183 sentence from an instrument: "$AGHDG,288.6,,,,"
+        Given this NMEA0183 sentence from an instrument: "$AGHDG,288.6,18.0,E,20.1,E"
 
     @VesselHeading
     @MagneticVariation
@@ -38,12 +38,12 @@ Feature: NMEA0183 HDG sentence
     Scenario: Parse vessel heading from HDG sentence
         When the NMEA0183 sentence is parsed
         Then this vessel heading is returned:
-            | heading | 315.4°   |
-            | source  | NMEA0183 |
+            | vessel heading | heading 289°M |
+            | source         | NMEA0183      |
     
     @MagneticVariation
     Scenario: Parse magnetic variation from HDG sentence
         When the NMEA0183 sentence is parsed
         Then this magnetic variation is returned:
-            | magnetic variation | 18°      |
-            | source             | NMEA0183 |
+            | magnetic variation | magnetic variation 20.1°E |
+            | source             | NMEA0183                  |

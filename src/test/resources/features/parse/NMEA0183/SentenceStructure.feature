@@ -46,8 +46,13 @@ Feature: NMEA0183 sentence structure
         When the NMEA0183 sentence is parsed
         Then the sentence is malformed
         
+    Scenario: Handle properly formatted sentence with insufficient data in fields
+        Given this NMEA0183 sentence from an instrument: "$IIDBT, , , , "
+        When the NMEA0183 sentence is parsed
+        Then the sentence has invalid sentence fields
+        
     Scenario: Handle properly formatted sentence with insufficient fields
-        Given this NMEA0183 sentence from an instrument: "$IIDBT,021.8"
+        Given this NMEA0183 sentence from an instrument: "$IIDBT"
         When the NMEA0183 sentence is parsed
         Then the sentence has invalid sentence fields
         

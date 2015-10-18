@@ -20,18 +20,22 @@ import com.svhelloworld.knotlog.util.StringUtil;
  */
 public class InstrumentMessageFactory {
 
+    /*
+     * FIXME - refactor to use Spring's ConversionService!
+     */
+
     /**
      * Default package to look into for message classes.
      */
     private static final String DEFAULT_MESSAGE_PKG = "com.svhelloworld.knotlog.messages";
-    
+
     /**
      * Private constructor.
      */
     private InstrumentMessageFactory() {
         //no need to instantiate
     }
-    
+
     /**
      * Constructs an instrument vessel message based on an instrument
      * message definition and a collection of field values culled
@@ -50,9 +54,9 @@ public class InstrumentMessageFactory {
     public static VesselMessage createInstrumentMessage(
             final VesselMessageSource source,
             final Date timestamp,
-            final InstrumentMessageDefinition definition, 
+            final InstrumentMessageDefinition definition,
             final List<String> fields) {
-    
+
         //validate source, date, and definition
         if (source == null) {
             throw new NullPointerException("source cannot be null");
@@ -63,7 +67,7 @@ public class InstrumentMessageFactory {
         if (definition == null) {
             throw new NullPointerException("definition cannot be null");
         }
-        
+
         //construct argument array
         List<String> rawArgs = getRawArguments(definition, fields);
         List<Object> arguments = new ArrayList<Object>(rawArgs.size() + 2);
@@ -77,10 +81,10 @@ public class InstrumentMessageFactory {
         Constructor<?> constructor = getMessageConstructor(msgClass, arguments);
         Object[] finalArgs = coerceArgsToConstructorTypes(constructor, arguments);
         VesselMessage message;
-        
+
         try {
             //instantiate message
-            message = (VesselMessage)constructor.newInstance(finalArgs);
+            message = (VesselMessage) constructor.newInstance(finalArgs);
         } catch (Exception e) {
             //if instantation fails, create an unrecognized message
             MessageFailure failureMode = MessageFailure.INVALID_SENTENCE_FIELDS;
@@ -109,18 +113,18 @@ public class InstrumentMessageFactory {
             String identifier,
             List<String> sentenceFields,
             Object... debugInfo) {
-        
+
         List<String> fields = sentenceFields;
         if (fields == null) {
             fields = new ArrayList<String>();
         }
         //add identifier to the beginning of the fields list
         fields.add(0, identifier);
-        UnrecognizedMessage out = new UnrecognizedMessage(source, timestamp, 
+        UnrecognizedMessage out = new UnrecognizedMessage(source, timestamp,
                 failureMode, fields, debugInfo);
         return out;
     }
-    
+
     /**
      * Creates an unrecognized message.
      * @param source source of instrument message
@@ -137,12 +141,12 @@ public class InstrumentMessageFactory {
             MessageFailure failureMode,
             List<String> sentenceFields,
             Object... debugInfo) {
-        
-        UnrecognizedMessage out = new UnrecognizedMessage(source, timestamp, 
+
+        UnrecognizedMessage out = new UnrecognizedMessage(source, timestamp,
                 failureMode, sentenceFields, debugInfo);
         return out;
     }
- 
+
     /**
      * Creates an argument list of strings from the definition and
      * instrument sentence fields.
@@ -152,9 +156,9 @@ public class InstrumentMessageFactory {
      *          never be null but can be an empty list.
      */
     private static List<String> getRawArguments(
-            final InstrumentMessageDefinition definition, 
+            final InstrumentMessageDefinition definition,
             final List<String> fields) {
-        
+
         List<String> args = new ArrayList<String>();
         for (String parameter : definition.getParameters()) {
             if (StringUtil.isInteger(parameter)) {
@@ -178,7 +182,7 @@ public class InstrumentMessageFactory {
         }
         return args;
     }
-    
+
     /**
      * Resolves a class name to a <tt>Class</tt> object.
      * @param className can be either a simple class name or a fully 
@@ -201,7 +205,7 @@ public class InstrumentMessageFactory {
         }
         return msgClass;
     }
-    
+
     /**
      * Gets the appropriate constructor the message class.
      * @param messageClass
@@ -211,9 +215,9 @@ public class InstrumentMessageFactory {
      *          for the specified class
      */
     private static Constructor<?> getMessageConstructor(
-            final Class<?> messageClass, 
+            final Class<?> messageClass,
             final List<Object> arguments) {
-        
+
         /*
          * For now, let's just return the first constructor. At some
          * point, however, we should be evaluating the raw arguments
@@ -222,7 +226,7 @@ public class InstrumentMessageFactory {
         Constructor<?>[] constructors = messageClass.getConstructors();
         return constructors[0];
     }
-    
+
     /**
      * Attempt to convert types in argument array to the types 
      * expected by the constructor.
@@ -230,9 +234,9 @@ public class InstrumentMessageFactory {
      * @param arguments argument array
      */
     private static Object[] coerceArgsToConstructorTypes(
-            final Constructor<?> constructor, 
+            final Constructor<?> constructor,
             final List<Object> arguments) {
-        
+
         Object[] out = new Object[constructor.getParameterTypes().length];
         int idx = 0;
         for (Class<?> paramType : constructor.getParameterTypes()) {
@@ -246,7 +250,7 @@ public class InstrumentMessageFactory {
         }
         return out;
     }
-    
+
     /**
      * Converts a single argument to the specified class type.
      * @param argument argument to convert
@@ -256,13 +260,13 @@ public class InstrumentMessageFactory {
      */
     @SuppressWarnings("unchecked")
     private static Object coerceArgument(
-            final Object argument, 
+            final Object argument,
             final Class paramType) {
-        
+
         if (argument == null) {
             return null;
         }
-        
+
         Object out = argument;
         /*
          * Attempt to coerce argument into the parameter type specified.
@@ -292,10 +296,10 @@ public class InstrumentMessageFactory {
         } catch (Exception e) {
             //we're going to ignore exceptions and just return the original argument
         }
-        
+
         return out;
     }
-    
+
     /**
      * Resolves an abbreviation out to a specific measurement unit
      * enum object.
@@ -309,9 +313,9 @@ public class InstrumentMessageFactory {
      * @throws NullPointerException when unitClass is null
      */
     private static MeasurementUnit resolveMeasurementUnit(
-            final String abbreviation, 
+            final String abbreviation,
             final Class<? extends MeasurementUnit> unitClass) {
-        
+
         //validate
         if (abbreviation == null || abbreviation.length() == 0) {
             return null;
@@ -320,15 +324,15 @@ public class InstrumentMessageFactory {
             throw new NullPointerException("unit class cannot be null");
         }
         if (!isMeasurementUnit(unitClass)) {
-            throw new IllegalArgumentException("unit class does not implement MeasurementUnit: " + 
+            throw new IllegalArgumentException("unit class does not implement MeasurementUnit: " +
                     unitClass.getCanonicalName());
         }
-        
+
         MeasurementUnit[] units = unitClass.getEnumConstants();
         for (MeasurementUnit unit : units) {
             //check the name of the enum value
             if (unit instanceof Enum<?>) {
-                Enum<?> enumUnit = (Enum<?>)unit;
+                Enum<?> enumUnit = (Enum<?>) unit;
                 if (enumUnit.name().equals(abbreviation)) {
                     return unit;
                 }
@@ -342,7 +346,7 @@ public class InstrumentMessageFactory {
         }
         return null;
     }
-    
+
     /**
      * Determines if a class implements the <tt>MeasurementUnit</tt> interface
      * directly or through any implemented interfaces.
@@ -360,5 +364,5 @@ public class InstrumentMessageFactory {
         }
         return false;
     }
-    
+
 }

@@ -1,8 +1,11 @@
 package com.svhelloworld.knotlog.engine.parse;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Dictionary that describes NMEA0183 sentences.
  */
+@Component
 public class NMEA0183MessageDictionary extends CSVMessageDictionary {
 
     /**

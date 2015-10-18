@@ -3,6 +3,8 @@ package com.svhelloworld.knotlog.engine.parse;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessageSource;
@@ -22,9 +24,8 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
     /**
      * Message dictionary defining what messages are associated 
      * with individual sentences.
-     * 
-     * FIXME - this should be injected with Spring
      */
+    @Autowired
     private NMEA0183MessageDictionary dictionary;
 
     /**
