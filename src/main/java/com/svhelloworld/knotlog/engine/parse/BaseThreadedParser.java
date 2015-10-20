@@ -309,7 +309,14 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
      * @param messages unrecognized messages
      */
     protected void throwUnrecognizedMessageEvent(UnrecognizedMessage... messages) {
-        log.debug(String.format("%d unrecognized messages found", messages.length));
+        if (log.isDebugEnabled()) {
+            StringBuilder builder = new StringBuilder();
+            for (UnrecognizedMessage message : messages) {
+                builder.append(message.toString()).append(" ");
+            }
+            log.debug(String.format("unrecognized messages event: %s", builder.toString()));
+        }
+
         for (UnrecognizedMessageListener listener : unrecognizedListeners) {
             listener.unrecognizedMessagesFound(messages);
         }

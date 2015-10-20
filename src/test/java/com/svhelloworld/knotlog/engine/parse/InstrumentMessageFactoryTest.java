@@ -89,7 +89,7 @@ public class InstrumentMessageFactoryTest {
         DateZulu date = (DateZulu) message;
         Calendar expected = new GregorianCalendar();
         expected.set(2010, 4, 19);
-        assertEquals(expected.getTimeInMillis(), date.getDateMilliseconds());
+        assertEquals(expected.getTimeInMillis(), date.getDateMilliseconds(), 100);
     }
 
     /**

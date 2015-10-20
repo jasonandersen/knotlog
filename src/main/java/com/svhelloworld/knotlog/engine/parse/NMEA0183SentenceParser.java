@@ -3,6 +3,7 @@ package com.svhelloworld.knotlog.engine.parse;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
@@ -15,6 +16,8 @@ import com.svhelloworld.knotlog.service.NMEA0183ParseService;
  * Parses single NMEA0183 sentences.
  */
 public class NMEA0183SentenceParser implements NMEA0183ParseService {
+
+    private static final Logger log = Logger.getLogger(NMEA0183SentenceParser.class);
 
     /**
      * Message source
@@ -32,6 +35,7 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
      * Constructor
      */
     public NMEA0183SentenceParser() {
+        log.info("Initializing");
         dictionary = new NMEA0183MessageDictionary();
     }
 
@@ -42,6 +46,7 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
      */
     @Override
     public VesselMessages parseSentence(String line) {
+        log.debug(String.format("parse: %s", line));
         NMEA0183Sentence sentence = new NMEA0183Sentence(line);
         return interpretSentence(sentence);
     }
@@ -55,6 +60,7 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
      *          Any unrecognized messages will be included.
      */
     private VesselMessages interpretSentence(final NMEA0183Sentence sentence) {
+        log.debug(String.format("interpretting sentence: %s", sentence.getValidity()));
         VesselMessages messages = new VesselMessages();
         String tag = sentence.getTag();
         List<InstrumentMessageDefinition> definitions = dictionary.getDefinitions(tag);
@@ -67,7 +73,32 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
                 messages.add(buildDefinedVesselMessage(definition, sentence));
             }
         }
+        logMessages(messages);
         return messages;
+    }
+
+    /**
+     * Logs the returned messages at a DEBUG level
+     * @param messages
+     */
+    private void logMessages(VesselMessages messages) {
+        if (!log.isDebugEnabled()) {
+            return;
+        }
+        StringBuilder builder = new StringBuilder();
+        if (!messages.isEmpty()) {
+            builder.append(messages.size()).append(" messages");
+            for (VesselMessage message : messages) {
+                builder.append(message.getClass().getSimpleName()).append(" ");
+            }
+        }
+        if (!messages.getUnrecognizedMessages().isEmpty()) {
+            builder.append(messages.getUnrecognizedMessages().size()).append(" unrecognized messages ");
+            for (UnrecognizedMessage message : messages.getUnrecognizedMessages()) {
+                builder.append(message.getFailureMode()).append(" ");
+            }
+        }
+        log.debug(builder.toString());
     }
 
     /**

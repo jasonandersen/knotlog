@@ -28,21 +28,6 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
 
     private static final Logger log = Logger.getLogger(NMEA0183SourceParser.class);
 
-    /*
-     * TODO create InstrumentMessageTimestamper class
-     * runs in a seperate thread only on real time
-     * message sources (need to add that to the source
-     * hierarchy either as an interface type or an
-     * isRealTime() method). 
-     * The parser will hand off messages to the timestamper
-     * along with a reference currentTimeMillis(). When 
-     * a TimeZulu message comes through, calculate the
-     * delta between currentTimeMillis() and the TimeZulu
-     * message. Then apply that delta to incoming messages
-     * and work it backwards to messages prior to the
-     * TimeZulu message. Needs some work, have to sleep on it.
-     */
-
     /**
      * Initializes any external message stream processors.
      */
@@ -54,7 +39,6 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
          * time UTC as time messages come through the message stream.
          */
         out.add(new TimeStamper());
-
         return out;
     }
 
@@ -79,12 +63,9 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
      */
     @Override
     protected void parse() {
-
         log.info("Starting parse");
-
         BufferedReader reader = openSource();
         String line;
-
         try {
             while ((line = reader.readLine()) != null) {
                 parseLine(line);
@@ -94,7 +75,6 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
         } finally {
             closeSource(reader);
         }
-
         log.info("Parse complete");
     }
 
