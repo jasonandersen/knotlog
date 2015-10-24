@@ -91,7 +91,7 @@ public class Now {
      * what time is considered to be "now".
      * @param nowProvider
      */
-    protected static void setNowProvider(NowProvider nowProvider) {
+    public static void setNowProvider(NowProvider nowProvider) {
         provider = nowProvider;
     }
 
@@ -99,7 +99,7 @@ public class Now {
      * If the {@link NowProvider} has been changed, this method will change it back to the original
      * {@link InternalNowProvider}.
      */
-    protected static void resetNowProvider() {
+    public static void resetNowProvider() {
         provider = new InternalNowProvider();
     }
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.svhelloworld.knotlog.util.MiscUtil;
+import com.svhelloworld.knotlog.util.Now;
 
 /**
  * A message indicating time of day in Zulu (UTC) time.
@@ -57,7 +58,7 @@ public class TimeOfDay extends BaseInstrumentMessage {
         int minutes = Integer.parseInt(timeOfDay.substring(2, 4));
         int seconds = Integer.parseInt(timeOfDay.substring(4, 6));
 
-        ZonedDateTime today = ZonedDateTime.now(ZoneId.of("GMT"));
+        ZonedDateTime today = Now.getZonedDateTimeUTC();
         int year = today.getYear();
         int month = today.getMonthValue();
         int dayOfMonth = today.getDayOfMonth();

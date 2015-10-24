@@ -13,8 +13,11 @@ import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
+import com.svhelloworld.knotlog.util.Now;
+import com.svhelloworld.knotlog.util.NowTestingProvider;
 
 import cucumber.api.DataTable;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -24,6 +27,11 @@ import cucumber.api.java.en.When;
  * Cucumber steps to parse NMEA0183 sentences.
  */
 public class NMEA0183ParseSentenceSteps {
+
+    /**
+     * An NMEA0183 sentence that transmits a time of day formatted so we can pass in the time of day field
+     */
+    private static final String TIME_OF_DAY_SENTENCE = "$GPGGA,%s,2531.3369,N,11104.4274,W,2,09,0.9,1.7,M,-31.5,M,,";
 
     //FIXME - this should be injected by Spring
     private NMEA0183ParseService parseService;
@@ -37,9 +45,30 @@ public class NMEA0183ParseSentenceSteps {
         parseService = new NMEA0183SentenceParser();
     }
 
+    @After
+    public void tearDown() {
+        Now.resetNowProvider();
+    }
+
     @Given("^this NMEA0183 sentence from an instrument: \"([^\"]*)\"$")
     public void thisNMEA0183SentenceFromAnInstrument(String sentence) throws Throwable {
         candidateSentence = sentence;
+    }
+
+    /**
+     * Change the current date and time for the purposes of this test.
+     * @param currentLocalDateTime in ISO_OFFSET_DATE_TIME format
+     */
+    @Given("^the current local date and time is \"([^\"]*)\"$")
+    public void theCurrentLocalDateAndTimeIs(String currentLocalDateTime) throws Throwable {
+        NowTestingProvider provider = new NowTestingProvider(currentLocalDateTime);
+        Now.setNowProvider(provider);
+    }
+
+    @Given("^an NMEA0183 sentence that transmits GMT time of day with a time field of \"([^\"]*)\"$")
+    public void anNMEASentenceThatTransmitsGMTTimeOfDayWithATimeFieldOf(String timeField) throws Throwable {
+        String ggaSentence = String.format(TIME_OF_DAY_SENTENCE, timeField);
+        thisNMEA0183SentenceFromAnInstrument(ggaSentence);
     }
 
     @When("^the NMEA0183 sentence is parsed$")
