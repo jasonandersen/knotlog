@@ -27,7 +27,7 @@ public class NowTestingProvider implements NowProvider {
      * @param newDateTime - the date/time to return as now, in ISO_OFFSET_DATE_TIME format
      */
     public NowTestingProvider(String newDateTime) {
-        log.debug(String.format("Creating new NowProvider from %s", newDateTime));
+        log.info(String.format("Creating new NowProvider from %s", newDateTime));
         TemporalAccessor parsed = FORMAT.parse(newDateTime);
         dateTime = ZonedDateTime.from(parsed);
         log.debug(dateTime);

@@ -50,7 +50,7 @@ public class NowTest {
         Now.setNowProvider(provider);
 
         DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-        ZonedDateTime dateTime = Now.getZonedDateTimeUTC();
+        ZonedDateTime dateTime = Now.getZonedDateTimeGMT();
 
         assertEquals("2011-05-19T18:15:30Z", formatter.format(dateTime));
     }

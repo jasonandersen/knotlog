@@ -12,7 +12,7 @@ import com.svhelloworld.knotlog.util.MiscUtil;
 import com.svhelloworld.knotlog.util.Now;
 
 /**
- * A message indicating time of day in Zulu (UTC) time.
+ * A message indicating time of day in Greenwich Mean Time.
  * 
  * @author Jason Andersen
  * @since Mar 7, 2010
@@ -58,7 +58,7 @@ public class TimeOfDay extends BaseInstrumentMessage {
         int minutes = Integer.parseInt(timeOfDay.substring(2, 4));
         int seconds = Integer.parseInt(timeOfDay.substring(4, 6));
 
-        ZonedDateTime today = Now.getZonedDateTimeUTC();
+        ZonedDateTime today = Now.getZonedDateTimeGMT();
         int year = today.getYear();
         int month = today.getMonthValue();
         int dayOfMonth = today.getDayOfMonth();

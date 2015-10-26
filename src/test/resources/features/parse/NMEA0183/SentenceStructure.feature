@@ -2,7 +2,7 @@
 @Parse
 Feature: NMEA0183 sentence structure
     As a vessel operator using instruments that transmit NMEA0183
-    I want to ensure common NMEA0183 sentence structures as parsed correctly
+    I want to ensure common NMEA0183 sentence structures are parsed correctly
     So I can see that instrument data from this application
     
     Scenario: Handle two character talker ID and three character tag as first field without dollar sign

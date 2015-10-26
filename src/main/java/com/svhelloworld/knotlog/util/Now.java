@@ -5,53 +5,11 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 /**
- * Provides the current date/time in different formats.
+ * Provides the current date/time in different formats. Should be used instead of
+ * using Java's API for creating references to the current date and time. This
+ * allows us to control current date and time for testing purposes.
  */
 public class Now {
-
-    /**
-     * Provides current date and time. Can be swapped out for a different provider
-     * for use in testing.
-     */
-    protected static interface NowProvider {
-
-        /**
-         * @return the current time as an {@link Instant}
-         */
-        abstract Instant getInstant();
-
-        /**
-         * @return the current time as {@link ZonedDateTime} using the default time zone
-         */
-        abstract ZonedDateTime getZonedDateTime();
-
-        /**
-         * @return the current time as {@link ZonedDateTime} using GMT
-         */
-        abstract ZonedDateTime getZonedDateTimeUTC();
-    }
-
-    /**
-     * Standard provider that gives us actual current date time values.
-     */
-    private static class InternalNowProvider implements NowProvider {
-
-        @Override
-        public Instant getInstant() {
-            return Instant.now();
-        }
-
-        @Override
-        public ZonedDateTime getZonedDateTime() {
-            return ZonedDateTime.now(ZoneId.systemDefault());
-        }
-
-        @Override
-        public ZonedDateTime getZonedDateTimeUTC() {
-            return ZonedDateTime.now(ZoneId.of("GMT"));
-        }
-
-    }
 
     /**
      * Initialize now provider
@@ -82,7 +40,7 @@ public class Now {
     /**
      * @return the current time as {@link ZonedDateTime} using GMT
      */
-    public static ZonedDateTime getZonedDateTimeUTC() {
+    public static ZonedDateTime getZonedDateTimeGMT() {
         return provider.getZonedDateTimeUTC();
     }
 
@@ -108,4 +66,49 @@ public class Now {
          * private constructor - no instantiation for you
          */
     }
+
+    /**
+     * Provides current date and time. Can be swapped out for a different provider
+     * for use in testing.
+     */
+    protected static interface NowProvider {
+
+        /**
+         * @return the current time as an {@link Instant}
+         */
+        abstract Instant getInstant();
+
+        /**
+         * @return the current time as {@link ZonedDateTime} using the system time zone
+         */
+        abstract ZonedDateTime getZonedDateTime();
+
+        /**
+         * @return the current time as {@link ZonedDateTime} using GMT time zone
+         */
+        abstract ZonedDateTime getZonedDateTimeUTC();
+    }
+
+    /**
+     * Default provider that gives us actual current date time values.
+     */
+    private static class InternalNowProvider implements NowProvider {
+
+        @Override
+        public Instant getInstant() {
+            return Instant.now();
+        }
+
+        @Override
+        public ZonedDateTime getZonedDateTime() {
+            return ZonedDateTime.now(ZoneId.systemDefault());
+        }
+
+        @Override
+        public ZonedDateTime getZonedDateTimeUTC() {
+            return ZonedDateTime.now(ZoneId.of("GMT"));
+        }
+
+    }
+
 }
