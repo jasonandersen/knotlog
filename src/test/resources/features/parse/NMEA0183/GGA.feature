@@ -77,9 +77,10 @@ Feature: NMEA0183 GGA sentence
 
     @TimeOfDayZulu
     Scenario: Parse time of day from a GGA sentence
+        Given the current local date and time is "2015-10-20T08:00:04-05:00"
         When the NMEA0183 sentence is parsed
         Then this time of day is returned:
-            | date        | [today]  |
-            | time of day | 13:00:04 |
-            | time zone   | GMT      |
-            | source      | NMEA0183 |
+            | date        | 2015/10/20 |
+            | time of day | 13:00:04   |
+            | time zone   | GMT        |
+            | source      | NMEA0183   |
