@@ -1,13 +1,12 @@
 package com.svhelloworld.knotlog.messages;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
-
-import com.svhelloworld.knotlog.messages.VesselMessage;
 
 /**
  * Provides some basic functionality for validating common attributes.
@@ -21,7 +20,11 @@ public abstract class MessageAttributeValidator<M extends VesselMessage> {
 
     private static final String SOURCE = "source";
 
+    private static final String TIMESTAMP = "timestamp";
+
     private static final String TODAY = "[today]";
+
+    private static final DateTimeFormatter TIMESTAMP_FORMAT = DateTimeFormatter.ISO_INSTANT;
 
     /**
      * Assert message attributes.
@@ -55,7 +58,16 @@ public abstract class MessageAttributeValidator<M extends VesselMessage> {
         }
         //setup source actual value
         setActualAttributeValue(SOURCE, attributes, message.getSource().toString());
+        setActualAttributeValue(TIMESTAMP, attributes, getTimestampActualValue(message));
+    }
 
+    /**
+     * Creates actual value for message timestamp.
+     * @param message
+     * @return timestamp in ISO_INSTANT format
+     */
+    private String getTimestampActualValue(M message) {
+        return TIMESTAMP_FORMAT.format(message.getNewTimestamp());
     }
 
     /**

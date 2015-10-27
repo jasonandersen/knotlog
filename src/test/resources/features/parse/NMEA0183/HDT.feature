@@ -5,7 +5,7 @@
 # 
 #         1  2 3
 #         |  | |
-# $--HDT,x.x,M*hh<CR><LF>
+# $--HDT,x.x,T*hh<CR><LF>
 # 
 # Field Number:
 # - Heading Degrees, magnetic

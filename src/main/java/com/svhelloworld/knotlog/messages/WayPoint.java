@@ -1,5 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  *
  */
 public class WayPoint implements VesselMessage, Position, Localizable {
-    
+
     /**
      * Determines the icon to be displayed with the waypoint.
      * 
@@ -39,7 +40,7 @@ public class WayPoint implements VesselMessage, Position, Localizable {
          * Marks an anchorage.
          */
         ANCHORAGE("Anchorage", "waypoint.symbol.anchorage");
-        
+
         /**
          * Description of waypoint
          */
@@ -48,6 +49,7 @@ public class WayPoint implements VesselMessage, Position, Localizable {
          * Key to pull description out of resource bundle.
          */
         private String descKey;
+
         /**
          * Constructor
          */
@@ -55,14 +57,14 @@ public class WayPoint implements VesselMessage, Position, Localizable {
             this.indicator = indicator;
             this.descKey = descKey;
         }
-        
+
         /**
          * @return symbol description
          */
         public String getDescription() {
             return indicator;
         }
-        
+
         /**
          * @see java.lang.Enum#toString()
          */
@@ -87,7 +89,7 @@ public class WayPoint implements VesselMessage, Position, Localizable {
             return null;
         }
     }
-    
+
     /**
      * Position of waypoint
      */
@@ -121,42 +123,42 @@ public class WayPoint implements VesselMessage, Position, Localizable {
      * message source
      */
     private VesselMessageSource source;
-    
+
     /**
      * @return the name
      */
     public String getWaypointName() {
         return name;
     }
-    
+
     /**
      * @return the comment
      */
     public String getComment() {
         return comment;
     }
-    
+
     /**
      * @return the description
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @return the symbol
      */
     public Symbol getSymbol() {
         return symbol;
     }
-    
+
     /**
      * @return the extensionAttribs
      */
     public Map<String, String> getExtensionAttribs() {
         return extensionAttribs;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.Position#getLatitude()
      */
@@ -164,7 +166,7 @@ public class WayPoint implements VesselMessage, Position, Localizable {
     public float getLatitude() {
         return position.getLatitude();
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.Position#getLatitudinalHemisphere()
      */
@@ -172,7 +174,7 @@ public class WayPoint implements VesselMessage, Position, Localizable {
     public LatitudinalHemisphere getLatitudinalHemisphere() {
         return position.getLatitudinalHemisphere();
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.Position#getLongitude()
      */
@@ -180,7 +182,7 @@ public class WayPoint implements VesselMessage, Position, Localizable {
     public float getLongitude() {
         return position.getLongitude();
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.Position#getLongitudinalHemisphere()
      */
@@ -222,7 +224,15 @@ public class WayPoint implements VesselMessage, Position, Localizable {
     public String getName() {
         return BabelFish.localizeKey("waypoint.name");
     }
-    
+
+    /**
+     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
+     */
+    @Override
+    public Instant getNewTimestamp() {
+        return null;
+    }
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getTimestamp()
      */
@@ -238,7 +248,7 @@ public class WayPoint implements VesselMessage, Position, Localizable {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
@@ -253,14 +263,14 @@ public class WayPoint implements VesselMessage, Position, Localizable {
      */
     @Override
     public int compareTo(VesselMessage o2) {
-        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp()); 
+        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp());
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getSource()
      */
     @Override
     public VesselMessageSource getSource() {
         return source;
-    }    
+    }
 }

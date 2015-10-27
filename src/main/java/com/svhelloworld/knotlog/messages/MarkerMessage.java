@@ -1,5 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class MarkerMessage implements VesselMessage {
      * text of marker message
      */
     private final String text;
-    
+
     /**
      * Constructor.
      * @param timestamp
@@ -44,7 +45,7 @@ public class MarkerMessage implements VesselMessage {
         this.timestamp = timestamp;
         this.text = text;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getDisplayMessage()
      */
@@ -59,6 +60,14 @@ public class MarkerMessage implements VesselMessage {
     @Override
     public VesselMessageSource getSource() {
         return VesselMessageSource.APPLICATION;
+    }
+
+    /**
+     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
+     */
+    @Override
+    public Instant getNewTimestamp() {
+        return null;
     }
 
     /**
@@ -92,7 +101,7 @@ public class MarkerMessage implements VesselMessage {
     public List<Object> getLocalizeParams() {
         return MiscUtil.varargsToList(text);
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
@@ -115,8 +124,7 @@ public class MarkerMessage implements VesselMessage {
      */
     @Override
     public int compareTo(VesselMessage o2) {
-        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp()); 
+        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp());
     }
-    
-    
+
 }

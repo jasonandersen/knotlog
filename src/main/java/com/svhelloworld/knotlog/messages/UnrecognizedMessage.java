@@ -1,5 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -26,7 +27,7 @@ public class UnrecognizedMessage implements VesselMessage {
      * Key used to retrieve the name.
      */
     private final static String NAME_KEY = "name.unrecognized";
-    
+
     /**
      * Source of the instrument message.
      */
@@ -52,10 +53,7 @@ public class UnrecognizedMessage implements VesselMessage {
      */
     @SuppressWarnings("rawtypes")
     private final Class messageClass;
-    
-    
-    
-    
+
     /**
      * Constructor.
      * @param source source of instrument message
@@ -72,7 +70,7 @@ public class UnrecognizedMessage implements VesselMessage {
             final MessageFailure failureMode,
             final List<String> sentenceFields,
             Object... debugInfo) {
-        
+
         if (failureMode == null) {
             throw new NullPointerException("failure mode cannot be null");
         }
@@ -82,18 +80,17 @@ public class UnrecognizedMessage implements VesselMessage {
         this.sentenceFields = new ArrayList<String>();
         this.sentenceFields.addAll(sentenceFields);
         this.debugInfo = Arrays.asList(debugInfo);
-        
+
         //if a message class was passed in, pull it and store it seperately
         Class messageClass = null;
         for (Object debug : debugInfo) {
             if (debug instanceof Class) {
-                messageClass = (Class)debug;
+                messageClass = (Class) debug;
             }
         }
         this.messageClass = messageClass;
     }
-    
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getDisplayMessage()
      */
@@ -101,6 +98,7 @@ public class UnrecognizedMessage implements VesselMessage {
     public String getDisplayMessage() {
         return null;
     }
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getSource()
      */
@@ -108,6 +106,15 @@ public class UnrecognizedMessage implements VesselMessage {
     public VesselMessageSource getSource() {
         return source;
     }
+
+    /**
+     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
+     */
+    @Override
+    public Instant getNewTimestamp() {
+        return null;
+    }
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getTimestamp()
      */
@@ -115,24 +122,28 @@ public class UnrecognizedMessage implements VesselMessage {
     public Date getTimestamp() {
         return timestamp;
     }
+
     /**
      * @return an indicator of the cause of failure
      */
     public MessageFailure getFailureMode() {
         return failureMode;
     }
+
     /**
      * @return the instrument sentence fields
      */
     public List<String> getSentenceFields() {
         return sentenceFields;
     }
+
     /**
      * @return additional information to aid in debugging message failure
      */
     public List<Object> getDebugInfo() {
         return debugInfo;
     }
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getName()
      */
@@ -140,6 +151,7 @@ public class UnrecognizedMessage implements VesselMessage {
     public String getName() {
         return BabelFish.localizeKey(NAME_KEY);
     }
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#setTimestamp(java.util.Date)
      */
@@ -147,6 +159,7 @@ public class UnrecognizedMessage implements VesselMessage {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
+
     /**
      * @see com.svhelloworld.knotlog.i18n.Localizable#getLocalizeKey()
      */
@@ -154,6 +167,7 @@ public class UnrecognizedMessage implements VesselMessage {
     public String getLocalizeKey() {
         return DISPLAY_KEY;
     }
+
     /**
      * @see com.svhelloworld.knotlog.i18n.Localizable#getLocalizeParams()
      */
@@ -163,7 +177,7 @@ public class UnrecognizedMessage implements VesselMessage {
         debug += sentenceFields.toString();
         return MiscUtil.varargsToList(failureMode, debug);
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
@@ -178,8 +192,7 @@ public class UnrecognizedMessage implements VesselMessage {
      */
     @Override
     public int compareTo(VesselMessage o2) {
-        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp()); 
+        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp());
     }
-    
-    
+
 }

@@ -1,5 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
+import java.time.Instant;
 import java.util.Date;
 
 import com.svhelloworld.knotlog.i18n.BabelFish;
@@ -13,7 +14,7 @@ import com.svhelloworld.knotlog.i18n.BabelFish;
  *
  */
 public abstract class BaseInstrumentMessage implements VesselMessage {
-    
+
     /**
      * Source of message
      */
@@ -22,7 +23,7 @@ public abstract class BaseInstrumentMessage implements VesselMessage {
      * Timestamp in UTC. Timestamp is a muteable field.
      */
     private Date timestamp;
-    
+
     /**
      * Constructor. Takes care of validating and setting source
      * and timestamp member variables.
@@ -32,9 +33,9 @@ public abstract class BaseInstrumentMessage implements VesselMessage {
      * @throws NullPointerException if timestamp is null
      */
     protected BaseInstrumentMessage(
-            final VesselMessageSource source, 
+            final VesselMessageSource source,
             final Date timestamp) {
-        
+
         if (source == null) {
             throw new NullPointerException("source cannot be null");
         }
@@ -44,23 +45,31 @@ public abstract class BaseInstrumentMessage implements VesselMessage {
         this.source = source;
         this.timestamp = timestamp;
     }
-    
+
     /**
      * @return key used to pull display string out of resource bundle
      */
     protected abstract String getDisplayKey();
-    
+
     /**
      * @return key used to pull name out of resource bundle
      */
     protected abstract String getNameKey();
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getSource()
      */
     @Override
     public VesselMessageSource getSource() {
         return source;
+    }
+
+    /**
+     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
+     */
+    @Override
+    public Instant getNewTimestamp() {
+        return null;
     }
 
     /**
@@ -78,7 +87,7 @@ public abstract class BaseInstrumentMessage implements VesselMessage {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getDisplayMessage()
      */
@@ -94,7 +103,7 @@ public abstract class BaseInstrumentMessage implements VesselMessage {
     public String getName() {
         return BabelFish.localizeKey(getNameKey());
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.i18n.Localizable#getLocalizeKey()
      */
@@ -102,7 +111,7 @@ public abstract class BaseInstrumentMessage implements VesselMessage {
     public String getLocalizeKey() {
         return getDisplayKey();
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
@@ -120,14 +129,13 @@ public abstract class BaseInstrumentMessage implements VesselMessage {
         return BabelFish.localizeKey(key, params);
     }
 
-    
     /**
      * Defines the natural sorting order as chronological
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
     public int compareTo(VesselMessage o2) {
-        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp()); 
+        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp());
     }
-    
+
 }

@@ -1,5 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  *
  */
 public class PreparseMessage implements VesselMessage {
-    
+
     /**
      * source of the instrument message
      */
@@ -27,7 +28,7 @@ public class PreparseMessage implements VesselMessage {
      * raw text of instrument message
      */
     private final String message;
-    
+
     /**
      * Constructor
      * @param source
@@ -38,8 +39,8 @@ public class PreparseMessage implements VesselMessage {
      * @throws NullPointerException when message is null
      */
     public PreparseMessage(
-            VesselMessageSource source, 
-            Date timestamp, 
+            VesselMessageSource source,
+            Date timestamp,
             String message) {
 
         if (source == null) {
@@ -55,7 +56,7 @@ public class PreparseMessage implements VesselMessage {
         this.timestamp = timestamp;
         this.message = message;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getSource()
      */
@@ -78,6 +79,14 @@ public class PreparseMessage implements VesselMessage {
     @Override
     public String getName() {
         return BabelFish.localizeKey("name.preparse");
+    }
+
+    /**
+     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
+     */
+    @Override
+    public Instant getNewTimestamp() {
+        return null;
     }
 
     /**
@@ -111,7 +120,7 @@ public class PreparseMessage implements VesselMessage {
     public List<Object> getLocalizeParams() {
         return MiscUtil.varargsToList(message);
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
@@ -126,7 +135,7 @@ public class PreparseMessage implements VesselMessage {
      */
     @Override
     public int compareTo(VesselMessage o2) {
-        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp()); 
+        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp());
     }
-    
+
 }

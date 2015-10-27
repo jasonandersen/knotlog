@@ -1,5 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -10,16 +11,16 @@ import java.util.List;
  *
  */
 public class MockVesselMessage implements VesselMessage {
-    
+
     private Date timestamp;
-    
+
     /**
      * Constructor.
      */
     public MockVesselMessage() {
         timestamp = new Date();
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getDisplayMessage()
      */
@@ -61,13 +62,21 @@ public class MockVesselMessage implements VesselMessage {
     }
 
     /**
+     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
+     */
+    @Override
+    public Instant getNewTimestamp() {
+        return null;
+    }
+
+    /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#setTimestamp(java.util.Date)
      */
     @Override
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getSource()
      */
@@ -82,7 +91,7 @@ public class MockVesselMessage implements VesselMessage {
      */
     @Override
     public int compareTo(VesselMessage o2) {
-        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp()); 
+        return o2 == null ? 1 : timestamp.compareTo(o2.getTimestamp());
     }
-    
+
 }
