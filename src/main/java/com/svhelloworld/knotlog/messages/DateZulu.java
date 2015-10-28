@@ -1,6 +1,7 @@
 package com.svhelloworld.knotlog.messages;
 
 import java.text.DateFormat;
+import java.time.Instant;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -16,7 +17,6 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  *
  */
 public class DateZulu extends BaseInstrumentMessage {
-    
 
     /**
      * Regex pattern to confirm date argument is formatted properly.
@@ -24,7 +24,7 @@ public class DateZulu extends BaseInstrumentMessage {
      */
     private static final Pattern datePattern = Pattern.compile(
             "[0-3]?\\d[0-1]\\d[9012]\\d");
-    
+
     /*
      * The Java Date/Calendar/DateFormat triumverate of evil is proving
      * to be a righteous pain in the ass. I'm still not sure how I'm
@@ -32,13 +32,13 @@ public class DateZulu extends BaseInstrumentMessage {
      * now, I'm just going to deal in millisecond values and go back and
      * change this as needed.
      */
-    
+
     /**
      * Date in UTC stored as milliseconds since the epoch. No time value
      * is being stored.
      */
     private final long date;
-    
+
     /**
      * Constructor. 
      * @param source instrument message source
@@ -53,10 +53,10 @@ public class DateZulu extends BaseInstrumentMessage {
      * @throws IllegalArgumentException if date is not in the specified form.
      */
     public DateZulu(
-            final VesselMessageSource source, 
-            final Date timestamp,
+            final VesselMessageSource source,
+            final Instant timestamp,
             final String date) {
-        
+
         super(source, timestamp);
         if (date == null) {
             throw new NullPointerException("date cannot be null");
@@ -69,32 +69,32 @@ public class DateZulu extends BaseInstrumentMessage {
         position -= 2;
         int month = Integer.parseInt(date.substring(position - 2, position));
         position -= 2;
-        int day = Integer.parseInt(date.substring(0,position));
-        
+        int day = Integer.parseInt(date.substring(0, position));
+
         //convert two-digit year into four-digit year
         year += year >= 90 ? 1900 : 2000;
         //convert month to a zero-based index
         month--;
-        
+
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.set(year, month, day);
         this.date = calendar.getTimeInMillis();
     }
-    
+
     /**
      * @return the date in zulu (UTC) timezone, no time component
      */
     public Date getDate() {
         return new Date(date);
     }
-    
+
     /**
      * @return returns this date as the number of milliseconds since the epoch
      */
     public long getDateMilliseconds() {
         return date;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getDisplayKey()
      */

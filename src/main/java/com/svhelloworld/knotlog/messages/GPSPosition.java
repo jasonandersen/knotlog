@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 
 import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
@@ -37,12 +37,12 @@ public class GPSPosition extends PositionMessage {
      */
     public GPSPosition(
             final VesselMessageSource source,
-            final Date timestamp,
+            final Instant timestamp,
             final String latitude,
             final LatitudinalHemisphere latHemisphere,
             final String longitude,
             final LongitudinalHemisphere lonHemisphere) {
-        
+
         super(source, timestamp, latitude, latHemisphere, longitude, lonHemisphere);
     }
 

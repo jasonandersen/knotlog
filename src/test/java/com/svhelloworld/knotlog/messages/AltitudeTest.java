@@ -2,7 +2,7 @@ package com.svhelloworld.knotlog.messages;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -76,7 +76,7 @@ public class AltitudeTest extends BaseQuantitativeMessageTest<Altitude, Distance
      * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
-    protected Altitude getInstance(VesselMessageSource source, Date timestamp, DistanceUnit unit) {
+    protected Altitude getInstance(VesselMessageSource source, Instant timestamp, DistanceUnit unit) {
         return new Altitude(source, timestamp, ALTITUDE, unit);
     }
 

@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
@@ -15,17 +15,17 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  * @see GPSPosition
  */
 public abstract class PositionMessage extends BaseInstrumentMessage implements Position {
-    
+
     /**
      * Position
      */
     private final Position position;
-    
+
     /**
      * Position pattern
      */
     private final PositionFormat format;
-    
+
     /**
      * Constructor.
      * @param source message source
@@ -48,13 +48,13 @@ public abstract class PositionMessage extends BaseInstrumentMessage implements P
      *          than zero or greater than 180. 
      */
     protected PositionMessage(
-            final VesselMessageSource source, 
-            final Date timestamp,
+            final VesselMessageSource source,
+            final Instant timestamp,
             final String latitude,
             final LatitudinalHemisphere latHemisphere,
             final String longitude,
             final LongitudinalHemisphere lonHemisphere) {
-        
+
         super(source, timestamp);
         position = new PositionImpl(latitude, latHemisphere, longitude, lonHemisphere);
         //default position pattern
@@ -100,5 +100,5 @@ public abstract class PositionMessage extends BaseInstrumentMessage implements P
     public List<Object> getLocalizeParams() {
         return MiscUtil.varargsToList(format.format(position));
     }
-    
+
 }

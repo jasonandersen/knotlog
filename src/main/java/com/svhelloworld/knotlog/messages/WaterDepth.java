@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 
 import com.svhelloworld.knotlog.measure.Distance;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
@@ -15,7 +15,7 @@ import com.svhelloworld.knotlog.measure.DistanceUnit;
  * @since Feb 16, 2010
  *
  */
-public class WaterDepth extends BaseQuantitativeMessage<DistanceUnit> implements Distance {
+public class WaterDepth extends BaseQuantitativeMessage<DistanceUnit>implements Distance {
 
     /**
      * Constructor.
@@ -28,21 +28,21 @@ public class WaterDepth extends BaseQuantitativeMessage<DistanceUnit> implements
      * @throws NullPointerException when measurement is null
      */
     public WaterDepth(
-            final VesselMessageSource source, 
-            final Date timestamp, 
-            final float depth, 
+            final VesselMessageSource source,
+            final Instant timestamp,
+            final float depth,
             final DistanceUnit unit) {
-        
+
         super(source, timestamp, depth, unit);
     }
-    
+
     /**
      * @return water depth
      */
     public float getWaterDepth() {
         return quantity;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.measure.Distance#getDistance()
      */

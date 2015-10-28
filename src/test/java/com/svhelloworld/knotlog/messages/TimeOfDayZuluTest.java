@@ -2,13 +2,15 @@ package com.svhelloworld.knotlog.messages;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.svhelloworld.knotlog.util.Now;
 
 /**
  * Unit test for <tt>TimeOfDayZulu</tt> class.
@@ -23,7 +25,7 @@ public class TimeOfDayZuluTest {
 
     private VesselMessageSource source = VesselMessageSource.NMEA0183;
 
-    private Date timestamp = new Date();
+    private Instant timestamp = Now.getInstant();
 
     private TimeOfDay message;
 

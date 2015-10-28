@@ -1,8 +1,8 @@
 package com.svhelloworld.knotlog.engine.parse;
 
 import java.lang.reflect.Constructor;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.svhelloworld.knotlog.measure.MeasurementUnit;
@@ -53,7 +53,7 @@ public class InstrumentMessageFactory {
      */
     public static VesselMessage createInstrumentMessage(
             final VesselMessageSource source,
-            final Date timestamp,
+            final Instant timestamp,
             final InstrumentMessageDefinition definition,
             final List<String> fields) {
 
@@ -108,7 +108,7 @@ public class InstrumentMessageFactory {
      */
     public static UnrecognizedMessage createUnrecognizedMessage(
             VesselMessageSource source,
-            Date timestamp,
+            Instant timestamp,
             MessageFailure failureMode,
             String identifier,
             List<String> sentenceFields,
@@ -137,7 +137,7 @@ public class InstrumentMessageFactory {
      */
     public static UnrecognizedMessage createUnrecognizedMessage(
             VesselMessageSource source,
-            Date timestamp,
+            Instant timestamp,
             MessageFailure failureMode,
             List<String> sentenceFields,
             Object... debugInfo) {

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -19,6 +18,7 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
+import com.svhelloworld.knotlog.util.Now;
 
 /**
  * Reads from NMEA0183 sources and converts NMEA0183 sentences into {@link VesselMessage}s. Manages
@@ -105,7 +105,7 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
         if (!hasPreparseListeners()) {
             return;
         }
-        PreparseMessage message = new PreparseMessage(VesselMessageSource.NMEA0183, new Date(), line);
+        PreparseMessage message = new PreparseMessage(VesselMessageSource.NMEA0183, Now.getInstant(), line);
         throwPreparseEvent(message);
     }
 

@@ -1,14 +1,17 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.svhelloworld.knotlog.i18n.BabelFish;
 import com.svhelloworld.knotlog.measure.MeasurementUnit;
+import com.svhelloworld.knotlog.util.Now;
 
 /**
  * Unit test for <tt>BaseQuantitativeMessage</tt> class.
@@ -20,37 +23,36 @@ import com.svhelloworld.knotlog.measure.MeasurementUnit;
  *
  */
 @SuppressWarnings("unchecked")
-public abstract class BaseQuantitativeMessageTest
-        <T extends BaseQuantitativeMessage, M extends MeasurementUnit> {
-    
+public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMessage, M extends MeasurementUnit> {
+
     private T target;
-    
+
     /**
      * message source
      */
     protected VesselMessageSource source;
-    
+
     /**
      * timestamp
      */
-    protected Date timestamp;
-    
+    protected Instant timestamp;
+
     /**
      * measurement unit
      */
     protected M unit;
-    
+
     /**
      * Sets up the base testing class
      */
     @Before
     public void setupBaseTestClass() {
         source = VesselMessageSource.NMEA0183;
-        timestamp = new Date();
+        timestamp = Now.getInstant();
         unit = getMeasurementUnit();
         target = getInstance(source, timestamp, unit);
     }
-    
+
     /**
      * @param source 
      * @param timestamp 
@@ -59,24 +61,24 @@ public abstract class BaseQuantitativeMessageTest
      */
     protected abstract T getInstance(
             VesselMessageSource source,
-            Date timestamp,
+            Instant timestamp,
             M unit);
-    
+
     /**
      * @return a measurement unit enum object
      */
     protected abstract M getMeasurementUnit();
-    
+
     /**
      * @return the expected display string
      */
     protected abstract String getExpectedDisplayString();
-    
+
     /**
      * @return the expected name string
      */
     protected abstract String getExpectedName();
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.BaseQuantitativeMessage#BaseQuantitativeMessage(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementUnit)}.
      */
@@ -90,7 +92,7 @@ public abstract class BaseQuantitativeMessageTest
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.BaseQuantitativeMessage#BaseQuantitativeMessage(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementUnit)}.
      */
@@ -104,7 +106,7 @@ public abstract class BaseQuantitativeMessageTest
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.BaseQuantitativeMessage#BaseQuantitativeMessage(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementUnit)}.
      */
@@ -166,7 +168,7 @@ public abstract class BaseQuantitativeMessageTest
     public void testGetName() {
         assertEquals(getExpectedName(), target.getName());
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#toString()}.
      */

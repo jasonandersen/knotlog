@@ -67,7 +67,7 @@ public abstract class MessageAttributeValidator<M extends VesselMessage> {
      * @return timestamp in ISO_INSTANT format
      */
     private String getTimestampActualValue(M message) {
-        return TIMESTAMP_FORMAT.format(message.getNewTimestamp());
+        return TIMESTAMP_FORMAT.format(message.getTimestamp());
     }
 
     /**

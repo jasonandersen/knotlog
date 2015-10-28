@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import com.svhelloworld.knotlog.measure.AngleUnit;
@@ -17,13 +17,13 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  *
  */
 public class RudderAngle extends BaseQuantitativeMessage<AngleUnit> {
-    
+
     /**
      * Indicates which side of the vessel the rudder is on. Single
      * rudder vessels will show as STARBOARD.
      */
     private final VesselArea rudderSide;
-    
+
     /**
      * Constructor.
      * @param source message source
@@ -36,11 +36,11 @@ public class RudderAngle extends BaseQuantitativeMessage<AngleUnit> {
      * @throws IllegalArgumentException when angle &lt; -180 or &gt; 180
      */
     public RudderAngle(
-            final VesselMessageSource source, 
-            final Date timestamp, 
-            final float angle, 
+            final VesselMessageSource source,
+            final Instant timestamp,
+            final float angle,
             final VesselArea rudderSide) {
-        
+
         super(source, timestamp, angle, AngleUnit.DEGREES);
         if (angle < -180 || angle > 180) {
             throw new IllegalArgumentException("illegal rudder angle: " + angle);
@@ -48,14 +48,14 @@ public class RudderAngle extends BaseQuantitativeMessage<AngleUnit> {
         //default vessel side to STARBOARD
         this.rudderSide = rudderSide == null ? VesselArea.STARBOARD : rudderSide;
     }
-    
+
     /**
      * @return angle of the vessel's rudder
      */
     public float getRudderAngle() {
         return quantity;
     }
-    
+
     /**
      * @return the side of the vessel the rudder is located on. Single
      * rudder vessels will be displayed as STARBOARD.

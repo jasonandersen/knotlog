@@ -1,7 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
 import java.time.Instant;
-import java.util.Date;
 
 import com.svhelloworld.knotlog.i18n.Localizable;
 
@@ -24,21 +23,14 @@ public interface VesselMessage extends Localizable, Comparable<VesselMessage> {
     public String getDisplayMessage();
 
     /**
-     * @return timestamp of the message in GMT time
-     */
-    public Instant getNewTimestamp();
-
-    /**
      * @return timestamp of the message in zulu (UTC) time
      */
-    @Deprecated
-    public Date getTimestamp();
+    public Instant getTimestamp();
 
     /**
      * @param timestamp new timestamp value
      */
-    @Deprecated
-    public void setTimestamp(Date timestamp);
+    public void setTimestamp(Instant timestamp);
 
     /**
      * @return the source of the message

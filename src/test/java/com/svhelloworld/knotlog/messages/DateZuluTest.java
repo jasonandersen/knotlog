@@ -1,12 +1,14 @@
 package com.svhelloworld.knotlog.messages;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.GregorianCalendar;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.svhelloworld.knotlog.util.Now;
 
 /**
  * Unit test for <tt>DateZulu</tt> class.
@@ -16,19 +18,19 @@ import org.junit.Test;
  *
  */
 public class DateZuluTest {
-    
+
     private static final String date = "190510";
-    
-    private static final Date timestamp = new Date();
-    
+
+    private static final Instant timestamp = Now.getInstant();
+
     private static final VesselMessageSource source = VesselMessageSource.NMEA0183;
-    
+
     private static final String EXPECTED_DISPLAY = "date 5/19/10";
-    
+
     private long expected;
-    
+
     private DateZulu target;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -39,14 +41,13 @@ public class DateZuluTest {
         calendar.set(2010, 4, 19); //month is zero-based index
         expected = calendar.getTimeInMillis();
     }
-    
-    
+
     /*
      * constructor tests
      * date null
      * date malformed
      */
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.DateZulu#DateZulu(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, java.lang.String)}.
      */
@@ -58,7 +59,7 @@ public class DateZuluTest {
             //expected
         }
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.messages.DateZulu#DateZulu(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, java.lang.String)}.
      */

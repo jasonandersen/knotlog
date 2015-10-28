@@ -3,7 +3,7 @@ package com.svhelloworld.knotlog.messages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -94,7 +94,7 @@ public class PositionPrecisionTest extends
      */
     @Override
     protected PositionPrecision getInstance(
-            VesselMessageSource source, Date timestamp, DistanceUnit unit) {
+            VesselMessageSource source, Instant timestamp, DistanceUnit unit) {
         return new PositionPrecision(source, timestamp, PRECISION, unit);
     }
 

@@ -3,7 +3,7 @@ package com.svhelloworld.knotlog.messages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -84,7 +84,7 @@ public class SpeedRelativeToWaterTest extends
      * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
-    protected SpeedRelativeToWater getInstance(VesselMessageSource source, Date timestamp, SpeedUnit unit) {
+    protected SpeedRelativeToWater getInstance(VesselMessageSource source, Instant timestamp, SpeedUnit unit) {
         return new SpeedRelativeToWater(source, timestamp, SPEED, unit);
     }
 

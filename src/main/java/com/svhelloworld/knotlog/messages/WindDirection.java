@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import com.svhelloworld.knotlog.measure.AngleUnit;
@@ -49,7 +49,7 @@ public class WindDirection extends BaseQuantitativeMessage<AngleUnit> {
      */
     public WindDirection(
             final VesselMessageSource source,
-            final Date timestamp,
+            final Instant timestamp,
             final float direction,
             final MeasurementBasis basis,
             final VesselArea vesselSide) {

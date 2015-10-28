@@ -1,7 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 import com.svhelloworld.knotlog.i18n.BabelFish;
@@ -30,7 +29,8 @@ public class MarkerMessage implements VesselMessage {
     /**
      * message timestamp
      */
-    private Date timestamp;
+    private Instant timestamp;
+
     /**
      * text of marker message
      */
@@ -41,7 +41,7 @@ public class MarkerMessage implements VesselMessage {
      * @param timestamp
      * @param text text of this marker message
      */
-    public MarkerMessage(final Date timestamp, final String text) {
+    public MarkerMessage(final Instant timestamp, final String text) {
         this.timestamp = timestamp;
         this.text = text;
     }
@@ -63,18 +63,10 @@ public class MarkerMessage implements VesselMessage {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
-     */
-    @Override
-    public Instant getNewTimestamp() {
-        return null;
-    }
-
-    /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getTimestamp()
      */
     @Override
-    public Date getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
@@ -114,7 +106,7 @@ public class MarkerMessage implements VesselMessage {
      * @see com.svhelloworld.knotlog.messages.VesselMessage#setTimestamp(java.util.Date)
      */
     @Override
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 

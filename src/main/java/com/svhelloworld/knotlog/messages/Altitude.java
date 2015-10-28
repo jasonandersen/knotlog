@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 
 import com.svhelloworld.knotlog.measure.Distance;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
@@ -12,8 +12,8 @@ import com.svhelloworld.knotlog.measure.DistanceUnit;
  * @since Feb 24, 2010
  *
  */
-public class Altitude extends BaseQuantitativeMessage<DistanceUnit> implements Distance {
-    
+public class Altitude extends BaseQuantitativeMessage<DistanceUnit>implements Distance {
+
     /**
      * Constructor.
      * @param source message source
@@ -25,11 +25,11 @@ public class Altitude extends BaseQuantitativeMessage<DistanceUnit> implements D
      * @throws NullPointerException when measurement is null
      */
     public Altitude(
-            final VesselMessageSource source, 
-            final Date timestamp, 
+            final VesselMessageSource source,
+            final Instant timestamp,
             final float altitude,
             final DistanceUnit unit) {
-        
+
         super(source, timestamp, altitude, unit);
     }
 
@@ -48,7 +48,7 @@ public class Altitude extends BaseQuantitativeMessage<DistanceUnit> implements D
     public DistanceUnit getDistanceUnit() {
         return unit;
     }
-    
+
     /**
      * @return altitude above sea level.
      */
@@ -71,7 +71,5 @@ public class Altitude extends BaseQuantitativeMessage<DistanceUnit> implements D
     protected String getNameKey() {
         return "name.altitude";
     }
-
-
 
 }

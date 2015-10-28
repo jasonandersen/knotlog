@@ -3,7 +3,7 @@ package com.svhelloworld.knotlog.messages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -113,7 +113,7 @@ public class RudderAngleTest extends
      * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
-    protected RudderAngle getInstance(VesselMessageSource source, Date timestamp, VesselArea unit) {
+    protected RudderAngle getInstance(VesselMessageSource source, Instant timestamp, VesselArea unit) {
         /*
          * a little hack here, the BaseQuantitativeMessageTest class
          * expects a null pointer exception when the unit object is null.

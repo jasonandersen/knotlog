@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import com.svhelloworld.knotlog.measure.MeasurementUnit;
@@ -15,9 +15,9 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  * @since Feb 25, 2010
  *
  */
-public abstract class BaseQuantitativeMessage<M extends MeasurementUnit> 
+public abstract class BaseQuantitativeMessage<M extends MeasurementUnit>
         extends BaseInstrumentMessage implements QuantitativeMessage {
-    
+
     /**
      * Quantity communicated in this message.
      * Note: we're not marking this field as <tt>final</tt> because some
@@ -28,8 +28,7 @@ public abstract class BaseQuantitativeMessage<M extends MeasurementUnit>
      * Unit of measure.
      */
     protected final M unit;
-    
-    
+
     /**
      * Constructor.
      * @param source message source
@@ -41,11 +40,11 @@ public abstract class BaseQuantitativeMessage<M extends MeasurementUnit>
      * @throws NullPointerException when measurement is null
      */
     public BaseQuantitativeMessage(
-            final VesselMessageSource source, 
-            final Date timestamp,
+            final VesselMessageSource source,
+            final Instant timestamp,
             final float quantity,
             final M unit) {
-        
+
         super(source, timestamp);
         if (unit == null) {
             throw new NullPointerException("measurement cannot be null");

@@ -2,7 +2,7 @@ package com.svhelloworld.knotlog.messages;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -69,7 +69,7 @@ public class WaterDepthTest extends
      * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
-    protected WaterDepth getInstance(VesselMessageSource source, Date timestamp, DistanceUnit unit) {
+    protected WaterDepth getInstance(VesselMessageSource source, Instant timestamp, DistanceUnit unit) {
         return new WaterDepth(source, timestamp, DEPTH, unit);
     }
 

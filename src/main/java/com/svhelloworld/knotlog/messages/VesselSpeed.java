@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 
 import com.svhelloworld.knotlog.measure.Speed;
 import com.svhelloworld.knotlog.measure.SpeedUnit;
@@ -15,8 +15,8 @@ import com.svhelloworld.knotlog.measure.SpeedUnit;
  * @since Feb 26, 2010
  *
  */
-public abstract class VesselSpeed 
-        extends BaseQuantitativeMessage<SpeedUnit> implements Speed {
+public abstract class VesselSpeed
+        extends BaseQuantitativeMessage<SpeedUnit>implements Speed {
 
     /**
      * Constructor.
@@ -30,11 +30,11 @@ public abstract class VesselSpeed
      * @throws IllegalArgumentException when speed is less than zero
      */
     public VesselSpeed(
-            VesselMessageSource source, 
-            Date timestamp, 
-            float speed, 
+            VesselMessageSource source,
+            Instant timestamp,
+            float speed,
             SpeedUnit unit) {
-        
+
         super(source, timestamp, speed, unit);
         if (speed < 0) {
             throw new IllegalArgumentException("speed cannot be less than zero");

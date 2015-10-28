@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 
 import com.svhelloworld.knotlog.measure.SpeedUnit;
 
@@ -25,11 +25,11 @@ public class SpeedRelativeToGround extends VesselSpeed {
      * @throws IllegalArgumentException when speed is less than zero
      */
     public SpeedRelativeToGround(
-            final VesselMessageSource source, 
-            final Date timestamp, 
-            final float speed, 
+            final VesselMessageSource source,
+            final Instant timestamp,
+            final float speed,
             final SpeedUnit unit) {
-        
+
         super(source, timestamp, speed, unit);
     }
 

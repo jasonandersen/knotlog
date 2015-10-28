@@ -2,13 +2,14 @@ package com.svhelloworld.knotlog.messages;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
+import com.svhelloworld.knotlog.util.Now;
 
 /**
  * Unit test for <tt>GPSPosition</tt> class.
@@ -33,7 +34,7 @@ public class GPSPositionTest {
 
     private static final VesselMessageSource SOURCE = VesselMessageSource.NMEA0183;
 
-    private static final Date TIMESTAMP = new Date();
+    private static final Instant TIMESTAMP = Now.getInstant();
 
     private GPSPosition target;
 

@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 
 import com.svhelloworld.knotlog.measure.TemperatureUnit;
 
@@ -24,14 +24,14 @@ public abstract class Temperature extends BaseQuantitativeMessage<TemperatureUni
      * @throws NullPointerException when unit is null
      */
     public Temperature(
-            final VesselMessageSource source, 
-            final Date timestamp, 
-            final float temperature, 
+            final VesselMessageSource source,
+            final Instant timestamp,
+            final float temperature,
             final TemperatureUnit unit) {
-        
+
         super(source, timestamp, temperature, unit);
     }
-    
+
     /**
      * @return water temperature
      */

@@ -1,7 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 import com.svhelloworld.knotlog.i18n.BabelFish;
@@ -23,7 +22,7 @@ public class PreparseMessage implements VesselMessage {
     /**
      * timestamp of instrument message
      */
-    private Date timestamp;
+    private Instant timestamp;
     /**
      * raw text of instrument message
      */
@@ -40,7 +39,7 @@ public class PreparseMessage implements VesselMessage {
      */
     public PreparseMessage(
             VesselMessageSource source,
-            Date timestamp,
+            Instant timestamp,
             String message) {
 
         if (source == null) {
@@ -82,18 +81,10 @@ public class PreparseMessage implements VesselMessage {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
-     */
-    @Override
-    public Instant getNewTimestamp() {
-        return null;
-    }
-
-    /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getTimestamp()
      */
     @Override
-    public Date getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
@@ -101,7 +92,7 @@ public class PreparseMessage implements VesselMessage {
      * @see com.svhelloworld.knotlog.messages.VesselMessage#setTimestamp(java.util.Date)
      */
     @Override
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 

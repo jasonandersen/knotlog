@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import com.svhelloworld.knotlog.measure.MeasurementBasis;
@@ -15,11 +15,11 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  * @since Mar 6, 2010
  *
  */
-public class WindSpeed extends 
-        BaseQuantitativeMessage<SpeedUnit> implements Speed {
-    
+public class WindSpeed extends
+        BaseQuantitativeMessage<SpeedUnit>implements Speed {
+
     private MeasurementBasis basis;
-    
+
     /**
      * Constructor.
      * @param source message source
@@ -33,33 +33,33 @@ public class WindSpeed extends
      * @throws NullPointerException when basis is null
      */
     public WindSpeed(
-            VesselMessageSource source, 
-            Date timestamp, 
-            float speed, 
+            VesselMessageSource source,
+            Instant timestamp,
+            float speed,
             SpeedUnit unit,
             MeasurementBasis basis) {
-        
+
         super(source, timestamp, speed, unit);
         if (basis == null) {
             throw new NullPointerException("measurement basis cannot be null");
         }
         this.basis = basis;
     }
-    
+
     /**
      * @return wind speed measurement
      */
     public float getWindSpeed() {
         return quantity;
     }
-    
+
     /**
      * @return basis for which wind speed measurement was taken
      */
     public MeasurementBasis getBasis() {
         return basis;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getDisplayKey()
      */
@@ -99,6 +99,5 @@ public class WindSpeed extends
     public List<Object> getLocalizeParams() {
         return MiscUtil.varargsToList(basis, quantity, unit);
     }
-
 
 }

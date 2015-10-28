@@ -1,7 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +25,7 @@ public class TrackPoint implements Position, VesselMessage {
     /**
      * Timestamp
      */
-    private Date timestamp;
+    private Instant timestamp;
     /**
      * Position
      */
@@ -103,18 +102,10 @@ public class TrackPoint implements Position, VesselMessage {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
-     */
-    @Override
-    public Instant getNewTimestamp() {
-        return null;
-    }
-
-    /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getTimestamp()
      */
     @Override
-    public Date getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
@@ -122,7 +113,7 @@ public class TrackPoint implements Position, VesselMessage {
      * @see com.svhelloworld.knotlog.messages.VesselMessage#setTimestamp(java.util.Date)
      */
     @Override
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 

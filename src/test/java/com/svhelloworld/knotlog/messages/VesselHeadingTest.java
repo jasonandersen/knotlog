@@ -3,7 +3,7 @@ package com.svhelloworld.knotlog.messages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -100,7 +100,7 @@ public class VesselHeadingTest
      * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
-    protected VesselHeading getInstance(VesselMessageSource source, Date timestamp, AngleUnit unit) {
+    protected VesselHeading getInstance(VesselMessageSource source, Instant timestamp, AngleUnit unit) {
         return new VesselHeading(source, timestamp, HEADING, unit);
     }
 

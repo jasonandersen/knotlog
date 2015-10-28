@@ -3,7 +3,6 @@ package com.svhelloworld.knotlog.messages;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
@@ -35,7 +34,7 @@ public class UnrecognizedMessage implements VesselMessage {
     /**
      * Timestamp of instrument message event.
      */
-    private Date timestamp;
+    private Instant timestamp;
     /**
      * Mode of message failure.
      */
@@ -66,7 +65,7 @@ public class UnrecognizedMessage implements VesselMessage {
     @SuppressWarnings("rawtypes")
     public UnrecognizedMessage(
             final VesselMessageSource source,
-            final Date timestamp,
+            final Instant timestamp,
             final MessageFailure failureMode,
             final List<String> sentenceFields,
             Object... debugInfo) {
@@ -108,18 +107,10 @@ public class UnrecognizedMessage implements VesselMessage {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.VesselMessage#getNewTimestamp()
-     */
-    @Override
-    public Instant getNewTimestamp() {
-        return null;
-    }
-
-    /**
      * @see com.svhelloworld.knotlog.messages.VesselMessage#getTimestamp()
      */
     @Override
-    public Date getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
@@ -156,7 +147,7 @@ public class UnrecognizedMessage implements VesselMessage {
      * @see com.svhelloworld.knotlog.messages.VesselMessage#setTimestamp(java.util.Date)
      */
     @Override
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 

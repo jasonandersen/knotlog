@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.engine.parse;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -11,6 +11,7 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
+import com.svhelloworld.knotlog.util.Now;
 
 /**
  * Parses single NMEA0183 sentences.
@@ -107,7 +108,7 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
      * @return a properly defined {@link VesselMessage} based on the sentence and tag definition
      */
     private VesselMessage buildDefinedVesselMessage(InstrumentMessageDefinition definition, NMEA0183Sentence sentence) {
-        Date timestamp = sentence.getTimestamp() >= 0 ? new Date(sentence.getTimestamp()) : new Date();
+        Instant timestamp = sentence.getTimestamp() >= 0 ? Instant.ofEpochMilli(sentence.getTimestamp()) : Now.getInstant();
         return InstrumentMessageFactory.createInstrumentMessage(SOURCE, timestamp, definition, sentence.getFields());
     }
 
@@ -120,7 +121,7 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
          * sentence tag has not been defined so create an unrecognized message
          * event and return an empty message list
          */
-        Date timestamp = sentence.getTimestamp() > 0 ? new Date(sentence.getTimestamp()) : new Date();
+        Instant timestamp = sentence.getTimestamp() > 0 ? Instant.ofEpochMilli(sentence.getTimestamp()) : Now.getInstant();
         MessageFailure failureMode = MessageFailure.UNRECOGNIZED_SENTENCE;
         String identifier = sentence.getTalkerId() + sentence.getTag();
         UnrecognizedMessage message = InstrumentMessageFactory.createUnrecognizedMessage(
@@ -134,7 +135,7 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
      * @return an {@link UnrecognizedMessage} indicating the sentence was invalid
      */
     private VesselMessage buildInvalidSentenceMessage(NMEA0183Sentence sentence) {
-        Date timestamp = sentence.getTimestamp() > 0 ? new Date(sentence.getTimestamp()) : new Date();
+        Instant timestamp = sentence.getTimestamp() > 0 ? Instant.ofEpochMilli(sentence.getTimestamp()) : Now.getInstant();
         MessageFailure failureMode = MessageFailure.MALFORMED_SENTENCE;
         List<String> fields = sentence.getFields();
         UnrecognizedMessage message = InstrumentMessageFactory.createUnrecognizedMessage(

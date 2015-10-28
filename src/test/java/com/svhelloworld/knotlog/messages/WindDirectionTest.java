@@ -3,7 +3,7 @@ package com.svhelloworld.knotlog.messages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -310,7 +310,7 @@ public class WindDirectionTest extends
      * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
-    protected WindDirection getInstance(VesselMessageSource source, Date timestamp, MeasurementBasis basis) {
+    protected WindDirection getInstance(VesselMessageSource source, Instant timestamp, MeasurementBasis basis) {
         return new WindDirection(source, timestamp, DIRECTION, basis, SIDE);
     }
 

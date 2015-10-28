@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import com.svhelloworld.knotlog.measure.AngleUnit;
@@ -16,12 +16,12 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  *
  */
 public class MagneticVariation extends BaseQuantitativeMessage<AngleUnit> {
-    
+
     /**
      * hemisphere to indicate direction of magnetic variation
      */
     private final LongitudinalHemisphere hemisphere;
-    
+
     /**
      * Constructor.
      * @param source message source
@@ -34,13 +34,13 @@ public class MagneticVariation extends BaseQuantitativeMessage<AngleUnit> {
      * @throws IllegalArgumentException when variation &lt; 0 or &gt; 90
      */
     public MagneticVariation(
-            final VesselMessageSource source, 
-            final Date timestamp, 
-            final float variation, 
+            final VesselMessageSource source,
+            final Instant timestamp,
+            final float variation,
             final LongitudinalHemisphere hemisphere) {
-        
+
         super(source, timestamp, variation, AngleUnit.DEGREES);
-        
+
         //ensure variation is correct
         if (variation < 0 || variation > 90) {
             throw new IllegalArgumentException(
@@ -52,21 +52,21 @@ public class MagneticVariation extends BaseQuantitativeMessage<AngleUnit> {
         }
         this.hemisphere = hemisphere;
     }
-    
+
     /**
      * @return magnetic variation in degrees
      */
     public float getMagneticVariation() {
         return quantity;
     }
-    
+
     /**
      * @return the direction of the magnetic variation
      */
     public LongitudinalHemisphere getMagneticVariationDirection() {
         return hemisphere;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getDisplayKey()
      */

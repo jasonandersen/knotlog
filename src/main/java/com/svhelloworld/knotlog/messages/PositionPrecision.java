@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 
 import com.svhelloworld.knotlog.measure.Distance;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
@@ -13,7 +13,7 @@ import com.svhelloworld.knotlog.measure.DistanceUnit;
  * @since Feb 26, 2010
  *
  */
-public class PositionPrecision extends BaseQuantitativeMessage<DistanceUnit> 
+public class PositionPrecision extends BaseQuantitativeMessage<DistanceUnit>
         implements Distance {
 
     /**
@@ -28,11 +28,11 @@ public class PositionPrecision extends BaseQuantitativeMessage<DistanceUnit>
      * @throws IllegalArgumentException when precision is less than zero
      */
     public PositionPrecision(
-            final VesselMessageSource source, 
-            final Date timestamp, 
-            final float precision, 
+            final VesselMessageSource source,
+            final Instant timestamp,
+            final float precision,
             final DistanceUnit unit) {
-        
+
         super(source, timestamp, precision, unit);
         if (precision < 0) {
             throw new IllegalArgumentException("precision cannot be less than zero");
@@ -45,7 +45,7 @@ public class PositionPrecision extends BaseQuantitativeMessage<DistanceUnit>
     public float getPositionPrecision() {
         return quantity;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getDisplayKey()
      */

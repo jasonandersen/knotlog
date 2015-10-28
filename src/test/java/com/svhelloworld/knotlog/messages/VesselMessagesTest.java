@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -17,13 +16,7 @@ import com.svhelloworld.knotlog.engine.parse.MessageFailure;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
 import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
-import com.svhelloworld.knotlog.messages.GPSPosition;
-import com.svhelloworld.knotlog.messages.PositionMessage;
-import com.svhelloworld.knotlog.messages.QuantitativeMessage;
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.messages.VesselMessageSource;
-import com.svhelloworld.knotlog.messages.WaterDepth;
+import com.svhelloworld.knotlog.util.Now;
 
 /**
  * Test to ensure the {@link VesselMessages} class is behaving well.
@@ -41,10 +34,10 @@ public class VesselMessagesTest {
     @Before
     public void setup() {
         messages = new VesselMessages();
-        position = new GPSPosition(VesselMessageSource.NMEA0183, new Date(), "2531.3369", LatitudinalHemisphere.NORTH,
+        position = new GPSPosition(VesselMessageSource.NMEA0183, Now.getInstant(), "2531.3369", LatitudinalHemisphere.NORTH,
                 "11104.4274", LongitudinalHemisphere.WEST);
-        waterDepth = new WaterDepth(VesselMessageSource.NMEA0183, new Date(), 100f, DistanceUnit.FATHOMS);
-        whut = new UnrecognizedMessage(VesselMessageSource.NMEA0183, new Date(), MessageFailure.UNRECOGNIZED_SENTENCE,
+        waterDepth = new WaterDepth(VesselMessageSource.NMEA0183, Now.getInstant(), 100f, DistanceUnit.FATHOMS);
+        whut = new UnrecognizedMessage(VesselMessageSource.NMEA0183, Now.getInstant(), MessageFailure.UNRECOGNIZED_SENTENCE,
                 new ArrayList<String>());
     }
 

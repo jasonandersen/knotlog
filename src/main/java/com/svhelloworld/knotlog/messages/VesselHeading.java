@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.messages;
 
-import java.util.Date;
+import java.time.Instant;
 
 import com.svhelloworld.knotlog.measure.AngleUnit;
 
@@ -27,11 +27,11 @@ public class VesselHeading extends BaseQuantitativeMessage<AngleUnit> {
      *          or DEGREES_MAGNETIC
      */
     public VesselHeading(
-            final VesselMessageSource source, 
-            final Date timestamp, 
-            final float heading, 
+            final VesselMessageSource source,
+            final Instant timestamp,
+            final float heading,
             final AngleUnit unit) {
-        
+
         super(source, timestamp, heading, unit);
         //make sure the heading is valid
         if (heading < 0 || heading > 360) {
@@ -42,14 +42,14 @@ public class VesselHeading extends BaseQuantitativeMessage<AngleUnit> {
             throw new IllegalArgumentException("illegal measurement unit: " + unit);
         }
     }
-    
+
     /**
      * @return vessel heading
      */
     public float getVesselHeading() {
         return quantity;
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getDisplayKey()
      */

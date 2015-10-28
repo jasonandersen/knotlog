@@ -3,7 +3,7 @@ package com.svhelloworld.knotlog.messages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.Date;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -102,7 +102,7 @@ public class WindSpeedTest extends BaseQuantitativeMessageTest<WindSpeed, SpeedU
      * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
-    protected WindSpeed getInstance(VesselMessageSource source, Date timestamp, SpeedUnit unit) {
+    protected WindSpeed getInstance(VesselMessageSource source, Instant timestamp, SpeedUnit unit) {
         return new WindSpeed(source, timestamp, SPEED, unit, BASIS);
     }
 

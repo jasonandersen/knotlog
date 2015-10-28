@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -42,7 +41,7 @@ public class TimeOfDay extends BaseInstrumentMessage {
      */
     public TimeOfDay(
             final VesselMessageSource source,
-            final Date timestamp,
+            final Instant timestamp,
             final String timeOfDay) {
 
         super(source, timestamp);

@@ -1,6 +1,5 @@
 package com.svhelloworld.knotlog.engine;
 
-import java.util.Date;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -17,7 +16,7 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
  *
  */
 public class TimeStamper implements MessageStreamProcessor, Runnable {
-    
+
     /*
      * TODO finish!
      * - first we need to find a reference timestamp
@@ -36,7 +35,7 @@ public class TimeStamper implements MessageStreamProcessor, Runnable {
      * - if no Date or Time has been found after n seconds, flush the
      *      message queue
      */
-    
+
     /**
      * Next processor to call.
      */
@@ -50,7 +49,7 @@ public class TimeStamper implements MessageStreamProcessor, Runnable {
      * Messages queued waiting to be updated.
      */
     private Queue<VesselMessage> messageBuffer;
-    
+
     /**
      * Constructor.
      */
@@ -65,7 +64,7 @@ public class TimeStamper implements MessageStreamProcessor, Runnable {
     public void run() {
         //TODO implement
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.engine.MessageStreamProcessor#processMessages(java.util.List)
      */
@@ -77,7 +76,7 @@ public class TimeStamper implements MessageStreamProcessor, Runnable {
          */
         next.processMessages(messages);
     }
-    
+
     /**
      * @see com.svhelloworld.knotlog.engine.MessageStreamProcessor#setNextProcessor(com.svhelloworld.knotlog.engine.MessageStreamProcessor)
      */
@@ -85,7 +84,7 @@ public class TimeStamper implements MessageStreamProcessor, Runnable {
     public void setNextProcessor(MessageStreamProcessor next) {
         this.next = next;
     }
-    
+
     /**
      * Updates timestamps on messages queued.
      */
@@ -95,9 +94,10 @@ public class TimeStamper implements MessageStreamProcessor, Runnable {
         long updated = 0;
         VesselMessage message;
         while ((message = messageBuffer.poll()) != null) {
-            orig = message.getTimestamp().getTime();
-            updated = orig + delta;
-            message.setTimestamp(new Date(updated));
+            // FIXME - set the date correctly 
+            //orig = message.getTimestamp().getTime();
+            //updated = orig + delta;
+            //message.setTimestamp(new Date(updated));
             /*
              * right now, we're passing the messages off one by one,
              * it might be more efficient to pass the entire message
@@ -106,7 +106,7 @@ public class TimeStamper implements MessageStreamProcessor, Runnable {
             next.processMessages(message);
         }
     }
-    
+
     /**
      * Determines if the timestamp delta has been found and can be applied.
      * @return true if delta is found
@@ -114,6 +114,5 @@ public class TimeStamper implements MessageStreamProcessor, Runnable {
     private boolean isDeltaFound() {
         return delta != null;
     }
-
 
 }
