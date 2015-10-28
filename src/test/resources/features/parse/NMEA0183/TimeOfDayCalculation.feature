@@ -10,7 +10,7 @@
 @TimeOfDay
 Feature: GMT time and date calculations
     As a vessel operator with NMEA0183 enabled instruments
-    I want to have GMT date and time calculated properly from all messages at all times during the day
+    I want to have GMT date and time calculated properly from NMEA0183 sentences that pass in a GMT time of day
     So that my timestamps are correct and uniform
 
     Scenario Outline: Local date is the same date as GMT date
