@@ -4,11 +4,13 @@ import java.util.concurrent.Executors;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
 import com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser;
-import com.svhelloworld.knotlog.engine.parse.Parser;
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
+import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**
  * Unit test for <tt>TextOutput</tt> class.
@@ -17,12 +19,12 @@ import com.svhelloworld.knotlog.engine.sources.StreamedSource;
  * @since Mar 16, 2010
  *
  */
-//@Ignore //FIXME marking this as @Ignore because it takes a really long time to run
-public class TextOutputTest {
+public class TextOutputTest extends BaseIntegrationTest {
 
     private final static String INPUT_PATH = "com/svhelloworld/knotlog/engine/parse/GarminDiagFeed.csv";
 
-    private Parser parser;
+    @Autowired
+    private NMEA0183SourceParser parser;
 
     private TextOutput output;
 
@@ -36,7 +38,6 @@ public class TextOutputTest {
     @Before
     public void setUp() throws Exception {
         source = new ClassPathFileSource(INPUT_PATH);
-        parser = new NMEA0183SourceParser();
         parser.setSource(source);
         output = new ConsoleOutput(Executors.newSingleThreadExecutor());
         //setup listeners
@@ -49,6 +50,7 @@ public class TextOutputTest {
      * Test method for {@link com.svhelloworld.knotlog.output.TextOutput#vesselMessagesFound(com.svhelloworld.knotlog.messages.VesselMessage[])}.
      */
     @Test
+    @DirtiesContext
     public void testMessageOutput() {
         //test default setup
         parser.run();
@@ -58,16 +60,10 @@ public class TextOutputTest {
      * Test method for {@link com.svhelloworld.knotlog.output.TextOutput#vesselMessagesFound(com.svhelloworld.knotlog.messages.VesselMessage[])}.
      */
     @Test
+    @DirtiesContext
     public void testUnrecognizedMessageOutput() {
         protocol = new PlainTextProtocol();
-        parser = new NMEA0183SourceParser();
-        parser.setSource(source);
         output = new TextOutput(Executors.newSingleThreadExecutor(), System.out, protocol);
-        //setup listeners
-        parser.addMessageListener(output);
-        parser.addUnrecognizedMessageListener(output);
-        parser.addPreparseListener(output);
-
         parser.run();
     }
 

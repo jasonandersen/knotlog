@@ -6,11 +6,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.messages.VesselMessages;
+import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**
  * Test the {@link NMEA0183SentenceParser} class.
  */
-public class NMEA0183SentenceParserTest {
+public class NMEA0183SentenceParserTest extends BaseIntegrationTest {
 
     @Autowired
     private NMEA0183SentenceParser parser = new NMEA0183SentenceParser();

@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.engine.MessageRejectedException;
 import com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser;
@@ -25,6 +26,7 @@ import com.svhelloworld.knotlog.messages.MockVesselMessage;
 import com.svhelloworld.knotlog.messages.PreparseMessage;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
+import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**
  * Unit test for the <tt>ThreadedOutput</tt> class.
@@ -33,11 +35,14 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
  * @since Feb 22, 2010
  *
  */
-public class ThreadedMessageOutputTest {
+public class ThreadedMessageOutputTest extends BaseIntegrationTest {
 
-    private ThreadedOutput target;
+    private ThreadedOutput threadedOutput;
 
     private ExecutorService threadPool;
+
+    @Autowired
+    private NMEA0183SourceParser parser;
 
     /**
      * @throws Exception 
@@ -46,7 +51,7 @@ public class ThreadedMessageOutputTest {
     @Before
     public void setUp() throws Exception {
         threadPool = Executors.newSingleThreadExecutor();
-        target = new ConsoleOutputMessageListener(threadPool);
+        threadedOutput = new ConsoleOutputMessageListener(threadPool);
     }
 
     /**
@@ -64,12 +69,12 @@ public class ThreadedMessageOutputTest {
      */
     @Test
     public void testRun() throws MessageRejectedException {
-        target.messageDiscoveryStart();
+        threadedOutput.messageDiscoveryStart();
         for (int i = 0; i < 250; i++) {
-            target.vesselMessagesFound(generateMessage());
+            threadedOutput.vesselMessagesFound(generateMessage());
         }
-        assertEquals(target.getMessageCount(), 250);
-        target.messageDiscoveryComplete();
+        assertEquals(threadedOutput.getMessageCount(), 250);
+        threadedOutput.messageDiscoveryComplete();
     }
 
     /**
@@ -81,15 +86,15 @@ public class ThreadedMessageOutputTest {
     public void testRunStaggered() throws MessageRejectedException, InterruptedException {
         int sleep;
         Random random = new Random();
-        target.messageDiscoveryStart();
+        threadedOutput.messageDiscoveryStart();
         for (int i = 0; i < 25; i++) {
-            target.vesselMessagesFound(generateMessage());
+            threadedOutput.vesselMessagesFound(generateMessage());
             sleep = random.nextInt() % 150;
             sleep = Math.abs(sleep);
             Thread.sleep(sleep);
         }
-        assertEquals(target.getMessageCount(), 25);
-        target.messageDiscoveryComplete();
+        assertEquals(threadedOutput.getMessageCount(), 25);
+        threadedOutput.messageDiscoveryComplete();
     }
 
     /**
@@ -98,7 +103,7 @@ public class ThreadedMessageOutputTest {
     @Test
     public void testMessageDiscoveryStart() {
         //no exception? then we're good
-        target.messageDiscoveryStart();
+        threadedOutput.messageDiscoveryStart();
     }
 
     /**
@@ -107,7 +112,7 @@ public class ThreadedMessageOutputTest {
     @Test
     public void testMessageDiscoveryComplete() {
         //no exception? then we're good
-        target.messageDiscoveryComplete();
+        threadedOutput.messageDiscoveryComplete();
     }
 
     /**
@@ -117,9 +122,9 @@ public class ThreadedMessageOutputTest {
      */
     @Test
     public void testMessageRejectMessage() {
-        target.messageDiscoveryComplete();
+        threadedOutput.messageDiscoveryComplete();
         try {
-            target.vesselMessagesFound(generateMessage());
+            threadedOutput.vesselMessagesFound(generateMessage());
             fail("exception not thrown");
         } catch (MessageRejectedException e) {
             //expected
@@ -139,7 +144,6 @@ public class ThreadedMessageOutputTest {
 
         StreamedSource source = new ClassPathFileSource(
                 "com/svhelloworld/knotlog/output/GarminDiagFeedSmall.csv");
-        NMEA0183SourceParser parser = new NMEA0183SourceParser();
         parser.setSource(source);
         parser.addMessageListener(output);
         parser.addUnrecognizedMessageListener(output);

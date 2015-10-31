@@ -1,23 +1,24 @@
 package com.svhelloworld.knotlog.engine.parse;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Locale;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.engine.MessageRejectedException;
 import com.svhelloworld.knotlog.engine.PreparseListener;
 import com.svhelloworld.knotlog.engine.UnrecognizedMessageListener;
 import com.svhelloworld.knotlog.engine.VesselMessageListener;
-import com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser;
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
 import com.svhelloworld.knotlog.messages.PreparseMessage;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
+import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**
  * Unit test for NMEA0183Parser class.
@@ -26,30 +27,28 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
  * @since Feb 23, 2010
  *
  */
-public class NMEA0183ParserTest {
-    
+public class NMEA0183ParserTest extends BaseIntegrationTest {
+
     private static final Locale jvmLocale;
-    
+
     /**
      * Make sure we can get back to the JVM default locale
      */
     static {
         jvmLocale = Locale.getDefault();
     }
-    
-    private static final String TEST_FEED = 
-        "com/svhelloworld/knotlog/engine/parse/NMEA0183TestFeed.csv";
 
-    private static final String GARMIN_DIAG_FEED = 
-        "com/svhelloworld/knotlog/engine/parse/GarminDiagFeed.csv";
-    
-    private static final String GARMIN_DIAG_CORRUPTED = 
-        "com/svhelloworld/knotlog/engine/parse/GarminDiagFeedCorruptedData.csv";
-    
-    private NMEA0183SourceParser target;
-    
+    private static final String TEST_FEED = "com/svhelloworld/knotlog/engine/parse/NMEA0183TestFeed.csv";
+
+    private static final String GARMIN_DIAG_FEED = "com/svhelloworld/knotlog/engine/parse/GarminDiagFeed.csv";
+
+    private static final String GARMIN_DIAG_CORRUPTED = "com/svhelloworld/knotlog/engine/parse/GarminDiagFeedCorruptedData.csv";
+
+    @Autowired
+    private NMEA0183SourceParser parser;
+
     private StreamedSource source;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -58,9 +57,8 @@ public class NMEA0183ParserTest {
         //reset the default locale
         Locale.setDefault(jvmLocale);
         //instantiate
-        target = new NMEA0183SourceParser();
         source = new ClassPathFileSource(TEST_FEED);
-        target.setSource(source);
+        parser.setSource(source);
     }
 
     /**
@@ -76,17 +74,17 @@ public class NMEA0183ParserTest {
      */
     @Test
     public void testRun() {
-        target.run();
+        parser.run();
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
      */
     @Test
     public void testMessageListeners() {
         VesselMessageListener listener = new MessageConsoleListener();
-        target.addMessageListener(listener);
-        target.run();
+        parser.addMessageListener(listener);
+        parser.run();
     }
 
     /**
@@ -95,18 +93,18 @@ public class NMEA0183ParserTest {
     @Test
     public void testUnrecognizedMessageListeners() {
         UnrecognizedMsgConsoleListener listener = new UnrecognizedMsgConsoleListener();
-        target.addUnrecognizedMessageListener(listener);
-        target.run();
+        parser.addUnrecognizedMessageListener(listener);
+        parser.run();
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
      */
     @Test
     public void testPreparseListeners() {
         PreparseConsoleListener listener = new PreparseConsoleListener();
-        target.addPreparseListener(listener);
-        target.run();
+        parser.addPreparseListener(listener);
+        parser.run();
         assertEquals(7, listener.eventsReceived);
     }
 
@@ -115,21 +113,20 @@ public class NMEA0183ParserTest {
      */
     @Test
     public void testGarminDiagnosticsFeed() {
-        target = new NMEA0183SourceParser();
-        target.setSource(new ClassPathFileSource(GARMIN_DIAG_FEED));
+        parser.setSource(new ClassPathFileSource(GARMIN_DIAG_FEED));
         MessageConsoleListener messages = new MessageConsoleListener();
         PreparseConsoleListener preparse = new PreparseConsoleListener();
         UnrecognizedMsgConsoleListener unrecognizedMessages = new UnrecognizedMsgConsoleListener();
-        target.addMessageListener(messages);
-        target.addPreparseListener(preparse);
-        target.addUnrecognizedMessageListener(unrecognizedMessages);
-        target.run();
-        
+        parser.addMessageListener(messages);
+        parser.addPreparseListener(preparse);
+        parser.addUnrecognizedMessageListener(unrecognizedMessages);
+        parser.run();
+
         assertEquals(111501, preparse.eventsReceived);
         assertEquals(99662, messages.eventsReceived);
         assertEquals(90959, unrecognizedMessages.eventsReceived);
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
      */
@@ -137,12 +134,11 @@ public class NMEA0183ParserTest {
     public void testGarminDiagnosticsFeedEspanol() {
         //let's see what happens in spanish
         Locale.setDefault(new Locale("es"));
-        target = new NMEA0183SourceParser();
-        target.setSource(new ClassPathFileSource(GARMIN_DIAG_FEED));
-        target.addMessageListener(new MessageConsoleListener());
-        target.run();
+        parser.setSource(new ClassPathFileSource(GARMIN_DIAG_FEED));
+        parser.addMessageListener(new MessageConsoleListener());
+        parser.run();
     }
-    
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
      */
@@ -152,30 +148,29 @@ public class NMEA0183ParserTest {
          * this feed was taken while we were having problems with 
          * corrupted NMEA input. Make sure we can handle this stuff.
          */
-        target = new NMEA0183SourceParser();
-        target.setSource(new ClassPathFileSource(GARMIN_DIAG_CORRUPTED));
-        
+        parser.setSource(new ClassPathFileSource(GARMIN_DIAG_CORRUPTED));
+
         MessageConsoleListener messages = new MessageConsoleListener();
         PreparseConsoleListener preparse = new PreparseConsoleListener();
         UnrecognizedMsgConsoleListener unrecognizedMessages = new UnrecognizedMsgConsoleListener();
-        
-        target.addMessageListener(messages);
-        target.addPreparseListener(preparse);
-        target.addUnrecognizedMessageListener(unrecognizedMessages);
-        target.run();
-        
+
+        parser.addMessageListener(messages);
+        parser.addPreparseListener(preparse);
+        parser.addUnrecognizedMessageListener(unrecognizedMessages);
+        parser.run();
+
         assertEquals(35392, preparse.eventsReceived);
         assertEquals(37743, messages.eventsReceived);
         assertEquals(23558, unrecognizedMessages.eventsReceived);
     }
-    
+
     /**
      * Listen for new messages parsed and display them on the console.
      */
     private class MessageConsoleListener implements VesselMessageListener {
-        
+
         private int eventsReceived = 0;
-        
+
         /**
          * @see com.svhelloworld.knotlog.engine.VesselMessageListener#messageDiscoveryComplete()
          */
@@ -198,7 +193,8 @@ public class NMEA0183ParserTest {
          */
         @Override
         public void vesselMessagesFound(VesselMessage... messages) throws MessageRejectedException {
-            for (@SuppressWarnings("unused") VesselMessage message : messages) {
+            for (@SuppressWarnings("unused")
+            VesselMessage message : messages) {
                 //System.out.println("MessageConsoleListener: " + message);
                 eventsReceived++;
             }
@@ -210,19 +206,20 @@ public class NMEA0183ParserTest {
         @Override
         public void run() {
         }
-        
+
     }
-    
+
     private class UnrecognizedMsgConsoleListener implements UnrecognizedMessageListener {
-        
+
         int eventsReceived = 0;
-        
+
         /**
          * @see com.svhelloworld.knotlog.engine.UnrecognizedMessageListener#unrecognizedMessagesFound(com.svhelloworld.knotlog.messages.UnrecognizedMessage[])
          */
         @Override
         public void unrecognizedMessagesFound(UnrecognizedMessage... messages) {
-            for (@SuppressWarnings("unused") UnrecognizedMessage message : messages) {
+            for (@SuppressWarnings("unused")
+            UnrecognizedMessage message : messages) {
                 //System.out.println("UnrecognizedMsgConsoleListener: " + message);
                 eventsReceived++;
             }
@@ -244,14 +241,14 @@ public class NMEA0183ParserTest {
         public void messageDiscoveryStart() {
             //System.out.println("UnrecognizedMsgConsoleListener: *** START ***");
         }
-        
+
     }
-    
+
     /**
      * Listen for preparse events and toss them to the console.
      */
     private class PreparseConsoleListener implements PreparseListener {
-        
+
         int eventsReceived = 0;
 
         /**
@@ -277,14 +274,14 @@ public class NMEA0183ParserTest {
         public void messageDiscoveryStart() {
             //System.out.println("PreparseConsoleListener: *** START ***");
         }
-        
+
         /**
          * @see com.svhelloworld.knotlog.engine.PreparseListener#preparsedInput(java.lang.String)
          */
-		@Override
-		public void preparsedInput(PreparseMessage message) {
-			eventsReceived++;
-		}
-        
+        @Override
+        public void preparsedInput(PreparseMessage message) {
+            eventsReceived++;
+        }
+
     }
 }

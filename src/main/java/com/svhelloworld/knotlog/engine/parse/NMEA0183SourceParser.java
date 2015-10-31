@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.svhelloworld.knotlog.engine.MessageStreamProcessor;
 import com.svhelloworld.knotlog.engine.TimeStamper;
@@ -25,6 +26,7 @@ import com.svhelloworld.knotlog.util.Now;
  * Reads from NMEA0183 sources and converts NMEA0183 sentences into {@link VesselMessage}s. Manages
  * parse events and communicates to listeners. Handles multi-threaded parsing.
  */
+@Service
 public class NMEA0183SourceParser extends BaseThreadedParser {
 
     private static final Logger log = Logger.getLogger(NMEA0183SourceParser.class);
