@@ -3,6 +3,7 @@ package com.svhelloworld.knotlog.engine.parse;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.messages.VesselMessages;
 
@@ -11,6 +12,7 @@ import com.svhelloworld.knotlog.messages.VesselMessages;
  */
 public class NMEA0183SentenceParserTest {
 
+    @Autowired
     private NMEA0183SentenceParser parser = new NMEA0183SentenceParser();
 
     @Test

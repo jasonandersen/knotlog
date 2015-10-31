@@ -5,9 +5,9 @@ import static org.junit.Assert.fail;
 import java.util.Map;
 
 import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
-import com.svhelloworld.knotlog.engine.parse.NMEA0183SentenceParser;
 import com.svhelloworld.knotlog.messages.MessageAttributeValidator;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
@@ -26,14 +26,14 @@ import cucumber.api.java.en.When;
 /**
  * Cucumber steps to parse NMEA0183 sentences.
  */
-public class NMEA0183ParseSentenceSteps {
+public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
 
     /**
      * An NMEA0183 sentence that transmits a time of day formatted so we can pass in the time of day field
      */
     private static final String TIME_OF_DAY_SENTENCE = "$GPGGA,%s,2531.3369,N,11104.4274,W,2,09,0.9,1.7,M,-31.5,M,,";
 
-    //FIXME - this should be injected by Spring
+    @Autowired
     private NMEA0183ParseService parseService;
 
     private String candidateSentence;
@@ -42,7 +42,7 @@ public class NMEA0183ParseSentenceSteps {
 
     @Before
     public void setup() {
-        parseService = new NMEA0183SentenceParser();
+        //parseService = new NMEA0183SentenceParser();
     }
 
     @After

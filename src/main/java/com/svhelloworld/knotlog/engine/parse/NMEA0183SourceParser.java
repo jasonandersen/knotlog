@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.engine.MessageStreamProcessor;
 import com.svhelloworld.knotlog.engine.TimeStamper;
@@ -44,9 +45,8 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
 
     /**
      * Parses individual sentences.
-     * 
-     * FIXME - inject this with Spring!
      */
+    @Autowired
     private NMEA0183ParseService parseService;
 
     /**
@@ -54,7 +54,6 @@ public class NMEA0183SourceParser extends BaseThreadedParser {
      */
     public NMEA0183SourceParser() {
         super(initExternalProcessors());
-        parseService = new NMEA0183SentenceParser();
         log.info("Starting up");
     }
 

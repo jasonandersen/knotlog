@@ -19,7 +19,8 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(format = { "pretty",
-        "html:target/cucumber" }, features = "classpath:features/", snippets = SnippetType.CAMELCASE)
+        "html:target/cucumber" }, features = "classpath:features/", snippets = SnippetType.CAMELCASE, glue = {
+                "com.svhelloworld.knotlog.cucumber", "cucumber.run.java.spring" })
 public class CucumberJUnitRunnerTest {
     //noop - just need the runner to execute the Cucumber classes
 }
