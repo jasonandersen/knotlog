@@ -18,7 +18,6 @@ import com.svhelloworld.knotlog.util.NowTestingProvider;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -36,23 +35,14 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
     @Autowired
     private NMEA0183ParseService parseService;
 
-    private String candidateSentence;
-
-    private VesselMessages messages;
-
-    @Before
-    public void setup() {
-        //parseService = new NMEA0183SentenceParser();
-    }
-
     @After
     public void tearDown() {
-        Now.resetNowProvider();
+        tearDownTestContext();
     }
 
     @Given("^this NMEA0183 sentence from an instrument: \"([^\"]*)\"$")
     public void thisNMEA0183SentenceFromAnInstrument(String sentence) throws Throwable {
-        candidateSentence = sentence;
+        set(KEY_SENTENCE, sentence);
     }
 
     /**
@@ -73,7 +63,8 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
 
     @When("^the NMEA0183 sentence is parsed$")
     public void theNMEA0183SentenceIsParsed() throws Throwable {
-        messages = parseService.parseSentence(candidateSentence);
+        VesselMessages messages = parseService.parseSentence(getCandidateSentence());
+        set(KEY_MESSAGES, messages);
     }
 
     @Then("^(.+) is returned$")
@@ -96,12 +87,12 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
 
     @Then("^a proper vessel message was found$")
     public void aProperVesselMessageWasFound() {
-        Assert.assertFalse(messages.isEmpty());
+        Assert.assertFalse(getVesselMessages().isEmpty());
     }
 
     @Then("^there are no unrecognized messages$")
     public void thereAreNoUnrecognizedMessages() throws Throwable {
-        Assert.assertTrue(messages.getUnrecognizedMessages().isEmpty());
+        Assert.assertTrue(getVesselMessages().getUnrecognizedMessages().isEmpty());
     }
 
     @Then("^the sentence is not recognized$")
@@ -120,10 +111,25 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
     }
 
     /**
+     * @return the candidate NMEA0183 sentence
+     */
+    private String getCandidateSentence() {
+        return get(KEY_SENTENCE);
+    }
+
+    /**
+     * @return vessel messages returned from parsing
+     */
+    private VesselMessages getVesselMessages() {
+        return get(KEY_MESSAGES);
+    }
+
+    /**
      * Asserts that an unrecognized message was returned with the proper failure type
      * @param failure
      */
     private void assertMessageFailure(MessageFailure failure) {
+        VesselMessages messages = getVesselMessages();
         Assert.assertFalse("No unrecognized messages were found", messages.getUnrecognizedMessages().isEmpty());
         UnrecognizedMessage message = messages.getUnrecognizedMessages().get(0);
         Assert.assertEquals(failure, message.getFailureMode());
@@ -134,7 +140,7 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
      * @return a {@link VesselMessage} with a matching type
      */
     private VesselMessage getMessage(Class<? extends VesselMessage> type) {
-        for (VesselMessage message : messages) {
+        for (VesselMessage message : getVesselMessages()) {
             if (message.getClass().equals(type)) {
                 return message;
             }
