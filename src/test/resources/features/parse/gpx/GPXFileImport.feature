@@ -50,8 +50,7 @@ Feature: GPX file import
         Then the track name is "Simple GPX Track"
         
     Scenario: Track segment and points
-        Then the track has 1 track segment
-        And the track has these track points:
+        Then the track has these track points:
             | location                 | date       | time     | time zone |
             | 39°26.25'N 123°48.305'W  | 2013-05-25 | 14:23:49 | GMT       |
             | 39°26.258'N 123°48.36'W  | 2013-05-25 | 14:24:19 | GMT       | 

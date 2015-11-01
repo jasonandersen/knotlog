@@ -34,10 +34,8 @@ public abstract class BaseCucumberSteps {
      * @param key
      * @return
      */
-    @SuppressWarnings("unchecked")
     public <T> T get(String key) {
-        Object value = context.get(key);
-        return (T) value;
+        return context.get(key);
     }
 
     /**

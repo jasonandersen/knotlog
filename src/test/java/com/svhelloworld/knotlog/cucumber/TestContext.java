@@ -27,9 +27,18 @@ public class TestContext {
      * @param key
      * @return the object stored with the key, if the key is not found will return null
      */
-    public Object get(String key) {
+    public Object getObject(String key) {
         log.debug(String.format("retrieving from key: %s", key));
         return context.get(key);
+    }
+
+    /**
+     * @param key
+     * @return the object stored with the key, if the key is not found will return null
+     */
+    public <T> T get(String key) {
+        log.debug(String.format("retrieving from key: %s", key));
+        return (T) context.get(key);
     }
 
     /**
