@@ -3,7 +3,8 @@ package com.svhelloworld.knotlog.cucumber;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestContext {
 
-    private static final Logger log = Logger.getLogger(TestContext.class);
+    private static final Logger log = LoggerFactory.getLogger(TestContext.class);
 
     private Map<String, Object> context;
 
@@ -28,7 +29,7 @@ public class TestContext {
      * @return the object stored with the key, if the key is not found will return null
      */
     public Object getObject(String key) {
-        log.debug(String.format("retrieving from key: %s", key));
+        log.debug("retrieving from key: {}", key);
         return context.get(key);
     }
 
@@ -36,8 +37,9 @@ public class TestContext {
      * @param key
      * @return the object stored with the key, if the key is not found will return null
      */
+    @SuppressWarnings("unchecked")
     public <T> T get(String key) {
-        log.debug(String.format("retrieving from key: %s", key));
+        log.debug("retrieving from key: {}", key);
         return (T) context.get(key);
     }
 
@@ -47,7 +49,7 @@ public class TestContext {
      * @param value
      */
     public void set(String key, Object value) {
-        log.debug(String.format("storing key %s as %s", key, value));
+        log.debug("storing key {} as {}", key, value);
         context.put(key, value);
     }
 

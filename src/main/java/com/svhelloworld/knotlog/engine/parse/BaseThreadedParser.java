@@ -8,7 +8,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.engine.MessageDiscoveryListener;
 import com.svhelloworld.knotlog.engine.MessageStreamProcessor;
@@ -51,7 +52,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
         COMPLETE
     }
 
-    private static final Logger log = Logger.getLogger(BaseThreadedParser.class);
+    private static final Logger log = LoggerFactory.getLogger(BaseThreadedParser.class);
 
     /**
      * Indicates the processing state of this parser.
@@ -286,7 +287,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
      * @param preparsed preparsed text
      */
     protected void throwPreparseEvent(PreparseMessage preparsed) {
-        log.debug(String.format("preparse event: %s", preparsed));
+        log.debug("preparse event: {}", preparsed);
         for (PreparseListener listener : preparseListeners) {
             listener.preparsedInput(preparsed);
         }
@@ -297,7 +298,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
      * @param messages vessel messages parsed.
      */
     protected void throwMessageEvent(VesselMessage... messages) {
-        log.debug(String.format("%d vessel messages found", messages.length));
+        log.debug("{} vessel messages found", messages.length);
         for (VesselMessageListener listener : messageListeners) {
             listener.vesselMessagesFound(messages);
         }
@@ -314,7 +315,7 @@ public abstract class BaseThreadedParser implements Runnable, Parser, MessageStr
             for (UnrecognizedMessage message : messages) {
                 builder.append(message.toString()).append(" ");
             }
-            log.debug(String.format("unrecognized messages event: %s", builder.toString()));
+            log.debug("unrecognized messages event: {}", builder.toString());
         }
 
         for (UnrecognizedMessageListener listener : unrecognizedListeners) {

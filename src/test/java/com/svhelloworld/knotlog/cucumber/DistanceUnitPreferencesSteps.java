@@ -9,6 +9,7 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.service.Preferences;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
@@ -22,7 +23,7 @@ public class DistanceUnitPreferencesSteps extends BaseCucumberSteps {
 
     @Given("^I have selected \"([^\"]*)\" as my preferred water depth unit$")
     public void iHaveSelectedAsMyPreferredWaterDepthUnit(String unit) throws Throwable {
-        DistanceUnit distance = DistanceUnit.valueOf(unit);
+        DistanceUnit distance = DistanceUnit.valueOf(unit.toUpperCase());
         preferences.put(Preferences.KEY_DEPTH_UNIT, distance);
     }
 
@@ -35,6 +36,15 @@ public class DistanceUnitPreferencesSteps extends BaseCucumberSteps {
             }
         }
         fail(String.format("Could not find message: %s", messageDescription));
+    }
+
+    /**
+     * @see com.svhelloworld.knotlog.cucumber.BaseCucumberSteps#tearDown()
+     */
+    @Override
+    @After
+    public void tearDown() {
+        tearDownTestContext();
     }
 
 }

@@ -73,7 +73,7 @@ Feature: NMEA0183 GGA sentence
         When the NMEA0183 sentence is parsed
         Then this altitude is returned:
             | altitude | 1.7 meters |
-            | source   | NMEA0183     |
+            | source   | NMEA0183   |
 
     @TimeOfDayZulu
     Scenario: Parse time of day from a GGA sentence

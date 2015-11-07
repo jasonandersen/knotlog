@@ -1,7 +1,5 @@
 package com.svhelloworld.knotlog.cucumber;
 
-import static org.junit.Assert.fail;
-
 import java.util.Map;
 
 import org.junit.Assert;
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
 import com.svhelloworld.knotlog.messages.MessageAttributeValidator;
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.service.NMEA0183ParseService;
@@ -35,6 +32,7 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
     @Autowired
     private NMEA0183ParseService parseService;
 
+    @Override
     @After
     public void tearDown() {
         tearDownTestContext();
@@ -108,56 +106,6 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
     @Then("^the sentence has invalid sentence fields$")
     public void theSentenceHasInvalidSentenceFields() throws Throwable {
         assertMessageFailure(MessageFailure.INVALID_SENTENCE_FIELDS);
-    }
-
-    /**
-     * @return the candidate NMEA0183 sentence
-     */
-    private String getCandidateSentence() {
-        return get(KEY_SENTENCE);
-    }
-
-    /**
-     * @return vessel messages returned from parsing
-     */
-    private VesselMessages getVesselMessages() {
-        return get(KEY_MESSAGES);
-    }
-
-    /**
-     * Asserts that an unrecognized message was returned with the proper failure type
-     * @param failure
-     */
-    private void assertMessageFailure(MessageFailure failure) {
-        VesselMessages messages = getVesselMessages();
-        Assert.assertFalse("No unrecognized messages were found", messages.getUnrecognizedMessages().isEmpty());
-        UnrecognizedMessage message = messages.getUnrecognizedMessages().get(0);
-        Assert.assertEquals(failure, message.getFailureMode());
-    }
-
-    /**
-     * @param type
-     * @return a {@link VesselMessage} with a matching type
-     */
-    private VesselMessage getMessage(Class<? extends VesselMessage> type) {
-        for (VesselMessage message : getVesselMessages()) {
-            if (message.getClass().equals(type)) {
-                return message;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Asserts that a specific type of vessel message was returned. Will throw an assertion failure if
-     * the message type wasn't found.
-     * @param messageType
-     */
-    private void assertMessageTypeWasReturned(Class<? extends VesselMessage> messageType, String messageDesc) {
-        if (getMessage(messageType) != null) {
-            return;
-        }
-        fail(String.format("Could not find a %s message", messageDesc));
     }
 
 }

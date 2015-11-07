@@ -15,7 +15,16 @@ public interface Preferences {
      * @param key
      * @return application preference stored at that key, will return null if not found
      */
-    <T> T get(String key);
+    String get(String key);
+
+    /**
+     * @param key
+     * @param type
+     * @return application preference converted to an enum of type T
+     * @throws IllegalArgumentException when enum is not found
+     */
+    @SuppressWarnings("rawtypes")
+    <T extends Enum> T getEnum(String key, Class<T> type);
 
     /**
      * Persists an application preference value at the specified key.

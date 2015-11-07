@@ -7,7 +7,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ import com.svhelloworld.knotlog.util.Now;
 @Service
 public class NMEA0183SourceParser extends BaseThreadedParser {
 
-    private static final Logger log = Logger.getLogger(NMEA0183SourceParser.class);
+    private static final Logger log = LoggerFactory.getLogger(NMEA0183SourceParser.class);
 
     /**
      * Initializes any external message stream processors.

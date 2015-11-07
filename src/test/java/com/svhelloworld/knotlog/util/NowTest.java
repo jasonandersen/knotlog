@@ -6,9 +6,10 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.util.Now.NowProvider;
 
@@ -17,7 +18,7 @@ import com.svhelloworld.knotlog.util.Now.NowProvider;
  */
 public class NowTest {
 
-    private static final Logger log = Logger.getLogger(NowTest.class);
+    private static final Logger log = LoggerFactory.getLogger(NowTest.class);
 
     @After
     public void resetNow() {
@@ -36,9 +37,9 @@ public class NowTest {
         long millis = System.currentTimeMillis();
         ZonedDateTime dateTime = Now.getZonedDateTime();
 
-        log.info(dateTime);
-        log.info(millis);
-        log.info(dateTime.toEpochSecond() * 1000);
+        log.info("dateTime {}", dateTime);
+        log.info("millis {}", millis);
+        log.info("millis since epoch {}", dateTime.toEpochSecond() * 1000);
 
         assertEquals(millis, dateTime.toEpochSecond() * 1000, 1000);
     }

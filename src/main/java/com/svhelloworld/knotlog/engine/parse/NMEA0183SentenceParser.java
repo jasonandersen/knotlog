@@ -3,7 +3,8 @@ package com.svhelloworld.knotlog.engine.parse;
 import java.time.Instant;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import com.svhelloworld.knotlog.util.Now;
 @Service
 public class NMEA0183SentenceParser implements NMEA0183ParseService {
 
-    private static final Logger log = Logger.getLogger(NMEA0183SentenceParser.class);
+    private static final Logger log = LoggerFactory.getLogger(NMEA0183SentenceParser.class);
 
     /**
      * Message source
@@ -62,7 +63,7 @@ public class NMEA0183SentenceParser implements NMEA0183ParseService {
      *          Any unrecognized messages will be included.
      */
     private VesselMessages interpretSentence(final NMEA0183Sentence sentence) {
-        log.debug(String.format("interpretting sentence: %s", sentence.getValidity()));
+        log.debug("interpretting sentence: {}", sentence.getValidity());
         VesselMessages messages = new VesselMessages();
         String tag = sentence.getTag();
         List<InstrumentMessageDefinition> definitions = dictionary.getDefinitions(tag);
