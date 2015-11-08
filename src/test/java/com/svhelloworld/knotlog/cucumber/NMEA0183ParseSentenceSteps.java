@@ -3,7 +3,6 @@ package com.svhelloworld.knotlog.cucumber;
 import com.google.common.eventbus.Subscribe;
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
 import com.svhelloworld.knotlog.engine.parse.NMEA0183Sentence;
-import com.svhelloworld.knotlog.event.UnrecognizedMessageDiscovered;
 import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessages;
@@ -70,8 +69,7 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
      * @param event
      */
     @Subscribe
-    public void handleUnrecognizedMessageDiscovered(UnrecognizedMessageDiscovered event) {
-        UnrecognizedMessage message = event.getUnrecognizedMessage();
+    public void unrecognizedMessageDiscovered(UnrecognizedMessage message) {
         set(KEY_UNRECOGNIZED_MESSAGE, message);
     }
 

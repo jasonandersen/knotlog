@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.eventbus.Subscribe;
-import com.svhelloworld.knotlog.event.UnrecognizedMessageDiscovered;
 import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessages;
@@ -26,8 +25,6 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
     private VesselMessagesDiscovered vesselMessagesEvent;
 
     private VesselMessages vesselMessages;
-
-    private UnrecognizedMessageDiscovered unrecognizedMessageEvent;
 
     private UnrecognizedMessage unrecognizedMessage;
 
@@ -48,7 +45,6 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
     public void testEmptyFieldsInRecognizedSentence() {
         parseSentence("$IIDBT,,,,");
         assertNull(vesselMessages);
-        assertNotNull(unrecognizedMessageEvent);
         assertNotNull(unrecognizedMessage);
         assertEquals(MessageFailure.INVALID_SENTENCE_FIELDS, messageFailure);
     }
@@ -57,7 +53,6 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
     public void testUnrecognizedTag() {
         parseSentence("54059,V,SRL,XXXXX,4,P,2,B,0,,,,,,,,,,,,,,,");
         assertNull(vesselMessages);
-        assertNotNull(unrecognizedMessageEvent);
         assertNotNull(unrecognizedMessage);
         assertEquals(MessageFailure.UNRECOGNIZED_SENTENCE, messageFailure);
     }
@@ -66,7 +61,6 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
     public void testMalformedSentence() {
         parseSentence("I LIKE MONKEYS. ALSO, I EAT GLUE.");
         assertNull(vesselMessages);
-        assertNotNull(unrecognizedMessageEvent);
         assertNotNull(unrecognizedMessage);
         assertEquals(MessageFailure.MALFORMED_SENTENCE, messageFailure);
     }
@@ -91,9 +85,8 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
     }
 
     @Subscribe
-    public void handleUnrecognizedMessageDiscovered(UnrecognizedMessageDiscovered event) {
-        unrecognizedMessageEvent = event;
-        unrecognizedMessage = unrecognizedMessageEvent.getUnrecognizedMessage();
+    public void handleUnrecognizedMessageDiscovered(UnrecognizedMessage message) {
+        unrecognizedMessage = message;
         messageFailure = unrecognizedMessage.getFailureMode();
     }
 }

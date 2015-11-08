@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.svhelloworld.knotlog.event.UnrecognizedMessageDiscovered;
 import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
@@ -79,7 +78,7 @@ public class NMEA0183Parser {
         for (InstrumentMessageDefinition definition : definitions) {
             VesselMessage message = buildDefinedVesselMessage(definition, sentence);
             if (message instanceof UnrecognizedMessage) {
-                eventBus.post(new UnrecognizedMessageDiscovered((UnrecognizedMessage) message));
+                eventBus.post(message);
             } else {
                 messages.add(message);
             }
@@ -133,7 +132,7 @@ public class NMEA0183Parser {
         UnrecognizedMessage message = InstrumentMessageFactory.createUnrecognizedMessage(
                 SOURCE, timestamp, failureMode, identifier, sentence.getFields(),
                 sentence.getOriginalSentence());
-        eventBus.post(new UnrecognizedMessageDiscovered(message));
+        eventBus.post(message);
     }
 
     /**
@@ -146,7 +145,7 @@ public class NMEA0183Parser {
         List<String> fields = sentence.getFields();
         UnrecognizedMessage message = InstrumentMessageFactory.createUnrecognizedMessage(
                 VesselMessageSource.NMEA0183, timestamp, failureMode, fields, sentence.getOriginalSentence());
-        eventBus.post(new UnrecognizedMessageDiscovered(message));
+        eventBus.post(message);
     }
 
     /**
