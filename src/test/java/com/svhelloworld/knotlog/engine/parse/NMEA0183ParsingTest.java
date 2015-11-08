@@ -34,7 +34,9 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
     private MessageFailure messageFailure;
 
     @Test
-    public void testNMEA0183SentenceDiscoveredEvent() {
+    public void testEventBusIsSetupToHandleSentences() {
+        assertNull(vesselMessagesEvent);
+        assertNull(vesselMessages);
         NMEA0183Sentence sentence = new NMEA0183Sentence(
                 "25757110,V,GPS,GPGGA,130048,2531.3366,N,11104.4272,W,2,09,0.9,1.7,M,-31.5,M,,");
         post(sentence);
