@@ -6,5 +6,8 @@ Feature: Real time location
     
     Scenario: 
         Given I'm connected to a real time NMEA0183 source
+        And   I receive these messages from an instrument:
+            # data table containing new location coordinates
         When I operate my vessel in motion for five minutes
-        Then I see my location change like this:
+        Then I see my current location change:
+            # data table containing new location coordinates

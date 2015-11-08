@@ -1,287 +1,149 @@
 package com.svhelloworld.knotlog.engine.parse;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-import java.util.Locale;
+import java.time.LocalTime;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.svhelloworld.knotlog.engine.MessageRejectedException;
-import com.svhelloworld.knotlog.engine.PreparseListener;
-import com.svhelloworld.knotlog.engine.UnrecognizedMessageListener;
-import com.svhelloworld.knotlog.engine.VesselMessageListener;
-import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
-import com.svhelloworld.knotlog.engine.sources.StreamedSource;
-import com.svhelloworld.knotlog.messages.PreparseMessage;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import com.svhelloworld.knotlog.event.NMEA0183SentenceDiscovered;
+import com.svhelloworld.knotlog.event.UnrecognizedMessageDiscovered;
+import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.VesselMessage;
+import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**
- * Unit test for NMEA0183Parser class.
- * 
- * @author Jason Andersen
- * @since Feb 23, 2010
- *
+ * Test parsing NMEA0183 sentences.
  */
 public class NMEA0183ParserTest extends BaseIntegrationTest {
 
-    private static final Locale jvmLocale;
-
-    /**
-     * Make sure we can get back to the JVM default locale
-     */
-    static {
-        jvmLocale = Locale.getDefault();
-    }
-
-    private static final String TEST_FEED = "com/svhelloworld/knotlog/engine/parse/NMEA0183TestFeed.csv";
-
-    private static final String GARMIN_DIAG_FEED = "com/svhelloworld/knotlog/engine/parse/GarminDiagFeed.csv";
-
-    private static final String GARMIN_DIAG_CORRUPTED = "com/svhelloworld/knotlog/engine/parse/GarminDiagFeedCorruptedData.csv";
+    private static Logger log = LoggerFactory.getLogger(NMEA0183ParserTest.class);
 
     @Autowired
-    private NMEA0183SourceParser parser;
+    private EventBus eventBus;
 
-    private StreamedSource source;
+    private VesselMessagesDiscovered vesselMessagesEvent;
 
-    /**
-     * @throws java.lang.Exception
-     */
+    private VesselMessages vesselMessages;
+
+    private UnrecognizedMessageDiscovered unrecognizedMessageEvent;
+
+    private UnrecognizedMessage unrecognizedMessage;
+
+    private MessageFailure messageFailure;
+
     @Before
-    public void setup() throws Exception {
-        //reset the default locale
-        Locale.setDefault(jvmLocale);
-        //instantiate
-        source = new ClassPathFileSource(TEST_FEED);
-        parser.setSource(source);
+    public void registerInEventBus() {
+        eventBus.register(this);
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
-    public void tearDown() throws Exception {
-        source.close();
+    public void deregisterInEventBus() {
+        eventBus.unregister(this);
+    }
+
+    @Test
+    public void testDependencyInjection() {
+        assertNotNull(eventBus);
+    }
+
+    @Test
+    public void testNMEA0183SentenceDiscoveredEvent() {
+        NMEA0183Sentence sentence = new NMEA0183Sentence(
+                "25757110,V,GPS,GPGGA,130048,2531.3366,N,11104.4272,W,2,09,0.9,1.7,M,-31.5,M,,");
+        NMEA0183SentenceDiscovered event = new NMEA0183SentenceDiscovered(sentence);
+        eventBus.post(event);
+        assertNotNull(vesselMessagesEvent);
+    }
+
+    @Test
+    public void testEmptyFieldsInRecognizedSentence() {
+        parseSentence("$IIDBT,,,,");
+        assertNull(vesselMessages);
+        assertNotNull(unrecognizedMessageEvent);
+        assertNotNull(unrecognizedMessage);
+        assertEquals(MessageFailure.INVALID_SENTENCE_FIELDS, messageFailure);
+    }
+
+    @Test
+    public void testUnrecognizedTag() {
+        parseSentence("54059,V,SRL,XXXXX,4,P,2,B,0,,,,,,,,,,,,,,,");
+        assertNull(vesselMessages);
+        assertNotNull(unrecognizedMessageEvent);
+        assertNotNull(unrecognizedMessage);
+        assertEquals(MessageFailure.UNRECOGNIZED_SENTENCE, messageFailure);
+    }
+
+    @Test
+    public void testMalformedSentence() {
+        parseSentence("I LIKE MONKEYS. ALSO, I EAT GLUE.");
+        assertNull(vesselMessages);
+        assertNotNull(unrecognizedMessageEvent);
+        assertNotNull(unrecognizedMessage);
+        assertEquals(MessageFailure.UNRECOGNIZED_SENTENCE, messageFailure);
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
+     * Throway test to see how Garmin's timestamps work.
      */
     @Test
-    public void testRun() {
-        parser.run();
+    public void testGarminDateStamps() {
+        LocalTime time;
+
+        time = LocalTime.ofSecondOfDay(25712211 / 1000);
+        log.info(time.toString());
+        time = LocalTime.ofSecondOfDay(25712251 / 1000);
+        log.info(time.toString());
+        time = LocalTime.ofSecondOfDay(25712380 / 1000);
+        log.info(time.toString());
+        time = LocalTime.ofSecondOfDay(25712397 / 1000);
+        log.info(time.toString());
+        time = LocalTime.ofSecondOfDay(25712424 / 1000);
+        log.info(time.toString());
+        time = LocalTime.ofSecondOfDay(25712461 / 1000);
+        log.info(time.toString());
+        time = LocalTime.ofSecondOfDay(25712543 / 1000);
+        log.info(time.toString());
+        time = LocalTime.ofSecondOfDay(25712689 / 1000);
+        log.info(time.toString());
+        time = LocalTime.ofSecondOfDay(25712781 / 1000);
+        log.info(time.toString());
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
+     * Posts an event on to the event bus.
+     * @param sentence
      */
-    @Test
-    public void testMessageListeners() {
-        VesselMessageListener listener = new MessageConsoleListener();
-        parser.addMessageListener(listener);
-        parser.run();
+    private void parseSentence(String sentence) {
+        NMEA0183SentenceDiscovered event = new NMEA0183SentenceDiscovered(sentence);
+        eventBus.post(event);
     }
 
-    /**
-     * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
+    /*
+     * Event bus event handler methods
      */
-    @Test
-    public void testUnrecognizedMessageListeners() {
-        UnrecognizedMsgConsoleListener listener = new UnrecognizedMsgConsoleListener();
-        parser.addUnrecognizedMessageListener(listener);
-        parser.run();
+
+    @Subscribe
+    public void handleVesselMessagesDiscoveredEvent(VesselMessagesDiscovered event) {
+        log.info("vessel messages discovered: {}", event);
+        vesselMessagesEvent = event;
+        vesselMessages = event.getVesselMessages();
     }
 
-    /**
-     * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
-     */
-    @Test
-    public void testPreparseListeners() {
-        PreparseConsoleListener listener = new PreparseConsoleListener();
-        parser.addPreparseListener(listener);
-        parser.run();
-        assertEquals(7, listener.eventsReceived);
-    }
-
-    /**
-     * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
-     */
-    @Test
-    public void testGarminDiagnosticsFeed() {
-        parser.setSource(new ClassPathFileSource(GARMIN_DIAG_FEED));
-        MessageConsoleListener messages = new MessageConsoleListener();
-        PreparseConsoleListener preparse = new PreparseConsoleListener();
-        UnrecognizedMsgConsoleListener unrecognizedMessages = new UnrecognizedMsgConsoleListener();
-        parser.addMessageListener(messages);
-        parser.addPreparseListener(preparse);
-        parser.addUnrecognizedMessageListener(unrecognizedMessages);
-        parser.run();
-
-        assertEquals(111501, preparse.eventsReceived);
-        assertEquals(99662, messages.eventsReceived);
-        assertEquals(90959, unrecognizedMessages.eventsReceived);
-    }
-
-    /**
-     * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
-     */
-    @Test
-    public void testGarminDiagnosticsFeedEspanol() {
-        //let's see what happens in spanish
-        Locale.setDefault(new Locale("es"));
-        parser.setSource(new ClassPathFileSource(GARMIN_DIAG_FEED));
-        parser.addMessageListener(new MessageConsoleListener());
-        parser.run();
-    }
-
-    /**
-     * Test method for {@link com.svhelloworld.knotlog.engine.parse.NMEA0183SourceParser#parse()}.
-     */
-    @Test
-    public void testGarminDiagnosticsFeedCorrupted() {
-        /*
-         * this feed was taken while we were having problems with 
-         * corrupted NMEA input. Make sure we can handle this stuff.
-         */
-        parser.setSource(new ClassPathFileSource(GARMIN_DIAG_CORRUPTED));
-
-        MessageConsoleListener messages = new MessageConsoleListener();
-        PreparseConsoleListener preparse = new PreparseConsoleListener();
-        UnrecognizedMsgConsoleListener unrecognizedMessages = new UnrecognizedMsgConsoleListener();
-
-        parser.addMessageListener(messages);
-        parser.addPreparseListener(preparse);
-        parser.addUnrecognizedMessageListener(unrecognizedMessages);
-        parser.run();
-
-        assertEquals(35392, preparse.eventsReceived);
-        assertEquals(37743, messages.eventsReceived);
-        assertEquals(23558, unrecognizedMessages.eventsReceived);
-    }
-
-    /**
-     * Listen for new messages parsed and display them on the console.
-     */
-    private class MessageConsoleListener implements VesselMessageListener {
-
-        private int eventsReceived = 0;
-
-        /**
-         * @see com.svhelloworld.knotlog.engine.VesselMessageListener#messageDiscoveryComplete()
-         */
-        @Override
-        public void messageDiscoveryComplete() {
-            //System.out.println("MessageConsoleListener: " + eventsReceived + " events received");
-            //System.out.println("MessageConsoleListener: *** COMPLETE ***");
-        }
-
-        /**
-         * @see com.svhelloworld.knotlog.engine.VesselMessageListener#messageDiscoveryStart()
-         */
-        @Override
-        public void messageDiscoveryStart() {
-            //System.out.println("MessageConsoleListener: *** START ***");
-        }
-
-        /**
-         * @see com.svhelloworld.knotlog.engine.VesselMessageListener#vesselMessagesFound(com.svhelloworld.knotlog.messages.VesselMessage[])
-         */
-        @Override
-        public void vesselMessagesFound(VesselMessage... messages) throws MessageRejectedException {
-            for (@SuppressWarnings("unused")
-            VesselMessage message : messages) {
-                //System.out.println("MessageConsoleListener: " + message);
-                eventsReceived++;
-            }
-        }
-
-        /**
-         * @see java.lang.Runnable#run()
-         */
-        @Override
-        public void run() {
-        }
-
-    }
-
-    private class UnrecognizedMsgConsoleListener implements UnrecognizedMessageListener {
-
-        int eventsReceived = 0;
-
-        /**
-         * @see com.svhelloworld.knotlog.engine.UnrecognizedMessageListener#unrecognizedMessagesFound(com.svhelloworld.knotlog.messages.UnrecognizedMessage[])
-         */
-        @Override
-        public void unrecognizedMessagesFound(UnrecognizedMessage... messages) {
-            for (@SuppressWarnings("unused")
-            UnrecognizedMessage message : messages) {
-                //System.out.println("UnrecognizedMsgConsoleListener: " + message);
-                eventsReceived++;
-            }
-        }
-
-        /**
-         * @see com.svhelloworld.knotlog.engine.MessageDiscoveryListener#messageDiscoveryComplete()
-         */
-        @Override
-        public void messageDiscoveryComplete() {
-            //System.out.println("UnrecognizedMsgConsoleListener: " + eventsReceived + " events recieved");
-            //System.out.println("UnrecognizedMsgConsoleListener: *** COMPLETE ***");
-        }
-
-        /**
-         * @see com.svhelloworld.knotlog.engine.MessageDiscoveryListener#messageDiscoveryStart()
-         */
-        @Override
-        public void messageDiscoveryStart() {
-            //System.out.println("UnrecognizedMsgConsoleListener: *** START ***");
-        }
-
-    }
-
-    /**
-     * Listen for preparse events and toss them to the console.
-     */
-    private class PreparseConsoleListener implements PreparseListener {
-
-        int eventsReceived = 0;
-
-        /**
-         * @see java.lang.Runnable#run()
-         */
-        @Override
-        public void run() {
-        }
-
-        /**
-         * @see com.svhelloworld.knotlog.engine.MessageDiscoveryListener#messageDiscoveryComplete()
-         */
-        @Override
-        public void messageDiscoveryComplete() {
-            //System.out.println("PreparseConsoleListener: " + eventsReceived + " events received");
-            //System.out.println("PreparseConsoleListener: *** COMPLETE ***");
-        }
-
-        /**
-         * @see com.svhelloworld.knotlog.engine.MessageDiscoveryListener#messageDiscoveryStart()
-         */
-        @Override
-        public void messageDiscoveryStart() {
-            //System.out.println("PreparseConsoleListener: *** START ***");
-        }
-
-        /**
-         * @see com.svhelloworld.knotlog.engine.PreparseListener#preparsedInput(java.lang.String)
-         */
-        @Override
-        public void preparsedInput(PreparseMessage message) {
-            eventsReceived++;
-        }
-
+    @Subscribe
+    public void handleUnrecognizedMessageDiscovered(UnrecognizedMessageDiscovered event) {
+        unrecognizedMessageEvent = event;
+        unrecognizedMessage = unrecognizedMessageEvent.getUnrecognizedMessage();
+        messageFailure = unrecognizedMessage.getFailureMode();
     }
 }

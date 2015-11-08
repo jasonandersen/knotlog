@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+import com.google.common.eventbus.EventBus;
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
@@ -25,8 +26,20 @@ public abstract class BaseCucumberSteps {
     protected static final String KEY_SENTENCE = "nmea0183.sentence";
     protected static final String KEY_MESSAGES = "vessel.messages";
 
+    private EventBus eventBus;
+
     @Autowired
     private TestContext context;
+
+    /**
+     * Set the event bus and register this instance to it.
+     * @param eventBus
+     */
+    @Autowired
+    private void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+        eventBus.register(this);
+    }
 
     /**
      * Every child class needs to implement this method, add the @After annotation
@@ -36,7 +49,15 @@ public abstract class BaseCucumberSteps {
     public abstract void tearDown();
 
     /**
-     * Clean up after all tests.
+     * Post event to the event bus.
+     * @param event
+     */
+    protected void postEvent(Object event) {
+        eventBus.post(event);
+    }
+
+    /**
+     * Clean up after all tests. Reset test context so it's ready and clean for the next test.
      */
     protected void tearDownTestContext() {
         log.debug("tearing down");

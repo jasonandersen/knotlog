@@ -3,13 +3,14 @@ package com.svhelloworld.knotlog.cucumber;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import com.google.common.eventbus.Subscribe;
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
+import com.svhelloworld.knotlog.event.NMEA0183SentenceDiscovered;
+import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.MessageAttributeValidator;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessages;
-import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 import com.svhelloworld.knotlog.util.Now;
 import com.svhelloworld.knotlog.util.NowTestingProvider;
 
@@ -28,9 +29,6 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
      * An NMEA0183 sentence that transmits a time of day formatted so we can pass in the time of day field
      */
     private static final String TIME_OF_DAY_SENTENCE = "$GPGGA,%s,2531.3369,N,11104.4274,W,2,09,0.9,1.7,M,-31.5,M,,";
-
-    @Autowired
-    private NMEA0183ParseService parseService;
 
     @Override
     @After
@@ -61,8 +59,8 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
 
     @When("^the NMEA0183 sentence is parsed$")
     public void theNMEA0183SentenceIsParsed() throws Throwable {
-        VesselMessages messages = parseService.parseSentence(getCandidateSentence());
-        set(KEY_MESSAGES, messages);
+        NMEA0183SentenceDiscovered event = new NMEA0183SentenceDiscovered(getCandidateSentence());
+        postEvent(event);
     }
 
     @Then("^(.+) is returned$")
@@ -106,6 +104,20 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
     @Then("^the sentence has invalid sentence fields$")
     public void theSentenceHasInvalidSentenceFields() throws Throwable {
         assertMessageFailure(MessageFailure.INVALID_SENTENCE_FIELDS);
+    }
+
+    /*
+     * Event bus handler methods
+     */
+
+    /**
+     * Store any vessel messages event in the test context.
+     * @param event
+     */
+    @Subscribe
+    public void handleVesselMessagesDiscoveredEvent(VesselMessagesDiscovered event) {
+        VesselMessages messages = event.getVesselMessages();
+        set(KEY_MESSAGES, messages);
     }
 
 }

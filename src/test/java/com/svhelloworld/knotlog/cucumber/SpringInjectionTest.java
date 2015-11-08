@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.svhelloworld.knotlog.service.NMEA0183ParseService;
+import com.google.common.eventbus.EventBus;
 
 /**
  * Testing that we have Spring dependency injection hooked up correctly.
@@ -18,10 +18,10 @@ import com.svhelloworld.knotlog.service.NMEA0183ParseService;
 public class SpringInjectionTest {
 
     @Autowired
-    private NMEA0183ParseService parser;
+    private EventBus eventBus;
 
     @Test
     public void testParserInjected() {
-        assertNotNull(parser);
+        assertNotNull(eventBus);
     }
 }
