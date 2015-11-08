@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.svhelloworld.knotlog.event.NMEA0183SentenceDiscovered;
+import com.svhelloworld.knotlog.event.UnrecognizedMessageDiscovered;
 import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
@@ -58,9 +59,7 @@ public class NMEA0183Parser {
     @Subscribe
     public void handleNMEA0183SentenceDiscoveredEvent(NMEA0183SentenceDiscovered event) {
         NMEA0183Sentence sentence = event.getSentence();
-        VesselMessages messages = interpretSentence(sentence);
-        VesselMessagesDiscovered messagesEvent = new VesselMessagesDiscovered(messages);
-        eventBus.post(messagesEvent);
+        interpretSentence(sentence);
     }
 
     /**
@@ -71,27 +70,38 @@ public class NMEA0183Parser {
      *          interpreted from this sentence. Will never return null.
      *          Any unrecognized messages will be included.
      */
-    private VesselMessages interpretSentence(final NMEA0183Sentence sentence) {
-
-        /*
-         * FIXME - rethink this. Should be throwing separate event types!
-         */
-
+    private void interpretSentence(final NMEA0183Sentence sentence) {
         log.debug("interpretting sentence: {}", sentence.getValidity());
-        VesselMessages messages = new VesselMessages();
         String tag = sentence.getTag();
         List<InstrumentMessageDefinition> definitions = dictionary.getDefinitions(tag);
         if (!sentence.isValid()) {
-            messages.add(buildInvalidSentenceMessage(sentence));
+            handleInvalidSentence(sentence);
         } else if (definitions.isEmpty()) {
-            messages.add(buildUndefinedSentenceMessage(sentence));
+            handleUndefinedSentence(sentence);
         } else {
-            for (InstrumentMessageDefinition definition : definitions) {
-                messages.add(buildDefinedVesselMessage(definition, sentence));
+            handleDefinedSentence(sentence, definitions);
+        }
+    }
+
+    /**
+     * Handles NMEA0183 sentences that have definitions.
+     * @param sentence
+     * @param definitions
+     */
+    private void handleDefinedSentence(NMEA0183Sentence sentence, List<InstrumentMessageDefinition> definitions) {
+        VesselMessages messages = new VesselMessages();
+        for (InstrumentMessageDefinition definition : definitions) {
+            VesselMessage message = buildDefinedVesselMessage(definition, sentence);
+            if (message instanceof UnrecognizedMessage) {
+                eventBus.post(new UnrecognizedMessageDiscovered((UnrecognizedMessage) message));
+            } else {
+                messages.add(message);
             }
         }
-        logMessages(messages);
-        return messages;
+        if (!messages.isEmpty()) {
+            eventBus.post(new VesselMessagesDiscovered(messages));
+            logMessages(messages);
+        }
     }
 
     /**
@@ -104,15 +114,9 @@ public class NMEA0183Parser {
         }
         StringBuilder builder = new StringBuilder();
         if (!messages.isEmpty()) {
-            builder.append(messages.size()).append(" messages");
+            builder.append(messages.size()).append(" messages:");
             for (VesselMessage message : messages) {
-                builder.append(message.getClass().getSimpleName()).append(" ");
-            }
-        }
-        if (!messages.getUnrecognizedMessages().isEmpty()) {
-            builder.append(messages.getUnrecognizedMessages().size()).append(" unrecognized messages ");
-            for (UnrecognizedMessage message : messages.getUnrecognizedMessages()) {
-                builder.append(message.getFailureMode()).append(" ");
+                builder.append(message.getClass().getSimpleName()).append(",");
             }
         }
         log.debug(builder.toString());
@@ -132,7 +136,7 @@ public class NMEA0183Parser {
      * @param sentence
      * @return an {@link UnrecognizedMessage} indicating the sentence had a tag that has not been defined
      */
-    private VesselMessage buildUndefinedSentenceMessage(NMEA0183Sentence sentence) {
+    private void handleUndefinedSentence(NMEA0183Sentence sentence) {
         /*
          * sentence tag has not been defined so create an unrecognized message
          * event and return an empty message list
@@ -143,20 +147,20 @@ public class NMEA0183Parser {
         UnrecognizedMessage message = InstrumentMessageFactory.createUnrecognizedMessage(
                 SOURCE, timestamp, failureMode, identifier, sentence.getFields(),
                 sentence.getOriginalSentence());
-        return message;
+        eventBus.post(new UnrecognizedMessageDiscovered(message));
     }
 
     /**
      * @param sentence
      * @return an {@link UnrecognizedMessage} indicating the sentence was invalid
      */
-    private VesselMessage buildInvalidSentenceMessage(NMEA0183Sentence sentence) {
+    private void handleInvalidSentence(NMEA0183Sentence sentence) {
         Instant timestamp = getSentenceTimestamp(sentence);
         MessageFailure failureMode = MessageFailure.MALFORMED_SENTENCE;
         List<String> fields = sentence.getFields();
         UnrecognizedMessage message = InstrumentMessageFactory.createUnrecognizedMessage(
                 VesselMessageSource.NMEA0183, timestamp, failureMode, fields, sentence.getOriginalSentence());
-        return message;
+        eventBus.post(new UnrecognizedMessageDiscovered(message));
     }
 
     /**

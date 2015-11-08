@@ -1,13 +1,10 @@
 package com.svhelloworld.knotlog.engine.parse;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.time.LocalTime;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +22,10 @@ import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 /**
  * Test parsing NMEA0183 sentences.
  */
-public class NMEA0183ParserTest extends BaseIntegrationTest {
+public class NMEA0183ParsingTest extends BaseIntegrationTest {
 
-    private static Logger log = LoggerFactory.getLogger(NMEA0183ParserTest.class);
+    private static Logger log = LoggerFactory.getLogger(NMEA0183ParsingTest.class);
 
-    @Autowired
     private EventBus eventBus;
 
     private VesselMessagesDiscovered vesselMessagesEvent;
@@ -41,16 +37,6 @@ public class NMEA0183ParserTest extends BaseIntegrationTest {
     private UnrecognizedMessage unrecognizedMessage;
 
     private MessageFailure messageFailure;
-
-    @Before
-    public void registerInEventBus() {
-        eventBus.register(this);
-    }
-
-    @After
-    public void deregisterInEventBus() {
-        eventBus.unregister(this);
-    }
 
     @Test
     public void testDependencyInjection() {
@@ -64,6 +50,7 @@ public class NMEA0183ParserTest extends BaseIntegrationTest {
         NMEA0183SentenceDiscovered event = new NMEA0183SentenceDiscovered(sentence);
         eventBus.post(event);
         assertNotNull(vesselMessagesEvent);
+        assertFalse(vesselMessages.isEmpty());
     }
 
     @Test
@@ -90,34 +77,7 @@ public class NMEA0183ParserTest extends BaseIntegrationTest {
         assertNull(vesselMessages);
         assertNotNull(unrecognizedMessageEvent);
         assertNotNull(unrecognizedMessage);
-        assertEquals(MessageFailure.UNRECOGNIZED_SENTENCE, messageFailure);
-    }
-
-    /**
-     * Throway test to see how Garmin's timestamps work.
-     */
-    @Test
-    public void testGarminDateStamps() {
-        LocalTime time;
-
-        time = LocalTime.ofSecondOfDay(25712211 / 1000);
-        log.info(time.toString());
-        time = LocalTime.ofSecondOfDay(25712251 / 1000);
-        log.info(time.toString());
-        time = LocalTime.ofSecondOfDay(25712380 / 1000);
-        log.info(time.toString());
-        time = LocalTime.ofSecondOfDay(25712397 / 1000);
-        log.info(time.toString());
-        time = LocalTime.ofSecondOfDay(25712424 / 1000);
-        log.info(time.toString());
-        time = LocalTime.ofSecondOfDay(25712461 / 1000);
-        log.info(time.toString());
-        time = LocalTime.ofSecondOfDay(25712543 / 1000);
-        log.info(time.toString());
-        time = LocalTime.ofSecondOfDay(25712689 / 1000);
-        log.info(time.toString());
-        time = LocalTime.ofSecondOfDay(25712781 / 1000);
-        log.info(time.toString());
+        assertEquals(MessageFailure.MALFORMED_SENTENCE, messageFailure);
     }
 
     /**
@@ -127,6 +87,16 @@ public class NMEA0183ParserTest extends BaseIntegrationTest {
     private void parseSentence(String sentence) {
         NMEA0183SentenceDiscovered event = new NMEA0183SentenceDiscovered(sentence);
         eventBus.post(event);
+    }
+
+    /**
+     * Injecting the event bus
+     * @param eventBus
+     */
+    @Autowired
+    private void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+        eventBus.register(this);
     }
 
     /*

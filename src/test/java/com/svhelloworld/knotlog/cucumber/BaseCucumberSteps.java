@@ -25,6 +25,7 @@ public abstract class BaseCucumberSteps {
 
     protected static final String KEY_SENTENCE = "nmea0183.sentence";
     protected static final String KEY_MESSAGES = "vessel.messages";
+    protected static final String KEY_UNRECOGNIZED_MESSAGE = "unrecognized.message";
 
     private EventBus eventBus;
 
@@ -123,13 +124,19 @@ public abstract class BaseCucumberSteps {
     }
 
     /**
+     * @return unrecognized message returned from parsing
+     */
+    protected UnrecognizedMessage getUnrecognizedMessage() {
+        return get(KEY_UNRECOGNIZED_MESSAGE);
+    }
+
+    /**
      * Asserts that an unrecognized message was returned with the proper failure type
      * @param failure
      */
     protected void assertMessageFailure(MessageFailure failure) {
-        VesselMessages messages = getVesselMessages();
-        Assert.assertFalse("No unrecognized messages were found", messages.getUnrecognizedMessages().isEmpty());
-        UnrecognizedMessage message = messages.getUnrecognizedMessages().get(0);
+        UnrecognizedMessage message = get(KEY_UNRECOGNIZED_MESSAGE);
+        Assert.assertNotNull(message);
         Assert.assertEquals(failure, message.getFailureMode());
     }
 

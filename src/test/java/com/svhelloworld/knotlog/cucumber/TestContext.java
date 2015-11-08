@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * Holds context to enable acceptance testing across multiple step definition classes.
+ * All testing state should reside in this class. This class enables us to hold context 
+ * across multiple step definition classes.
  */
 @Component
 public class TestContext {

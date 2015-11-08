@@ -14,21 +14,11 @@ public class VesselMessages implements List<VesselMessage> {
 
     private final List<VesselMessage> vesselMessages;
 
-    private final List<UnrecognizedMessage> unrecognizedMessages;
-
     /**
      * Constructor.
      */
     public VesselMessages() {
         vesselMessages = new LinkedList<VesselMessage>();
-        unrecognizedMessages = new LinkedList<UnrecognizedMessage>();
-    }
-
-    /**
-     * @return true if this list has at least one {@link UnrecognizableMessage}
-     */
-    public boolean containsUnrecognizedMessage() {
-        return !unrecognizedMessages.isEmpty();
     }
 
     /**
@@ -45,22 +35,15 @@ public class VesselMessages implements List<VesselMessage> {
     }
 
     /**
-     * @return a list of all the {@link UnrecognizedMessage}s found in this list, returned
-     *      in order of insertion. Will never return null but can return an empty list.
-     */
-    public List<UnrecognizedMessage> getUnrecognizedMessages() {
-        return unrecognizedMessages;
-    }
-
-    /**
      * @see java.util.List#add(java.lang.Object)
+     * @throws IllegalArgumentException when message is an {@link UnrecognizedMessage} 
      */
     @Override
-    public boolean add(VesselMessage e) {
-        if (e instanceof UnrecognizedMessage) {
-            return unrecognizedMessages.add((UnrecognizedMessage) e);
+    public boolean add(VesselMessage message) {
+        if (message instanceof UnrecognizedMessage) {
+            throw new IllegalArgumentException("cannot accept UnrecognizedMessage types");
         }
-        return vesselMessages.add(e);
+        return vesselMessages.add(message);
     }
 
     /*

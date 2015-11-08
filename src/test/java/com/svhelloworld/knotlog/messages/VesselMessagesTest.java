@@ -3,10 +3,8 @@ package com.svhelloworld.knotlog.messages;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -60,47 +58,10 @@ public class VesselMessagesTest {
         assertTrue(messages.containsMessageType(GPSPosition.class));
     }
 
-    @Test
-    public void testDoesntContainsUnrecognizedMessage() {
-        messages.add(waterDepth);
-        assertFalse(messages.containsUnrecognizedMessage());
-    }
-
-    @Test
-    public void testContainsUnrecognizedMessages() {
+    @Test(expected = IllegalArgumentException.class)
+    public void testCantAddUnrecognizedMessages() {
         messages.add(waterDepth);
         messages.add(whut);
-        assertTrue(messages.containsUnrecognizedMessage());
-    }
-
-    @Test
-    public void testUnrecognizedMessagesDontCountInSize() {
-        messages.add(waterDepth);
-        messages.add(position);
-        messages.add(whut);
-        assertEquals(2, messages.size());
-    }
-
-    @Test
-    public void testUnrecognizedMessagesDontGetIterated() {
-        messages.add(waterDepth);
-        messages.add(position);
-        messages.add(whut);
-        for (VesselMessage message : messages) {
-            if (message instanceof UnrecognizedMessage) {
-                fail("found an unrecognized message");
-            }
-        }
-    }
-
-    @Test
-    public void testGetUnrecognizedMessages() {
-        messages.add(waterDepth);
-        messages.add(position);
-        messages.add(whut);
-        List<UnrecognizedMessage> unrecognized = messages.getUnrecognizedMessages();
-        assertEquals(1, unrecognized.size());
-        assertTrue(unrecognized.contains(whut));
     }
 
     /**
