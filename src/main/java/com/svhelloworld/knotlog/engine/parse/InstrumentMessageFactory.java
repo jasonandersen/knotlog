@@ -89,6 +89,7 @@ public class InstrumentMessageFactory {
             //if instantation fails, create an unrecognized message
             MessageFailure failureMode = MessageFailure.INVALID_SENTENCE_FIELDS;
             String identifier = definition.getIdentifier();
+            rawArgs.add(0, definition.getMessageClassName());
             message = createUnrecognizedMessage(source, timestamp, failureMode,
                     identifier, rawArgs, msgClass, e);
         }

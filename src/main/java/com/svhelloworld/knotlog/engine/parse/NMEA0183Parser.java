@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.svhelloworld.knotlog.event.NMEA0183SentenceDiscovered;
 import com.svhelloworld.knotlog.event.UnrecognizedMessageDiscovered;
 import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
@@ -52,26 +51,13 @@ public class NMEA0183Parser {
     }
 
     /**
-     * Handle NMEA0183 sentence discovery events. Will throw a {@link VesselMessagesDiscovered}
-     * back on to the event bus.
-     * @param event
+     * Interprets a single NMEA0183 sentence into vessel messages. Any @{link VesselMessage}s or
+     * {@link UnrecognizedMessage}s discovered during parsing will be posted back to the event bus.
+     * @param sentence NMEA0183 sentence
      */
     @Subscribe
-    public void handleNMEA0183SentenceDiscoveredEvent(NMEA0183SentenceDiscovered event) {
-        NMEA0183Sentence sentence = event.getSentence();
-        interpretSentence(sentence);
-    }
-
-    /**
-     * Interprets a single NMEA0183 sentence into vessel messages.
-     * @param sentence NMEA0183 sentence
-     * @return a list of vessel messages interpreted from the sentence.
-     *          Can return an empty list if no vessel messages can be
-     *          interpreted from this sentence. Will never return null.
-     *          Any unrecognized messages will be included.
-     */
-    private void interpretSentence(final NMEA0183Sentence sentence) {
-        log.debug("interpretting sentence: {}", sentence.getValidity());
+    public void parse(final NMEA0183Sentence sentence) {
+        log.debug("parsing sentence;text={}", sentence.getOriginalSentence());
         String tag = sentence.getTag();
         List<InstrumentMessageDefinition> definitions = dictionary.getDefinitions(tag);
         if (!sentence.isValid()) {

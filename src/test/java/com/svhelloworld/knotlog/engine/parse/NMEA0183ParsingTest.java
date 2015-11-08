@@ -8,11 +8,8 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.svhelloworld.knotlog.event.NMEA0183SentenceDiscovered;
 import com.svhelloworld.knotlog.event.UnrecognizedMessageDiscovered;
 import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
@@ -26,8 +23,6 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
 
     private static Logger log = LoggerFactory.getLogger(NMEA0183ParsingTest.class);
 
-    private EventBus eventBus;
-
     private VesselMessagesDiscovered vesselMessagesEvent;
 
     private VesselMessages vesselMessages;
@@ -39,16 +34,10 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
     private MessageFailure messageFailure;
 
     @Test
-    public void testDependencyInjection() {
-        assertNotNull(eventBus);
-    }
-
-    @Test
     public void testNMEA0183SentenceDiscoveredEvent() {
         NMEA0183Sentence sentence = new NMEA0183Sentence(
                 "25757110,V,GPS,GPGGA,130048,2531.3366,N,11104.4272,W,2,09,0.9,1.7,M,-31.5,M,,");
-        NMEA0183SentenceDiscovered event = new NMEA0183SentenceDiscovered(sentence);
-        eventBus.post(event);
+        post(sentence);
         assertNotNull(vesselMessagesEvent);
         assertFalse(vesselMessages.isEmpty());
     }
@@ -85,18 +74,7 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
      * @param sentence
      */
     private void parseSentence(String sentence) {
-        NMEA0183SentenceDiscovered event = new NMEA0183SentenceDiscovered(sentence);
-        eventBus.post(event);
-    }
-
-    /**
-     * Injecting the event bus
-     * @param eventBus
-     */
-    @Autowired
-    private void setEventBus(EventBus eventBus) {
-        this.eventBus = eventBus;
-        eventBus.register(this);
+        post(new NMEA0183Sentence(sentence));
     }
 
     /*

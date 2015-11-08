@@ -2,7 +2,7 @@ package com.svhelloworld.knotlog.cucumber;
 
 import com.google.common.eventbus.Subscribe;
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
-import com.svhelloworld.knotlog.event.NMEA0183SentenceDiscovered;
+import com.svhelloworld.knotlog.engine.parse.NMEA0183Sentence;
 import com.svhelloworld.knotlog.event.UnrecognizedMessageDiscovered;
 import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
@@ -42,8 +42,8 @@ public class NMEA0183ParseSentenceSteps extends BaseCucumberSteps {
 
     @When("^the NMEA0183 sentence is parsed$")
     public void theNMEA0183SentenceIsParsed() throws Throwable {
-        NMEA0183SentenceDiscovered event = new NMEA0183SentenceDiscovered(getCandidateSentence());
-        postEvent(event);
+        NMEA0183Sentence sentence = new NMEA0183Sentence(getCandidateSentence());
+        postEvent(sentence);
     }
 
     @Then("^the sentence has invalid sentence fields$")
