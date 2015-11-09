@@ -3,15 +3,15 @@ package com.svhelloworld.knotlog.engine.parse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.eventbus.Subscribe;
-import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
+import com.svhelloworld.knotlog.messages.ValidVesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
@@ -22,9 +22,7 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
 
     private static Logger log = LoggerFactory.getLogger(NMEA0183ParsingTest.class);
 
-    private VesselMessagesDiscovered vesselMessagesEvent;
-
-    private VesselMessages vesselMessages;
+    private VesselMessages vesselMessages = new VesselMessages();
 
     private UnrecognizedMessage unrecognizedMessage;
 
@@ -32,19 +30,17 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
 
     @Test
     public void testEventBusIsSetupToHandleSentences() {
-        assertNull(vesselMessagesEvent);
-        assertNull(vesselMessages);
+        assertTrue(vesselMessages.isEmpty());
         NMEA0183Sentence sentence = new NMEA0183Sentence(
                 "25757110,V,GPS,GPGGA,130048,2531.3366,N,11104.4272,W,2,09,0.9,1.7,M,-31.5,M,,");
         post(sentence);
-        assertNotNull(vesselMessagesEvent);
         assertFalse(vesselMessages.isEmpty());
     }
 
     @Test
     public void testEmptyFieldsInRecognizedSentence() {
         parseSentence("$IIDBT,,,,");
-        assertNull(vesselMessages);
+        assertTrue(vesselMessages.isEmpty());
         assertNotNull(unrecognizedMessage);
         assertEquals(MessageFailure.INVALID_SENTENCE_FIELDS, messageFailure);
     }
@@ -52,7 +48,7 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
     @Test
     public void testUnrecognizedTag() {
         parseSentence("54059,V,SRL,XXXXX,4,P,2,B,0,,,,,,,,,,,,,,,");
-        assertNull(vesselMessages);
+        assertTrue(vesselMessages.isEmpty());
         assertNotNull(unrecognizedMessage);
         assertEquals(MessageFailure.UNRECOGNIZED_SENTENCE, messageFailure);
     }
@@ -60,7 +56,7 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
     @Test
     public void testMalformedSentence() {
         parseSentence("I LIKE MONKEYS. ALSO, I EAT GLUE.");
-        assertNull(vesselMessages);
+        assertTrue(vesselMessages.isEmpty());
         assertNotNull(unrecognizedMessage);
         assertEquals(MessageFailure.MALFORMED_SENTENCE, messageFailure);
     }
@@ -78,14 +74,13 @@ public class NMEA0183ParsingTest extends BaseIntegrationTest {
      */
 
     @Subscribe
-    public void handleVesselMessagesDiscoveredEvent(VesselMessagesDiscovered event) {
-        log.info("vessel messages discovered: {}", event);
-        vesselMessagesEvent = event;
-        vesselMessages = event.getVesselMessages();
+    public void vesselMessageDiscovered(ValidVesselMessage message) {
+        log.info("vessel messages discovered: {}", message);
+        vesselMessages.add(message);
     }
 
     @Subscribe
-    public void handleUnrecognizedMessageDiscovered(UnrecognizedMessage message) {
+    public void unrecognizedMessageDiscovered(UnrecognizedMessage message) {
         unrecognizedMessage = message;
         messageFailure = unrecognizedMessage.getFailureMode();
     }

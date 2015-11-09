@@ -1,7 +1,6 @@
 package com.svhelloworld.knotlog.output;
 
 import com.svhelloworld.knotlog.i18n.BabelFish;
-import com.svhelloworld.knotlog.messages.PreparseMessage;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 
@@ -13,22 +12,12 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
  *
  */
 public class HTMLSimpleTableProtocol implements OutputProtocol {
-    
+
     private static final String OPEN = "<html><head></head><body><table>\n";
-    
+
     private static final String CLOSE = "</table></body></html>\n";
-    
+
     private static final String MSG = "<tr><td>%t</td><td>%s</td></tr>\n";
-    
-    /**
-     * @see com.svhelloworld.knotlog.output.OutputProtocol#preparseMessage(java.lang.String)
-     */
-    @Override
-    public String preparseMessage(PreparseMessage preparse) {
-        //TODO run output through HTML encoding
-        return String.format(MSG, preparse.getTimestamp(), 
-                preparse.getDisplayMessage());
-    }
 
     /**
      * @see com.svhelloworld.knotlog.output.OutputProtocol#streamClose()

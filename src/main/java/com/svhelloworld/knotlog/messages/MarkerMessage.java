@@ -15,7 +15,7 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  * @since Feb 16, 2010
  *
  */
-public class MarkerMessage implements VesselMessage {
+public class MarkerMessage implements ValidVesselMessage {
 
     /**
      * Key used to retrieve the display message.

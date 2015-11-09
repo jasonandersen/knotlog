@@ -77,6 +77,12 @@
             <artifactId>guava</artifactId>
             <version>18.0</version>
         </dependency>
+        <!-- Apache Commons -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
         <!-- RXTXComm serial port framework -->
         <dependency>
             <groupId>org.bidib.jbidib.org.qbang.rxtx</groupId>

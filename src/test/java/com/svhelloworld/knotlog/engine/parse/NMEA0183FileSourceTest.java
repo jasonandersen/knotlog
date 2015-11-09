@@ -11,9 +11,8 @@ import com.google.common.eventbus.Subscribe;
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.NMEA0183StreamedSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
-import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.VesselMessage;
+import com.svhelloworld.knotlog.messages.ValidVesselMessage;
 import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**
@@ -79,12 +78,10 @@ public class NMEA0183FileSourceTest extends BaseIntegrationTest {
 
     @SuppressWarnings("unused")
     @Subscribe
-    public void handleVesselMessagesDiscoveredEvent(VesselMessagesDiscovered event) {
-        for (VesselMessage message : event.getVesselMessages()) {
-            messagesCount++;
-            if (messagesCount % 1000 == 0) {
-                log.info("parsed {} vessel messages", messagesCount);
-            }
+    public void vesselMessagesDiscovered(ValidVesselMessage message) {
+        messagesCount++;
+        if (messagesCount % 1000 == 0) {
+            log.info("parsed {} vessel messages", messagesCount);
         }
     }
 

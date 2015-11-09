@@ -1,7 +1,6 @@
 package com.svhelloworld.knotlog.output;
 
 import com.svhelloworld.knotlog.i18n.BabelFish;
-import com.svhelloworld.knotlog.messages.PreparseMessage;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 
@@ -14,7 +13,7 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
  *
  */
 public class TimestampedPlainTextProtocol implements OutputProtocol {
-    
+
     /**
      * format mask for preparse output
      */
@@ -41,7 +40,7 @@ public class TimestampedPlainTextProtocol implements OutputProtocol {
      */
     @Override
     public String unrecognizedMessage(UnrecognizedMessage message) {
-        return String.format(MASK, message.getTimestamp(), 
+        return String.format(MASK, message.getTimestamp(),
                 BabelFish.localize(message) + "\n");
     }
 
@@ -50,16 +49,8 @@ public class TimestampedPlainTextProtocol implements OutputProtocol {
      */
     @Override
     public String vesselMessage(VesselMessage message) {
-        return String.format(MASK, message.getTimestamp(), 
+        return String.format(MASK, message.getTimestamp(),
                 BabelFish.localize(message) + "\n");
     }
 
-    /**
-     * @see com.svhelloworld.knotlog.output.OutputProtocol#preparseMessage(java.lang.String)
-     */
-    @Override
-    public String preparseMessage(PreparseMessage preparse) {
-        return String.format(MASK, preparse.getTimestamp(), 
-                preparse.getDisplayMessage());
-    }
 }

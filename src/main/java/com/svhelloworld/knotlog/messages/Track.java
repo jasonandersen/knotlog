@@ -14,7 +14,7 @@ import java.util.List;
  * @since Feb 14, 2010
  *
  */
-public class Track extends BaseInstrumentMessage implements VesselMessage {
+public class Track extends BaseInstrumentMessage implements ValidVesselMessage {
 
     /**
      * The name of this track

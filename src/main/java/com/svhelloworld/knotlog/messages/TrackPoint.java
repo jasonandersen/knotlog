@@ -16,7 +16,7 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  * @since Feb 14, 2010
  *
  */
-public class TrackPoint implements Position, VesselMessage {
+public class TrackPoint implements Position, ValidVesselMessage {
 
     /*
      * TODO mark member variables as final once constructor is figured out

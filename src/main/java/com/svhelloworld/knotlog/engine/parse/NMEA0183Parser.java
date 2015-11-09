@@ -10,11 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.svhelloworld.knotlog.event.VesselMessagesDiscovered;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessageSource;
-import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.util.Now;
 
 /**
@@ -74,37 +72,10 @@ public class NMEA0183Parser {
      * @param definitions
      */
     private void handleDefinedSentence(NMEA0183Sentence sentence, List<InstrumentMessageDefinition> definitions) {
-        VesselMessages messages = new VesselMessages();
         for (InstrumentMessageDefinition definition : definitions) {
             VesselMessage message = buildDefinedVesselMessage(definition, sentence);
-            if (message instanceof UnrecognizedMessage) {
-                eventBus.post(message);
-            } else {
-                messages.add(message);
-            }
+            eventBus.post(message);
         }
-        if (!messages.isEmpty()) {
-            eventBus.post(new VesselMessagesDiscovered(messages));
-            logMessages(messages);
-        }
-    }
-
-    /**
-     * Logs the returned messages at a DEBUG level
-     * @param messages
-     */
-    private void logMessages(VesselMessages messages) {
-        if (!log.isDebugEnabled()) {
-            return;
-        }
-        StringBuilder builder = new StringBuilder();
-        if (!messages.isEmpty()) {
-            builder.append(messages.size()).append(" messages:");
-            for (VesselMessage message : messages) {
-                builder.append(message.getClass().getSimpleName()).append(",");
-            }
-        }
-        log.debug(builder.toString());
     }
 
     /**

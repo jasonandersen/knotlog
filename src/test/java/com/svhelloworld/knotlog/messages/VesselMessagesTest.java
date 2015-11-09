@@ -4,13 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.svhelloworld.knotlog.engine.parse.MessageFailure;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
 import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
@@ -27,16 +24,12 @@ public class VesselMessagesTest {
 
     private WaterDepth waterDepth;
 
-    private UnrecognizedMessage whut;
-
     @Before
     public void setup() {
         messages = new VesselMessages();
         position = new GPSPosition(VesselMessageSource.NMEA0183, Now.getInstant(), "2531.3369", LatitudinalHemisphere.NORTH,
                 "11104.4274", LongitudinalHemisphere.WEST);
         waterDepth = new WaterDepth(VesselMessageSource.NMEA0183, Now.getInstant(), 100f, DistanceUnit.FATHOMS);
-        whut = new UnrecognizedMessage(VesselMessageSource.NMEA0183, Now.getInstant(), MessageFailure.UNRECOGNIZED_SENTENCE,
-                new ArrayList<String>());
     }
 
     @Test
@@ -56,12 +49,6 @@ public class VesselMessagesTest {
     public void testContainsMessageType() {
         messages.add(position);
         assertTrue(messages.containsMessageType(GPSPosition.class));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCantAddUnrecognizedMessages() {
-        messages.add(waterDepth);
-        messages.add(whut);
     }
 
     /**

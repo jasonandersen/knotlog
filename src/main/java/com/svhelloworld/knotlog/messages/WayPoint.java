@@ -17,7 +17,7 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  * @since Feb 14, 2010
  *
  */
-public class WayPoint implements VesselMessage, Position, Localizable {
+public class WayPoint implements ValidVesselMessage, Position, Localizable {
 
     /**
      * Determines the icon to be displayed with the waypoint.

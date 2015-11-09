@@ -12,7 +12,7 @@ import com.svhelloworld.knotlog.i18n.BabelFish;
  * @since Feb 24, 2010
  *
  */
-public abstract class BaseInstrumentMessage implements VesselMessage {
+public abstract class BaseInstrumentMessage implements ValidVesselMessage {
 
     /**
      * Source of message

@@ -1,7 +1,6 @@
 package com.svhelloworld.knotlog.output;
 
 import com.svhelloworld.knotlog.i18n.BabelFish;
-import com.svhelloworld.knotlog.messages.PreparseMessage;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 
@@ -13,7 +12,7 @@ import com.svhelloworld.knotlog.messages.VesselMessage;
  *
  */
 public class PlainTextProtocol implements OutputProtocol {
-    
+
     /**
      * @see com.svhelloworld.knotlog.output.OutputProtocol#streamClose()
      */
@@ -44,14 +43,6 @@ public class PlainTextProtocol implements OutputProtocol {
     @Override
     public String vesselMessage(VesselMessage message) {
         return BabelFish.localize(message) + "\n";
-    }
-
-    /**
-     * @see com.svhelloworld.knotlog.output.OutputProtocol#preparseMessage(java.lang.String)
-     */
-    @Override
-    public String preparseMessage(PreparseMessage preparse) {
-        return preparse.getDisplayMessage() + "\n";
     }
 
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,12 +31,8 @@ public class NMEA0183Reader {
      * @throws IllegalArgumentException when eventBus or source is null
      */
     public NMEA0183Reader(EventBus eventBus, StreamedSource source) {
-        if (eventBus == null) {
-            throw new IllegalArgumentException("eventBus cannot be null");
-        }
-        if (source == null) {
-            throw new IllegalArgumentException("source cannot be null");
-        }
+        Validate.notNull(eventBus);
+        Validate.notNull(source);
         this.eventBus = eventBus;
         eventBus.register(this);
         this.source = source;

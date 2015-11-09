@@ -7,26 +7,26 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * A list of {@link VesselMessage} objects. Will also track any {@link UnrecognizedMessage}s found
+ * A list of {@link ValidVesselMessage} objects. Will also track any {@link UnrecognizedMessage}s found
  * during a parsing event.
  */
-public class VesselMessages implements List<VesselMessage> {
+public class VesselMessages implements List<ValidVesselMessage> {
 
-    private final List<VesselMessage> vesselMessages;
+    private final List<ValidVesselMessage> vesselMessages;
 
     /**
      * Constructor.
      */
     public VesselMessages() {
-        vesselMessages = new LinkedList<VesselMessage>();
+        vesselMessages = new LinkedList<ValidVesselMessage>();
     }
 
     /**
      * @param messageType
      * @return true if this list contains at least one message that is that type.
      */
-    public boolean containsMessageType(Class<? extends VesselMessage> messageType) {
-        for (VesselMessage message : vesselMessages) {
+    public boolean containsMessageType(Class<? extends ValidVesselMessage> messageType) {
+        for (ValidVesselMessage message : vesselMessages) {
             if (message.getClass().equals(messageType)) {
                 return true;
             }
@@ -39,7 +39,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @throws IllegalArgumentException when message is an {@link UnrecognizedMessage} 
      */
     @Override
-    public boolean add(VesselMessage message) {
+    public boolean add(ValidVesselMessage message) {
         if (message instanceof UnrecognizedMessage) {
             throw new IllegalArgumentException("cannot accept UnrecognizedMessage types");
         }
@@ -78,7 +78,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#iterator()
      */
     @Override
-    public Iterator<VesselMessage> iterator() {
+    public Iterator<ValidVesselMessage> iterator() {
         return vesselMessages.iterator();
     }
 
@@ -118,7 +118,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#addAll(java.util.Collection)
      */
     @Override
-    public boolean addAll(Collection<? extends VesselMessage> c) {
+    public boolean addAll(Collection<? extends ValidVesselMessage> c) {
         throw new UnsupportedOperationException("Currently do not support add all operations.");
     }
 
@@ -126,7 +126,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#addAll(int, java.util.Collection)
      */
     @Override
-    public boolean addAll(int index, Collection<? extends VesselMessage> c) {
+    public boolean addAll(int index, Collection<? extends ValidVesselMessage> c) {
         throw new UnsupportedOperationException("Currently do not support add all operations.");
     }
 
@@ -158,7 +158,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#get(int)
      */
     @Override
-    public VesselMessage get(int index) {
+    public ValidVesselMessage get(int index) {
         return vesselMessages.get(index);
     }
 
@@ -166,7 +166,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#set(int, java.lang.Object)
      */
     @Override
-    public VesselMessage set(int index, VesselMessage element) {
+    public ValidVesselMessage set(int index, ValidVesselMessage element) {
         return vesselMessages.set(index, element);
     }
 
@@ -174,7 +174,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#add(int, java.lang.Object)
      */
     @Override
-    public void add(int index, VesselMessage element) {
+    public void add(int index, ValidVesselMessage element) {
         vesselMessages.add(index, element);
     }
 
@@ -182,7 +182,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#remove(int)
      */
     @Override
-    public VesselMessage remove(int index) {
+    public ValidVesselMessage remove(int index) {
         return vesselMessages.remove(index);
     }
 
@@ -206,7 +206,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#listIterator()
      */
     @Override
-    public ListIterator<VesselMessage> listIterator() {
+    public ListIterator<ValidVesselMessage> listIterator() {
         return vesselMessages.listIterator();
     }
 
@@ -214,7 +214,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#listIterator(int)
      */
     @Override
-    public ListIterator<VesselMessage> listIterator(int index) {
+    public ListIterator<ValidVesselMessage> listIterator(int index) {
         return vesselMessages.listIterator(index);
     }
 
@@ -222,7 +222,7 @@ public class VesselMessages implements List<VesselMessage> {
      * @see java.util.List#subList(int, int)
      */
     @Override
-    public List<VesselMessage> subList(int fromIndex, int toIndex) {
+    public List<ValidVesselMessage> subList(int fromIndex, int toIndex) {
         return vesselMessages.subList(fromIndex, toIndex);
     }
 

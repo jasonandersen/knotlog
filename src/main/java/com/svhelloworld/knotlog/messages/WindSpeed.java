@@ -15,8 +15,7 @@ import com.svhelloworld.knotlog.util.MiscUtil;
  * @since Mar 6, 2010
  *
  */
-public class WindSpeed extends
-        BaseQuantitativeMessage<SpeedUnit>implements Speed {
+public class WindSpeed extends BaseQuantitativeMessage<SpeedUnit> implements Speed {
 
     private MeasurementBasis basis;
 
