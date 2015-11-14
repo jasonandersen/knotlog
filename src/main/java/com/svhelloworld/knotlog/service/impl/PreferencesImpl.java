@@ -1,5 +1,6 @@
 package com.svhelloworld.knotlog.service.impl;
 
+import java.io.File;
 import java.util.prefs.Preferences;
 
 import org.slf4j.Logger;
@@ -65,6 +66,15 @@ public class PreferencesImpl implements com.svhelloworld.knotlog.service.Prefere
     public void put(String key, Object value) {
         log.info("setting preference {} as {}", key, value);
         preferences.put(key, value.toString());
+    }
+
+    /**
+     * @see com.svhelloworld.knotlog.service.Preferences#getKnotlogDirectory()
+     */
+    @Override
+    public File getKnotlogDirectory() {
+        String path = get(com.svhelloworld.knotlog.service.Preferences.KEY_DB_DIRECTORY);
+        return new File(path);
     }
 
 }

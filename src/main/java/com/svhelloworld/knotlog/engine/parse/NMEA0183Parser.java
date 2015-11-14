@@ -73,19 +73,11 @@ public class NMEA0183Parser {
      */
     private void handleDefinedSentence(NMEA0183Sentence sentence, List<InstrumentMessageDefinition> definitions) {
         for (InstrumentMessageDefinition definition : definitions) {
-            VesselMessage message = buildDefinedVesselMessage(definition, sentence);
+            Instant timestamp = getSentenceTimestamp(sentence);
+            VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(SOURCE, timestamp, definition,
+                    sentence.getFields());
             eventBus.post(message);
         }
-    }
-
-    /**
-     * @param definition
-     * @param sentence
-     * @return a properly defined {@link VesselMessage} based on the sentence and tag definition
-     */
-    private VesselMessage buildDefinedVesselMessage(InstrumentMessageDefinition definition, NMEA0183Sentence sentence) {
-        Instant timestamp = getSentenceTimestamp(sentence);
-        return InstrumentMessageFactory.createInstrumentMessage(SOURCE, timestamp, definition, sentence.getFields());
     }
 
     /**
