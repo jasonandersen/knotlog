@@ -3,12 +3,11 @@ package com.svhelloworld.knotlog.db;
 import java.util.List;
 
 import com.svhelloworld.knotlog.domain.Vessel;
-import com.svhelloworld.knotlog.service.InitializableService;
 
 /**
  * Reads and writes {@link Vessel} objects.
  */
-public interface VesselStore extends InitializableService {
+public interface VesselStore {
 
     /**
      * Persists a vessel.

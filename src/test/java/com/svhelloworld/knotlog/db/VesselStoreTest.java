@@ -30,8 +30,6 @@ public class VesselStoreTest extends BaseIntegrationTest {
     @Autowired
     private VesselStore store;
 
-    @Autowired
-
     private Vessel vessel;
 
     @Before

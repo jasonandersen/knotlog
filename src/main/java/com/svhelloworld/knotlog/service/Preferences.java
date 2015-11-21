@@ -1,7 +1,5 @@
 package com.svhelloworld.knotlog.service;
 
-import java.io.File;
-
 /**
  * Provides application preferences.
  * 
@@ -13,15 +11,27 @@ public interface Preferences {
      */
     public String KEY_DEPTH_UNIT = "water.depth.unit";
     /**
+     * Root directory for all knotlog data. 
+     */
+    public String KEY_ROOT_DIRECTORY = "directory.root";
+    /**
      * Directory where the knotlog database is stored.
      */
-    public String KEY_DB_DIRECTORY = "database.directory";
+    public String KEY_DATA_DIRECTORY = "directory.data";
 
     /**
      * @param key
      * @return application preference stored at that key, will return null if not found
      */
     String get(String key);
+
+    /**
+     * @param key
+     * @param defaultValue
+     * @return application preference stored at that key, if no preference is found at that key
+     *      then this method will return defaultValue
+     */
+    String get(String key, String defaultValue);
 
     /**
      * @param key
@@ -39,8 +49,4 @@ public interface Preferences {
      */
     void put(String key, Object value);
 
-    /**
-     * @return the directory that Knotlog will use to store data.
-     */
-    File getKnotlogDirectory();
 }

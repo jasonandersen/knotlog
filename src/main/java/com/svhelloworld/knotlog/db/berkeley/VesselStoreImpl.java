@@ -3,6 +3,7 @@ package com.svhelloworld.knotlog.db.berkeley;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.apache.commons.lang.Validate;
@@ -99,18 +100,10 @@ public class VesselStoreImpl implements VesselStore {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.InitializableService#isInitialized()
-     */
-    @Override
-    public boolean isInitialized() {
-        return store != null && primaryIndex != null;
-    }
-
-    /**
      * Initialize entity store and indices.
      */
-    @Override
-    public void initialize() {
+    @PostConstruct
+    private void initialize() {
         log.info("initializing");
         Environment dbEnv = environment.getEnvironment();
         StoreConfig config = new StoreConfig();

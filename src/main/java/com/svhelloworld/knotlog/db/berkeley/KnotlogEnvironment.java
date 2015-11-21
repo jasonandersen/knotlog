@@ -2,6 +2,7 @@ package com.svhelloworld.knotlog.db.berkeley;
 
 import java.io.File;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.slf4j.Logger;
@@ -12,19 +13,18 @@ import org.springframework.stereotype.Component;
 import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
 import com.sleepycat.je.Transaction;
-import com.svhelloworld.knotlog.LocalFileSystem;
-import com.svhelloworld.knotlog.service.InitializableService;
+import com.svhelloworld.knotlog.LocalFiles;
 
 /**
  * Responsible for setting up a BerkeleyDB {@link Environment}.
  */
 @Component
-public class KnotlogEnvironment implements InitializableService {
+public class KnotlogEnvironment {
 
     private static Logger log = LoggerFactory.getLogger(KnotlogEnvironment.class);
 
     @Autowired
-    private LocalFileSystem directories;
+    private LocalFiles localFiles;
 
     private Environment environment;
 
@@ -44,18 +44,10 @@ public class KnotlogEnvironment implements InitializableService {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.InitializableService#isInitialized()
-     */
-    @Override
-    public boolean isInitialized() {
-        return environment != null;
-    }
-
-    /**
      * Do not call directly. Will be called during the lifecycle of this managed bean.
      */
-    @Override
-    public void initialize() {
+    @PostConstruct
+    private void initialize() {
         log.info("initializing");
         initEnvironment();
     }
@@ -76,7 +68,7 @@ public class KnotlogEnvironment implements InitializableService {
      * @return the directory used to store the database files
      */
     protected File getDatabaseDirectory() {
-        return directories.getDataDirectory();
+        return localFiles.getDataDirectory();
     }
 
     /**

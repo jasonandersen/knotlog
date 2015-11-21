@@ -1,6 +1,5 @@
 package com.svhelloworld.knotlog.service.impl;
 
-import java.io.File;
 import java.util.prefs.Preferences;
 
 import org.slf4j.Logger;
@@ -44,6 +43,15 @@ public class PreferencesImpl implements com.svhelloworld.knotlog.service.Prefere
     }
 
     /**
+     * @see com.svhelloworld.knotlog.service.Preferences#get(java.lang.String, java.lang.String)
+     */
+    @Override
+    public String get(String key, String defaultValue) {
+        String value = get(key);
+        return value == null ? defaultValue : value;
+    }
+
+    /**
      * @see com.svhelloworld.knotlog.service.Preferences#getEnum(java.lang.String, java.lang.Class)
      */
     @SuppressWarnings("rawtypes")
@@ -69,12 +77,10 @@ public class PreferencesImpl implements com.svhelloworld.knotlog.service.Prefere
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.Preferences#getKnotlogDirectory()
+     * @return the preferences instance
      */
-    @Override
-    public File getKnotlogDirectory() {
-        String path = get(com.svhelloworld.knotlog.service.Preferences.KEY_DB_DIRECTORY);
-        return new File(path);
+    protected Preferences getPreferences() {
+        return preferences;
     }
 
 }
