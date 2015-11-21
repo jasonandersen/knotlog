@@ -2,7 +2,6 @@ package com.svhelloworld.knotlog.db.berkeley;
 
 import java.io.File;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.slf4j.Logger;
@@ -12,24 +11,22 @@ import org.springframework.stereotype.Component;
 
 import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
-import com.svhelloworld.knotlog.service.Preferences;
+import com.sleepycat.je.Transaction;
+import com.svhelloworld.knotlog.LocalFileSystem;
+import com.svhelloworld.knotlog.service.InitializableService;
 
 /**
  * Responsible for setting up a BerkeleyDB {@link Environment}.
  */
 @Component
-public class KnotlogEnvironment {
+public class KnotlogEnvironment implements InitializableService {
 
     private static Logger log = LoggerFactory.getLogger(KnotlogEnvironment.class);
 
-    private static final String DIRECTORY_NAME = "db";
-
     @Autowired
-    private Preferences preferences;
+    private LocalFileSystem directories;
 
     private Environment environment;
-
-    private File databaseDirectory;
 
     /**
      * @return the Berkeley DB JE environment
@@ -39,12 +36,27 @@ public class KnotlogEnvironment {
     }
 
     /**
+     * Starts a new transaction 
+     * @return the transaction handle
+     */
+    public Transaction startTransaction() {
+        return environment.beginTransaction(null, null);
+    }
+
+    /**
+     * @see com.svhelloworld.knotlog.service.InitializableService#isInitialized()
+     */
+    @Override
+    public boolean isInitialized() {
+        return environment != null;
+    }
+
+    /**
      * Do not call directly. Will be called during the lifecycle of this managed bean.
      */
-    @PostConstruct
-    private void initialize() {
+    @Override
+    public void initialize() {
         log.info("initializing");
-        initDatabaseDirectory();
         initEnvironment();
     }
 
@@ -52,7 +64,7 @@ public class KnotlogEnvironment {
      * Do not call directly. Will be called during the lifecycle of this managed bean.
      */
     @PreDestroy
-    private void closeEnvironment() {
+    protected void closeEnvironment() {
         log.info("closing database environment");
         if (environment == null) {
             return;
@@ -64,7 +76,7 @@ public class KnotlogEnvironment {
      * @return the directory used to store the database files
      */
     protected File getDatabaseDirectory() {
-        return databaseDirectory;
+        return directories.getDataDirectory();
     }
 
     /**
@@ -74,27 +86,8 @@ public class KnotlogEnvironment {
         log.info("initializing Berkeley DB environment");
         EnvironmentConfig envConf = new EnvironmentConfig();
         envConf.setAllowCreate(true);
+        envConf.setTransactional(true);
         environment = new Environment(getDatabaseDirectory(), envConf);
-    }
-
-    /**
-     * Initializes the database directory to be a child directory off the knotlog directory
-     */
-    private void initDatabaseDirectory() {
-        File knotlogDir = preferences.getKnotlogDirectory();
-        StringBuilder path = new StringBuilder(knotlogDir.getAbsolutePath());
-        if (!path.toString().endsWith(File.separator)) {
-            path.append(File.separator);
-        }
-        path.append(DIRECTORY_NAME).append(File.separator);
-        File dbDir = new File(path.toString());
-        if (!dbDir.exists()) {
-            dbDir.mkdir();
-        }
-        assert dbDir.exists();
-        assert dbDir.canRead();
-        log.info("using database directory {}", dbDir.getAbsolutePath());
-        databaseDirectory = dbDir;
     }
 
 }

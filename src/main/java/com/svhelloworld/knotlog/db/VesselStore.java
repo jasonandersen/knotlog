@@ -1,12 +1,14 @@
 package com.svhelloworld.knotlog.db;
 
-import com.sleepycat.je.DatabaseException;
+import java.util.List;
+
 import com.svhelloworld.knotlog.domain.Vessel;
+import com.svhelloworld.knotlog.service.InitializableService;
 
 /**
  * Reads and writes {@link Vessel} objects.
  */
-public interface VesselStore {
+public interface VesselStore extends InitializableService {
 
     /**
      * Persists a vessel.
@@ -15,9 +17,15 @@ public interface VesselStore {
     public void save(Vessel vessel);
 
     /**
-     * Shutdown the entity store.
-     * @throws DatabaseException 
+     * Retrieves a {@link Vessel} based on the vessel's ID.
+     * @param key
+     * @return
      */
-    public void close() throws DatabaseException;
+    public Vessel read(Integer key);
+
+    /**
+     * @return a list of all vessels, never returns null but can return empty list
+     */
+    public List<Vessel> readAllVessels();
 
 }

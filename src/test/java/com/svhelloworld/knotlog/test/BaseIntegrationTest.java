@@ -25,16 +25,8 @@ public abstract class BaseIntegrationTest {
 
     private static final Logger log = LoggerFactory.getLogger(BaseIntegrationTest.class);
 
-    private EventBus eventBus;
-
-    /**
-     * Injecting the event bus
-     * @param eventBus
-     */
     @Autowired
-    private void setEventBus(EventBus eventBus) {
-        this.eventBus = eventBus;
-    }
+    private EventBus eventBus;
 
     /**
      * Register testing class on event bus before every test.

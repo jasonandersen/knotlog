@@ -14,6 +14,8 @@ public class Vessel {
 
     private String name;
 
+    private VesselType type;
+
     /**
      * Empty constructor
      */
@@ -25,10 +27,12 @@ public class Vessel {
      * Constructor
      * @param id
      * @param name
+     * @param type
      */
-    public Vessel(Integer id, String name) {
+    public Vessel(Integer id, String name, VesselType type) {
         this.id = id;
         this.name = name;
+        this.type = type;
     }
 
     /**
@@ -57,6 +61,20 @@ public class Vessel {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the type of vessel
+     */
+    public VesselType getType() {
+        return type;
+    }
+
+    /**
+     * @param newType
+     */
+    public void setType(VesselType newType) {
+        this.type = newType;
     }
 
 }
