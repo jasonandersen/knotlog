@@ -107,6 +107,19 @@ public class LocalFiles {
     }
 
     /**
+     * @return the default path in the user's home directory
+     */
+    private String buildDefaultRootPath() {
+        StringBuilder builder = new StringBuilder(FileUtils.getUserDirectoryPath());
+        if (!builder.toString().endsWith(File.separator)) {
+            builder.append(File.separator);
+        }
+        builder.append(ROOT_DIRECTORY_NAME);
+        log.debug("root default directory {}", builder);
+        return builder.toString();
+    }
+
+    /**
      * @param path
      * @return a valid {@link File} that exists on the file system and is readable and writeable
      * @throws IOException 
@@ -121,19 +134,6 @@ public class LocalFiles {
         Validate.isTrue(directory.canRead());
         Validate.isTrue(directory.canWrite());
         return directory;
-    }
-
-    /**
-     * @return the default path in the user's home directory
-     */
-    private String buildDefaultRootPath() {
-        StringBuilder builder = new StringBuilder(FileUtils.getUserDirectoryPath());
-        if (!builder.toString().endsWith(File.separator)) {
-            builder.append(File.separator);
-        }
-        builder.append(ROOT_DIRECTORY_NAME);
-        log.debug("root default directory {}", builder);
-        return builder.toString();
     }
 
 }

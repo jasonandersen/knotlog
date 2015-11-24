@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
@@ -15,13 +14,12 @@ import org.springframework.stereotype.Repository;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.sleepycat.je.DatabaseException;
-import com.sleepycat.je.Environment;
 import com.sleepycat.je.Transaction;
-import com.sleepycat.persist.EntityStore;
+import com.sleepycat.persist.EntityCursor;
 import com.sleepycat.persist.PrimaryIndex;
-import com.sleepycat.persist.StoreConfig;
 import com.svhelloworld.knotlog.db.VesselStore;
 import com.svhelloworld.knotlog.domain.Vessel;
+import com.svhelloworld.knotlog.events.LogDatabaseStats;
 import com.svhelloworld.knotlog.events.NewVessel;
 import com.svhelloworld.knotlog.events.RequestAllVessels;
 
@@ -39,10 +37,6 @@ public class VesselStoreImpl implements VesselStore {
     @Autowired
     private EventBus eventBus;
 
-    private EntityStore store;
-
-    private PrimaryIndex<Integer, Vessel> primaryIndex;
-
     /**
      * @see com.svhelloworld.knotlog.db.VesselStore#save(com.svhelloworld.knotlog.domain.Vessel)
      */
@@ -51,7 +45,7 @@ public class VesselStoreImpl implements VesselStore {
         Validate.notNull(vessel);
         Transaction txn = environment.startTransaction();
         try {
-            primaryIndex.put(vessel);
+            getPrimaryIndex().put(vessel);
             txn.commit();
         } catch (DatabaseException e) {
             txn.abort();
@@ -64,7 +58,8 @@ public class VesselStoreImpl implements VesselStore {
      */
     @Override
     public Vessel read(Integer id) {
-        return primaryIndex.get(id);
+        Vessel out = getPrimaryIndex().get(id);
+        return out;
     }
 
     /**
@@ -93,37 +88,53 @@ public class VesselStoreImpl implements VesselStore {
     @Override
     public List<Vessel> readAllVessels() {
         List<Vessel> out = new ArrayList<Vessel>();
-        for (Vessel vessel : primaryIndex.entities()) {
-            out.add(vessel);
+        EntityCursor<Vessel> cursor = getPrimaryIndex().entities();
+        try {
+            for (Vessel vessel = cursor.first(); vessel != null; vessel = cursor.next()) {
+                out.add(vessel);
+            }
+        } finally {
+            cursor.close();
         }
         return out;
     }
 
     /**
-     * Initialize entity store and indices.
+     * @return retrieves the primary index from the entity store
+     */
+    private PrimaryIndex<Integer, Vessel> getPrimaryIndex() {
+        /*
+         * Make sure we don't store a reference to the primary index but instead retrieve it
+         * each time we need it. This allows us to close the store and invalidate primary indices
+         * without impacting each individual data access object.
+         */
+        return environment.getPrimaryIndex(Integer.class, Vessel.class);
+    }
+
+    /**
+     * Initialize entity indices.
      */
     @PostConstruct
     private void initialize() {
         log.info("initializing");
-        Environment dbEnv = environment.getEnvironment();
-        StoreConfig config = new StoreConfig();
-        config.setAllowCreate(true);
-        config.setTransactional(true);
-
-        log.debug("initializing EntityStore");
-        store = new EntityStore(dbEnv, getClass().getSimpleName(), config);
-
-        log.debug("initializing PrimaryIndex");
-        primaryIndex = store.getPrimaryIndex(Integer.class, Vessel.class);
-
         log.debug("registering in event bus");
         eventBus.register(this);
     }
 
-    @PreDestroy
-    private void closeStore() {
-        log.info("closing EntityStore");
-        store.close();
+    /**
+     * Log environment statistics.
+     * @param string
+     */
+    @SuppressWarnings("unused")
+    private void logStats(String msg) {
+        /*
+         * this seems like a handy little diagnostic tool so I'm leaving it in here even though
+         * we're not actively calling it right now
+         */
+        StringBuilder builder = new StringBuilder("[");
+        builder.append(getClass().getSimpleName()).append("] ");
+        builder.append(msg);
+        eventBus.post(new LogDatabaseStats(builder.toString()));
     }
 
 }

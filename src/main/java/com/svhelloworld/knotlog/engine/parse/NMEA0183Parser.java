@@ -3,6 +3,8 @@ package com.svhelloworld.knotlog.engine.parse;
 import java.time.Instant;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ public class NMEA0183Parser {
     /**
      * Event bus to subscribe to events that need parsing
      */
+    @Autowired
     private EventBus eventBus;
 
     /**
@@ -39,13 +42,6 @@ public class NMEA0183Parser {
      */
     @Autowired
     private NMEA0183MessageDictionary dictionary;
-
-    /**
-     * Constructor
-     */
-    public NMEA0183Parser() {
-        log.info("Initializing");
-    }
 
     /**
      * Interprets a single NMEA0183 sentence into vessel messages. Any @{link VesselMessage}s or
@@ -87,7 +83,7 @@ public class NMEA0183Parser {
     private void handleUndefinedSentence(NMEA0183Sentence sentence) {
         /*
          * sentence tag has not been defined so create an unrecognized message
-         * event and return an empty message list
+         * event
          */
         Instant timestamp = getSentenceTimestamp(sentence);
         MessageFailure failureMode = MessageFailure.UNRECOGNIZED_SENTENCE;
@@ -124,9 +120,8 @@ public class NMEA0183Parser {
      * Allows spring to autowire the event bus.
      * @param eventBus
      */
-    @Autowired
-    private void setEventBus(EventBus eventBus) {
-        this.eventBus = eventBus;
+    @PostConstruct
+    private void registerOnEventBus() {
         eventBus.register(this);
     }
 

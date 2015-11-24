@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.google.common.eventbus.DeadEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import com.svhelloworld.knotlog.db.berkeley.DatabaseTruncator;
 
 /**
  * Integration tests requiring dependency injection should extend from this class.
@@ -28,12 +29,23 @@ public abstract class BaseIntegrationTest {
     @Autowired
     private EventBus eventBus;
 
+    @Autowired
+    private DatabaseTruncator truncator;
+
     /**
      * Register testing class on event bus before every test.
      */
     @Before
     public void registerOnEventBus() {
         eventBus.register(this);
+    }
+
+    /**
+     * Truncate the database after each test.
+     */
+    @After
+    public void truncateDatabase() {
+        truncator.truncate();
     }
 
     /**

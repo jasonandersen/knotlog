@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
 import com.google.common.eventbus.EventBus;
 import com.sleepycat.je.DatabaseException;
@@ -22,6 +23,7 @@ import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 /**
  * Test the {@link VesselStore} implementation.
  */
+@DirtiesContext
 public class VesselStoreTest extends BaseIntegrationTest {
 
     @Autowired
@@ -33,7 +35,7 @@ public class VesselStoreTest extends BaseIntegrationTest {
     private Vessel vessel;
 
     @Before
-    public void saveVessel() throws DatabaseException {
+    public void setup() throws DatabaseException {
         vessel = new Vessel(1, "s/v hello world", VesselType.SAILBOAT);
         store.save(vessel);
     }
