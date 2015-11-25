@@ -33,7 +33,15 @@ public class DatabaseTruncator {
          * We have to close the entity store prior to truncating the databases because the store
          * holds open a read lock and the truncateDatabase method will timeout waiting on the locks.
          */
+        berkeleyEnv.sync();
         environment.closeStore();
+
+        int lockCount = environment.getTotalLockCount();
+        if (lockCount > 0) {
+            int readLocks = environment.getReadLockCount();
+            int writeLocks = environment.getWriteLockCount();
+            log.warn("{} open read locks and {} open write locks, truncate is gonna fail", readLocks, writeLocks);
+        }
 
         Transaction txn = berkeleyEnv.beginTransaction(null, null);
         try {

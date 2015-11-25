@@ -64,6 +64,29 @@ public class KnotlogEnvironment {
     }
 
     /**
+     * @return the total number of open locks against the database
+     */
+    public int getTotalLockCount() {
+        return getReadLockCount() + getWriteLockCount();
+    }
+
+    /**
+     * @return the number of open read locks
+     */
+    public int getReadLockCount() {
+        EnvironmentStats stats = getStats(null);
+        return stats.getNReadLocks();
+    }
+
+    /**
+     * @return the number of open write locks
+     */
+    public int getWriteLockCount() {
+        EnvironmentStats stats = getStats(null);
+        return stats.getNWriteLocks();
+    }
+
+    /**
      * @return the Berkeley DB JE environment
      */
     protected Environment getEnvironment() {

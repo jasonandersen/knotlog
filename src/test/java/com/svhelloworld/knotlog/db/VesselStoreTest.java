@@ -8,9 +8,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 
 import com.google.common.eventbus.EventBus;
 import com.sleepycat.je.DatabaseException;
@@ -23,7 +23,7 @@ import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 /**
  * Test the {@link VesselStore} implementation.
  */
-@DirtiesContext
+@Ignore
 public class VesselStoreTest extends BaseIntegrationTest {
 
     @Autowired
