@@ -28,7 +28,7 @@ public class DatabaseStatsLogger {
     private static final String KEY_LOCKS = "Locks";
 
     @Autowired
-    private KnotlogEnvironment knotlogEnvironment;
+    private KnotlogDatabase knotlogEnvironment;
 
     @Autowired
     private EventBus eventBus;

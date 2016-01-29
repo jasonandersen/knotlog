@@ -19,34 +19,21 @@ public class DatabaseTruncator {
     private static Logger log = LoggerFactory.getLogger(DatabaseTruncator.class);
 
     @Autowired
-    private KnotlogEnvironment environment;
+    private KnotlogDatabase database;
 
-    /**
-     * Truncates all of the databases within the environment.
-     */
     public void truncate() {
         log.warn("truncating Berkeley DB environment");
-        Environment berkeleyEnv = environment.getEnvironment();
-        List<String> dbNames = berkeleyEnv.getDatabaseNames();
+        database.getEnvironment().sync();
+        database.close();
+        database.initEnvironment();
 
-        /*
-         * We have to close the entity store prior to truncating the databases because the store
-         * holds open a read lock and the truncateDatabase method will timeout waiting on the locks.
-         */
-        berkeleyEnv.sync();
-        environment.closeStore();
-
-        int lockCount = environment.getTotalLockCount();
-        if (lockCount > 0) {
-            int readLocks = environment.getReadLockCount();
-            int writeLocks = environment.getWriteLockCount();
-            log.warn("{} open read locks and {} open write locks, truncate is gonna fail", readLocks, writeLocks);
-        }
-
-        Transaction txn = berkeleyEnv.beginTransaction(null, null);
+        Environment env = database.getEnvironment();
+        List<String> dbNames = env.getDatabaseNames();
+        Transaction txn = env.beginTransaction(null, null);
         try {
             for (String dbName : dbNames) {
-                long count = berkeleyEnv.truncateDatabase(txn, dbName, true);
+
+                long count = env.truncateDatabase(txn, dbName, true);
                 log.debug("truncated {} rows from {}", count, dbName);
             }
             txn.commit();
@@ -55,7 +42,44 @@ public class DatabaseTruncator {
             throw e;
         }
 
-        environment.initStore();
+        database.initStore();
+    }
+
+    /**
+     * Truncates all of the databases within the environment.
+     */
+    public void truncateDONTUSE() {
+        log.warn("truncating Berkeley DB environment");
+        Environment env = database.getEnvironment();
+        List<String> dbNames = env.getDatabaseNames();
+
+        /*
+         * We have to close the entity store prior to truncating the databases because the store
+         * holds open a read lock and the truncateDatabase method will timeout waiting on the locks.
+         */
+        env.sync();
+        database.closeStore();
+
+        int lockCount = database.getTotalLockCount();
+        if (lockCount > 0) {
+            int readLocks = database.getReadLockCount();
+            int writeLocks = database.getWriteLockCount();
+            log.warn("{} open read locks and {} open write locks, truncate is gonna fail", readLocks, writeLocks);
+        }
+
+        Transaction txn = env.beginTransaction(null, null);
+        try {
+            for (String dbName : dbNames) {
+                long count = env.truncateDatabase(txn, dbName, true);
+                log.debug("truncated {} rows from {}", count, dbName);
+            }
+            txn.commit();
+        } catch (Throwable e) {
+            txn.abort();
+            throw e;
+        }
+
+        database.initStore();
     }
 
 }

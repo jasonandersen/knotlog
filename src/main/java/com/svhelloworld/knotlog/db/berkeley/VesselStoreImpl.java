@@ -32,7 +32,7 @@ public class VesselStoreImpl implements VesselStore {
     private static Logger log = LoggerFactory.getLogger(VesselStoreImpl.class);
 
     @Autowired
-    private KnotlogEnvironment environment;
+    private KnotlogDatabase environment;
 
     @Autowired
     private EventBus eventBus;

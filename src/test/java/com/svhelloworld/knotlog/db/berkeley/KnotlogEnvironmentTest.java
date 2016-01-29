@@ -10,12 +10,12 @@ import com.sleepycat.je.Environment;
 import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**
- * Testing the {@link KnotlogEnvironment} class.
+ * Testing the {@link KnotlogDatabase} class.
  */
 public class KnotlogEnvironmentTest extends BaseIntegrationTest {
 
     @Autowired
-    private KnotlogEnvironment environment;
+    private KnotlogDatabase environment;
 
     @Test
     public void testEnvironmentInjected() {

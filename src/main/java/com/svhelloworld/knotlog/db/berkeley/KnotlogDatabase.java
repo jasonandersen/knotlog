@@ -22,9 +22,9 @@ import com.svhelloworld.knotlog.LocalFiles;
  * Responsible for setting up a BerkeleyDB {@link Environment}.
  */
 @Component
-public class KnotlogEnvironment {
+public class KnotlogDatabase {
 
-    private static Logger log = LoggerFactory.getLogger(KnotlogEnvironment.class);
+    private static Logger log = LoggerFactory.getLogger(KnotlogDatabase.class);
 
     @Autowired
     private LocalFiles localFiles;
@@ -118,7 +118,7 @@ public class KnotlogEnvironment {
      * Do not call directly. Will be called during the lifecycle of this managed bean.
      */
     @PostConstruct
-    private void initialize() {
+    protected void initialize() {
         log.info("initializing");
         initEnvironment();
         initStore();
@@ -128,7 +128,7 @@ public class KnotlogEnvironment {
      * Do not call directly. Will be called during the lifecycle of this managed bean.
      */
     @PreDestroy
-    private void close() {
+    protected void close() {
         if (environment == null) {
             return;
         }
@@ -143,7 +143,7 @@ public class KnotlogEnvironment {
     /**
      * Initializes Berkeley DB JE environment.
      */
-    private void initEnvironment() {
+    protected void initEnvironment() {
         log.info("initializing Berkeley DB environment");
         EnvironmentConfig envConf = new EnvironmentConfig();
         envConf.setAllowCreate(true);
