@@ -80,7 +80,7 @@ public class NMEA0183Reader {
     private void closeSource(BufferedReader stream) {
         log.debug("Closing source");
         try {
-            //TODO - should probably unregister the reader from the event bus here
+            eventBus.unregister(this);
             stream.close();
         } catch (IOException e) {
             //ignore

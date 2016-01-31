@@ -47,7 +47,9 @@ import com.svhelloworld.knotlog.util.Now;
 public class InstrumentMessageFactoryTest {
 
     private VesselMessageSource source;
+
     private Instant instant;
+
     private MessageDictionary dictionary;
 
     /**

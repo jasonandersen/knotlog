@@ -45,7 +45,10 @@ public abstract class BaseIntegrationTest {
      */
     @After
     public void truncateDatabase() {
-        truncator.truncate();
+        /*
+         * FIXME - database truncating is NOT working
+         */
+        //truncator.truncate();
     }
 
     /**
