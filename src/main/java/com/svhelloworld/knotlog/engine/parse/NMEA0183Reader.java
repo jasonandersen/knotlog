@@ -47,8 +47,7 @@ public class NMEA0183Reader {
         String line;
         try {
             while ((line = reader.readLine()) != null) {
-                NMEA0183Sentence sentence = new NMEA0183Sentence(line);
-                eventBus.post(sentence);
+                handleLine(line);
             }
         } catch (IOException e) {
             throw new ParseException(e);
@@ -60,10 +59,20 @@ public class NMEA0183Reader {
     }
 
     /**
+     * Handles a single line from the source. This method can be overriden by subclasses
+     * wanting to change how source text lines are handled.
+     * @param line
+     */
+    protected void handleLine(String line) {
+        NMEA0183Sentence sentence = new NMEA0183Sentence(line);
+        eventBus.post(sentence);
+    }
+
+    /**
      * @return a BufferedReader object from the source.
      * @throws NullPointerException if the underlying source is null.
      */
-    private BufferedReader openSource() {
+    protected BufferedReader openSource() {
         log.debug("Opening source");
         if (source == null) {
             throw new NullPointerException("source cannot be null");
@@ -77,7 +86,7 @@ public class NMEA0183Reader {
      * Close source stream
      * @param stream
      */
-    private void closeSource(BufferedReader stream) {
+    protected void closeSource(BufferedReader stream) {
         log.debug("Closing source");
         try {
             eventBus.unregister(this);
@@ -85,6 +94,13 @@ public class NMEA0183Reader {
         } catch (IOException e) {
             //ignore
         }
+    }
+
+    /**
+     * @return instance of the event bus to post to, will not return null
+     */
+    protected EventBus getEventBus() {
+        return eventBus;
     }
 
 }

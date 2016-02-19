@@ -1,6 +1,7 @@
 package com.svhelloworld.knotlog.engine.parse;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Instant;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.measure.AngleUnit;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
@@ -35,6 +37,7 @@ import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.messages.WaterDepth;
 import com.svhelloworld.knotlog.messages.WindDirection;
 import com.svhelloworld.knotlog.messages.WindSpeed;
+import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 import com.svhelloworld.knotlog.util.Now;
 
 /**
@@ -44,13 +47,16 @@ import com.svhelloworld.knotlog.util.Now;
  * @since Feb 24, 2010
  *
  */
-public class InstrumentMessageFactoryTest {
+public class InstrumentMessageFactoryTest extends BaseIntegrationTest {
 
     private VesselMessageSource source;
 
     private Instant instant;
 
     private MessageDictionary dictionary;
+
+    @Autowired
+    private InstrumentMessageFactory factory;
 
     /**
      * @throws java.lang.Exception
@@ -64,6 +70,11 @@ public class InstrumentMessageFactoryTest {
         source = VesselMessageSource.NMEA0183;
     }
 
+    @Test
+    public void testFactoryInjected() {
+        assertNotNull(factory);
+    }
+
     /**
      * Test method for {@link com.svhelloworld.knotlog.engine.parse.InstrumentMessageFactory#createVesselMessage(com.svhelloworld.knotlog.engine.parse.InstrumentMessageDefinition, java.util.List)}.
      */
@@ -71,7 +82,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateAltitude() {
         InstrumentMessageDefinition def = getDefinition("Altitude");
         String[] fields = { "", "", "", "", "", "", "", "", "1234.56" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         assertTrue(message instanceof Altitude);
         Altitude altitude = (Altitude) message;
@@ -86,7 +97,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateDateZulu() {
         InstrumentMessageDefinition def = getDefinition("DateZulu");
         String[] fields = { "", "", "", "", "", "", "", "", "190510" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         assertTrue(message instanceof DateZulu);
         DateZulu date = (DateZulu) message;
@@ -102,7 +113,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateGPSPosition() {
         InstrumentMessageDefinition def = getDefinition("GPSPosition");
         String[] fields = { "", "2530.941", "N", "11103.702", "W" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         assertTrue(message instanceof GPSPosition);
         GPSPosition position = (GPSPosition) message;
@@ -119,7 +130,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateMagneticVariation() {
         InstrumentMessageDefinition def = getDefinition("MagneticVariation");
         String[] fields = { "", "", "", "", "", "", "", "3.451", "", "10.1", "E" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         MagneticVariation variation = (MagneticVariation) message;
         assertEquals(10.1, variation.getMagneticVariation(), 0.001);
@@ -133,7 +144,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreatePositionPrecision() {
         InstrumentMessageDefinition def = getDefinition("PositionPrecision");
         String[] fields = { "", "", "", "", "", "", "", "3.451", "" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         assertTrue(message instanceof PositionPrecision);
         PositionPrecision precision = (PositionPrecision) message;
@@ -148,7 +159,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateRudderAngle() {
         InstrumentMessageDefinition def = getDefinition("RudderAngle");
         String[] fields = { "-12.2", "", "", "", "", "", "", "3.451", "", "10.1", "E" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         RudderAngle rudder = (RudderAngle) message;
         assertEquals(-12.2, rudder.getRudderAngle(), 0.001);
@@ -162,7 +173,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateSeaTemperature() {
         InstrumentMessageDefinition def = getDefinition("SeaTemperature");
         String[] fields = { "18.14", "", "", "", "", "", "", "3.451", "", "10.1", "E" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         SeaTemperature temp = (SeaTemperature) message;
         assertEquals(18.14, temp.getTemperature(), 0.001);
@@ -176,7 +187,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateSpeedRelativeToGround() {
         InstrumentMessageDefinition def = getDefinition("SpeedRelativeToGround");
         String[] fields = { "18.14", "", "", "", "", "", "6.74", "3.451", "", "10.1", "E" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         SpeedRelativeToGround speed = (SpeedRelativeToGround) message;
         assertEquals(6.74, speed.getSpeed(), 0.001);
@@ -190,7 +201,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateSpeedRelativeToWater() {
         InstrumentMessageDefinition def = getDefinition("SpeedRelativeToWater");
         String[] fields = { "18.14", "", "", "", "7.82", "", "", "3.451", "", "10.1", "E" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         SpeedRelativeToWater speed = (SpeedRelativeToWater) message;
         assertEquals(7.82, speed.getSpeed(), 0.001);
@@ -204,7 +215,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateVesselHeading() {
         InstrumentMessageDefinition def = getDefinition("VesselHeading");
         String[] fields = { "278.3", "", "", "", "7.82", "", "", "3.451", "", "10.1", "E" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         VesselHeading heading = (VesselHeading) message;
         assertEquals(278.3, heading.getVesselHeading(), 0.001);
@@ -218,7 +229,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateWaterDepth() {
         InstrumentMessageDefinition def = getDefinition("WaterDepth");
         String[] fields = { "584.19", "", "", "", "7.82", "", "", "3.451", "", "10.1", "E" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         WaterDepth depth = (WaterDepth) message;
         assertEquals(584.19, depth.getWaterDepth(), 0.001);
@@ -232,7 +243,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateWindDirection() {
         InstrumentMessageDefinition def = getDefinition("WindDirection");
         String[] fields = { "274", "R", "", "", "7.82", "", "", "3.451", "", "10.1", "E" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         WindDirection direction = (WindDirection) message;
         assertEquals(86, direction.getWindDirection(), 0.001);
@@ -247,7 +258,7 @@ public class InstrumentMessageFactoryTest {
     public void testCreateWindSpeed() {
         InstrumentMessageDefinition def = getDefinition("WindSpeed");
         String[] fields = { "18.14", "R", "21.287", "N", "7.82", "", "", "3.451", "", "10.1", "E" };
-        VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(
+        VesselMessage message = factory.createInstrumentMessage(
                 source, instant, def, Arrays.asList(fields));
         WindSpeed speed = (WindSpeed) message;
         assertEquals(21.287, speed.getWindSpeed(), 0.001);

@@ -5,6 +5,10 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.stereotype.Service;
+
 import com.svhelloworld.knotlog.measure.MeasurementUnit;
 import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
@@ -18,23 +22,16 @@ import com.svhelloworld.knotlog.util.StringUtil;
  * @since Feb 24, 2010
  *
  */
+@Service
 public class InstrumentMessageFactory {
-
-    /*
-     * FIXME - refactor to use Spring's ConversionService!
-     */
 
     /**
      * Default package to look into for message classes.
      */
     private static final String DEFAULT_MESSAGE_PKG = "com.svhelloworld.knotlog.messages";
 
-    /**
-     * Private constructor.
-     */
-    private InstrumentMessageFactory() {
-        //no need to instantiate
-    }
+    @Autowired
+    private ConversionService conversionService;
 
     /**
      * Constructs an instrument vessel message based on an instrument
@@ -51,7 +48,7 @@ public class InstrumentMessageFactory {
      * @throws MessageCreationException when the message class when the
      *          specified message class could not be instantiated.
      */
-    public static VesselMessage createInstrumentMessage(
+    public VesselMessage createInstrumentMessage(
             final VesselMessageSource source,
             final Instant timestamp,
             final InstrumentMessageDefinition definition,
@@ -107,7 +104,7 @@ public class InstrumentMessageFactory {
      * @return unrecognized message
      * @throws NullPointerException if failureMode is null
      */
-    public static UnrecognizedMessage createUnrecognizedMessage(
+    public UnrecognizedMessage createUnrecognizedMessage(
             VesselMessageSource source,
             Instant timestamp,
             MessageFailure failureMode,
@@ -136,7 +133,7 @@ public class InstrumentMessageFactory {
      * @return unrecognized message
      * @throws NullPointerException if failureMode is null
      */
-    public static UnrecognizedMessage createUnrecognizedMessage(
+    public UnrecognizedMessage createUnrecognizedMessage(
             VesselMessageSource source,
             Instant timestamp,
             MessageFailure failureMode,
@@ -156,7 +153,7 @@ public class InstrumentMessageFactory {
      * @return a list of string arguments for the message constructor, will 
      *          never be null but can be an empty list.
      */
-    private static List<String> getRawArguments(
+    private List<String> getRawArguments(
             final InstrumentMessageDefinition definition,
             final List<String> fields) {
 
@@ -192,7 +189,7 @@ public class InstrumentMessageFactory {
      * @return the Class object for this class name
      * @throws MessageCreationException if message class cannot be found
      */
-    private static Class<?> getMessageClass(final String className) {
+    private Class<?> getMessageClass(final String className) {
         String fullClassName = className;
         if (fullClassName.indexOf(".") < 0) {
             //no class package was specified so use default package
@@ -215,7 +212,7 @@ public class InstrumentMessageFactory {
      * @throws IllegalArgumentException if no constructor can be found
      *          for the specified class
      */
-    private static Constructor<?> getMessageConstructor(
+    private Constructor<?> getMessageConstructor(
             final Class<?> messageClass,
             final List<Object> arguments) {
 
@@ -234,7 +231,7 @@ public class InstrumentMessageFactory {
      * @param constructor class constructor to inspect
      * @param arguments argument array
      */
-    private static Object[] coerceArgsToConstructorTypes(
+    private Object[] coerceArgsToConstructorTypes(
             final Constructor<?> constructor,
             final List<Object> arguments) {
 
@@ -260,7 +257,7 @@ public class InstrumentMessageFactory {
      *          cannot be converted
      */
     @SuppressWarnings("unchecked")
-    private static Object coerceArgument(
+    private Object coerceArgument(
             final Object argument,
             final Class paramType) {
 
@@ -313,7 +310,7 @@ public class InstrumentMessageFactory {
      *          <tt>MeasurementUnit</tt>
      * @throws NullPointerException when unitClass is null
      */
-    private static MeasurementUnit resolveMeasurementUnit(
+    private MeasurementUnit resolveMeasurementUnit(
             final String abbreviation,
             final Class<? extends MeasurementUnit> unitClass) {
 
@@ -354,7 +351,7 @@ public class InstrumentMessageFactory {
      * @param theClass
      * @return true if this class implements <tt>MeasurementUnit</tt> class.
      */
-    private static boolean isMeasurementUnit(final Class<?> theClass) {
+    private boolean isMeasurementUnit(final Class<?> theClass) {
         for (Class<?> interfaceClass : theClass.getInterfaces()) {
             if (interfaceClass.equals(MeasurementUnit.class)) {
                 return true;

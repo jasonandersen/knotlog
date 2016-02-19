@@ -6,7 +6,6 @@ import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.sleepycat.je.Environment;
 import com.sleepycat.je.EnvironmentConfig;
@@ -21,7 +20,8 @@ import com.svhelloworld.knotlog.LocalFiles;
 /**
  * Responsible for setting up a BerkeleyDB {@link Environment}.
  */
-@Component
+//FIXME - removing this from Spring's context, not behaving well on shutdown
+//@Component
 public class KnotlogDatabase {
 
     private static Logger log = LoggerFactory.getLogger(KnotlogDatabase.class);

@@ -43,6 +43,9 @@ public class NMEA0183Parser {
     @Autowired
     private NMEA0183MessageDictionary dictionary;
 
+    @Autowired
+    private InstrumentMessageFactory messageFactory;
+
     /**
      * Interprets a single NMEA0183 sentence into vessel messages. Any @{link VesselMessage}s or
      * {@link UnrecognizedMessage}s discovered during parsing will be posted back to the event bus.
@@ -70,7 +73,7 @@ public class NMEA0183Parser {
     private void handleDefinedSentence(NMEA0183Sentence sentence, List<InstrumentMessageDefinition> definitions) {
         for (InstrumentMessageDefinition definition : definitions) {
             Instant timestamp = getSentenceTimestamp(sentence);
-            VesselMessage message = InstrumentMessageFactory.createInstrumentMessage(SOURCE, timestamp, definition,
+            VesselMessage message = messageFactory.createInstrumentMessage(SOURCE, timestamp, definition,
                     sentence.getFields());
             eventBus.post(message);
         }
@@ -88,7 +91,7 @@ public class NMEA0183Parser {
         Instant timestamp = getSentenceTimestamp(sentence);
         MessageFailure failureMode = MessageFailure.UNRECOGNIZED_SENTENCE;
         String identifier = sentence.getTalkerId() + sentence.getTag();
-        UnrecognizedMessage message = InstrumentMessageFactory.createUnrecognizedMessage(
+        UnrecognizedMessage message = messageFactory.createUnrecognizedMessage(
                 SOURCE, timestamp, failureMode, identifier, sentence.getFields(),
                 sentence.getOriginalSentence());
         eventBus.post(message);
@@ -102,7 +105,7 @@ public class NMEA0183Parser {
         Instant timestamp = getSentenceTimestamp(sentence);
         MessageFailure failureMode = MessageFailure.MALFORMED_SENTENCE;
         List<String> fields = sentence.getFields();
-        UnrecognizedMessage message = InstrumentMessageFactory.createUnrecognizedMessage(
+        UnrecognizedMessage message = messageFactory.createUnrecognizedMessage(
                 VesselMessageSource.NMEA0183, timestamp, failureMode, fields, sentence.getOriginalSentence());
         eventBus.post(message);
     }

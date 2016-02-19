@@ -9,7 +9,6 @@ import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -26,7 +25,8 @@ import com.svhelloworld.knotlog.events.RequestAllVessels;
 /**
  * Berkeley DB implementation of {@link VesselStore}.
  */
-@Repository
+//FIXME - removing this from Spring's context, not behaving well on shutdown
+//@Repository
 public class VesselStoreImpl implements VesselStore {
 
     private static Logger log = LoggerFactory.getLogger(VesselStoreImpl.class);
