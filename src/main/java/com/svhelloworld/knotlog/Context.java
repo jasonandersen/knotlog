@@ -1,5 +1,7 @@
 package com.svhelloworld.knotlog;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -8,7 +10,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Context {
 
-    private static ApplicationContext context;
+    private static Logger log = LoggerFactory.getLogger(Context.class);
+
+    private static ClassPathXmlApplicationContext context;
 
     private Context() {
         //no instantiation for you!
@@ -27,9 +31,20 @@ public class Context {
     }
 
     /**
+     * Shut down the application context.
+     */
+    public static void shutdown() {
+        log.warn("shutting down application context");
+        if (context != null) {
+            context.close();
+        }
+    }
+
+    /**
      * Initialize application context
      */
     private static void initContext() {
+        log.info("initializing application context");
         context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
     }
 

@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.svhelloworld.knotlog.engine.parse.NMEA0183DelayedReader;
+import com.svhelloworld.knotlog.events.StartNMEA0183SimulationRequest;
+import com.svhelloworld.knotlog.events.StopNMEA0183SimulationRequest;
 import com.svhelloworld.knotlog.messages.ValidVesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.WaterDepth;
@@ -21,7 +22,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- * Controller for the {@link CurrentConditionsScreen}.
+ * Controller for the {@link CurrentConditionsScreen}. This controller will act as session state
+ * for current conditions being reported by vessel instruments.
  */
 @Component
 public class CurrentConditionsController {
@@ -31,8 +33,6 @@ public class CurrentConditionsController {
     private StringProperty waterDepth;
 
     private StringProperty windSpeed;
-
-    private NMEA0183DelayedReader reader;
 
     @Autowired
     private EventBus eventBus;
@@ -90,17 +90,14 @@ public class CurrentConditionsController {
      * Starting the parsing!
      */
     public void startParsing() {
-        reader.start();
+        eventBus.post(new StartNMEA0183SimulationRequest());
     }
 
     /**
-     * Stop the parsing and throw away any unparsed lines.
+     * Stop the parsing.
      */
     public void stopParsing() {
-        log.info("cancelling parsing");
-        if (reader != null) {
-            reader.stop();
-        }
+        eventBus.post(new StopNMEA0183SimulationRequest());
     }
 
     /*

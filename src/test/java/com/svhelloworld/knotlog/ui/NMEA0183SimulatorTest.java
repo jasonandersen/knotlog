@@ -1,6 +1,7 @@
 package com.svhelloworld.knotlog.ui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.svhelloworld.knotlog.engine.parse.NMEA0183Sentence;
+import com.svhelloworld.knotlog.events.StartNMEA0183SimulationRequest;
+import com.svhelloworld.knotlog.events.StopNMEA0183SimulationRequest;
 
 /**
  * Tests the {@link NMEA0183Simulator} class.
@@ -83,6 +86,24 @@ public class NMEA0183SimulatorTest {
         assertTrue(sim.isRunning());
         Thread.sleep(DELAY * 3);
         assertTrue(sim.isRunning());
+    }
+
+    @Test
+    public void testStartOnEvent() throws InterruptedException {
+        assertFalse(sim.isRunning());
+        eventBus.post(new StartNMEA0183SimulationRequest());
+        Thread.sleep(DELAY * 2);
+        assertTrue(sim.isRunning());
+    }
+
+    @Test
+    public void testStopOnEvent() throws InterruptedException {
+        sim.start();
+        Thread.sleep(DELAY + 100);
+        assertTrue(sim.isRunning());
+        eventBus.post(new StopNMEA0183SimulationRequest());
+        Thread.sleep(DELAY + 100);
+        assertFalse(sim.isRunning());
     }
 
     /*

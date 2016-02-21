@@ -39,7 +39,6 @@ public class NMEA0183Reader implements Runnable {
         Validate.notNull(eventBus);
         Validate.notNull(source);
         this.eventBus = eventBus;
-        eventBus.register(this);
         this.source = source;
         isReading = new AtomicBoolean(false);
     }
@@ -121,7 +120,6 @@ public class NMEA0183Reader implements Runnable {
     private void closeSource(BufferedReader stream) {
         log.debug("Closing source");
         try {
-            eventBus.unregister(this);
             stream.close();
         } catch (IOException e) {
             //ignore

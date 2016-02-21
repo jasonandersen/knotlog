@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.svhelloworld.knotlog.Context;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -54,10 +56,8 @@ public class KnotlogApplication extends Application {
 
     @Override
     public void stop() {
-        /*
-         * TODO - Grab all beans out of the Spring context that implement Closeable. Iterate through 
-         * them all and call their close() method.
-         */
+        log.warn("stopping application");
+        Context.shutdown();
     }
 
     /**
