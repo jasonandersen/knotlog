@@ -4,10 +4,6 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.svhelloworld.knotlog.Context;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +22,7 @@ public class KnotlogApplication extends Application {
 
     private Pane rootLayout;
 
-    private ApplicationContext context;
+    private FXMLLoader loader;
 
     /**
      * @see javafx.application.Application#start(javafx.stage.Stage)
@@ -34,19 +30,9 @@ public class KnotlogApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         log.info("starting up");
-
-        initContext();
         this.primaryStage = stage;
         this.primaryStage.setTitle("Knotlog");
         initRootLayout();
-    }
-
-    /**
-     * Initializes Spring's application context.
-     */
-    private void initContext() {
-        context = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
-        Context.setContext(context);
     }
 
     /**
@@ -54,15 +40,24 @@ public class KnotlogApplication extends Application {
      */
     private void initRootLayout() {
         try {
-            FXMLLoader loader = new FXMLLoader();
+            loader = new FXMLLoader();
             loader.setLocation(KnotlogApplication.class.getResource("/fxml/RootLayout.fxml"));
             rootLayout = (Pane) loader.load(); // Show the scene containing the root layout. 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
+            log.error("initRootLayout() method crapped out", e);
             throw new RuntimeException("initRootLayout crapped out!", e);
         }
+    }
+
+    @Override
+    public void stop() {
+        /*
+         * TODO - Grab all beans out of the Spring context that implement Closeable. Iterate through 
+         * them all and call their close() method.
+         */
     }
 
     /**

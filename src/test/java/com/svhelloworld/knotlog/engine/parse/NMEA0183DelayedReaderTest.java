@@ -98,6 +98,7 @@ public class NMEA0183DelayedReaderTest {
     /**
      * Records the event of receiving an NMEA0183 sentence.
      */
+    @SuppressWarnings("unused")
     private class SentenceReceivedEvent {
         long timestamp;
         NMEA0183Sentence sentence;

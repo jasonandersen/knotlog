@@ -104,7 +104,10 @@ public class CurrentConditionsController {
      * Stop the parsing and throw away any unparsed lines.
      */
     public void stopParsing() {
-        reader.stop();
+        log.info("cancelling parsing");
+        if (reader != null) {
+            reader.stop();
+        }
     }
 
     /*
