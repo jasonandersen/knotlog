@@ -1,9 +1,5 @@
 package com.svhelloworld.knotlog.engine.parse;
 
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,54 +7,44 @@ import com.google.common.eventbus.EventBus;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
 
 /**
- * An {@link NMEA0183Reader} that places new sentences on the event bus at delayed intervals.
+ * An {@link NMEA0183Reader} that places new sentences on the event bus at delayed intervals. This enables
+ * a real-time NMEA0183 simulation.
  */
 public class NMEA0183DelayedReader extends NMEA0183Reader {
 
     private static Logger log = LoggerFactory.getLogger(NMEA0183DelayedReader.class);
 
-    private final ScheduledThreadPoolExecutor threadPool;
-
-    private final int delayPeriod;
-
-    private AtomicLong cumulativeDelay;
+    private final long delayInterval;
 
     /**
      * @param eventBus
      * @param source
      * @param delayPeriod the amount of delay in milliseconds between sentences posted to event bus
      */
-    public NMEA0183DelayedReader(EventBus eventBus, StreamedSource source, int delayPeriod) {
+    public NMEA0183DelayedReader(EventBus eventBus, StreamedSource source, long delayInterval) {
         super(eventBus, source);
-        this.threadPool = new ScheduledThreadPoolExecutor(1);
-        this.delayPeriod = delayPeriod;
-        cumulativeDelay = new AtomicLong(0L);
+        this.delayInterval = delayInterval;
     }
 
     /**
-     * Handles each line by scheduling the posting of that line to the event bus on a delay.
-     * @see com.svhelloworld.knotlog.engine.parse.NMEA0183Reader#handleLine(java.lang.String)
+     * @see com.svhelloworld.knotlog.engine.parse.NMEA0183Reader#fetchNextLine()
      */
     @Override
-    protected void handleLine(String line) {
-        log.debug("handling line: {}", line);
-        NMEA0183Sentence sentence = new NMEA0183Sentence(line);
-        long delay = cumulativeDelay.addAndGet(delayPeriod);
-        threadPool.schedule(new Runnable() {
-            @Override
-            public void run() {
-                log.debug("threadPool.size: {}; posting delayed sentence to event bus: {}", threadPool.getQueue().size(), line);
-                getEventBus().post(sentence);
-            }
-
-        }, delay, TimeUnit.MILLISECONDS);
+    protected String fetchNextLine() {
+        try {
+            Thread.sleep(delayInterval);
+            return getReader().readLine();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Stop the delayed reading, clear out the queue.
      */
     public void stop() {
-        threadPool.shutdownNow();
+        log.info("parsing halted");
+        throw new UnsupportedOperationException("not implemented yet!");
     }
 
 }

@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -22,6 +23,8 @@ import javafx.scene.layout.VBox;
 public class RootLayoutScreen implements Initializable {
 
     private static Logger log = LoggerFactory.getLogger(RootLayoutScreen.class);
+
+    private static final String CURRENT_CONDITIONS = "/fxml/CurrentConditions.fxml";
 
     @FXML
     private VBox rootLayout;
@@ -39,17 +42,49 @@ public class RootLayoutScreen implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.info("initializing");
-        //load default view into content pane
+        setContentPane(CURRENT_CONDITIONS);
+    }
+
+    /**
+     * Sets the content node within the content pane.
+     * @param node
+     */
+    private void setContentPane(String fxmlPath) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(KnotlogApplication.class.getResource("/fxml/CurrentConditions.fxml"));
+        loader.setLocation(KnotlogApplication.class.getResource(fxmlPath));
+        Node node;
         try {
-            AnchorPane currentConditionsPane = loader.load();
-            log.debug("loaded currentConditionsPane successfully {}", currentConditionsPane);
+            node = loader.load();
+            AnchorPane.setTopAnchor(node, 10.0);
+            AnchorPane.setBottomAnchor(node, 10.0);
+            AnchorPane.setLeftAnchor(node, 10.0);
+            AnchorPane.setRightAnchor(node, 10.0);
+
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(node);
+            log.debug("successfully loaded FXML {}", fxmlPath);
         } catch (IOException e) {
+            /*
+             * FIXME - pretty sure this aint right
+             */
             log.error("Could not initialize root layout screen", e);
             Platform.exit();
         }
     }
+
+    /*
+     AnchorPane anchorPane = new AnchorPane();
+     // List should stretch as anchorPane is resized
+     ListView list = new ListView();
+     AnchorPane.setTopAnchor(list, 10.0);
+     AnchorPane.setLeftAnchor(list, 10.0);
+     AnchorPane.setRightAnchor(list, 65.0);
+     // Button will float on right edge
+     Button button = new Button("Add");
+     AnchorPane.setTopAnchor(button, 10.0);
+     AnchorPane.setRightAnchor(button, 10.0);
+     anchorPane.getChildren().addAll(list, button);
+     */
 
     /**
      * Load the current conditions screen.

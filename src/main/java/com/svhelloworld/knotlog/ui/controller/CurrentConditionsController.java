@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.svhelloworld.knotlog.engine.parse.NMEA0183DelayedReader;
-import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
-import com.svhelloworld.knotlog.engine.sources.StreamedSource;
 import com.svhelloworld.knotlog.messages.ValidVesselMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.WaterDepth;
@@ -29,8 +27,6 @@ import javafx.beans.property.StringProperty;
 public class CurrentConditionsController {
 
     private static Logger log = LoggerFactory.getLogger(CurrentConditionsController.class);
-
-    private static final String GARMIN_DIAGNOSTIC_FEED = "data/GarminDiagFeed.csv";
 
     private StringProperty waterDepth;
 
@@ -55,7 +51,7 @@ public class CurrentConditionsController {
      */
     @PostConstruct
     private void postConstruct() {
-        log.info("postConstruct method");
+        log.debug("postConstruct method");
         eventBus.register(this);
     }
 
@@ -85,7 +81,6 @@ public class CurrentConditionsController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                log.debug("updating water depth on JavaFX thread");
                 property.set(message.toString());
             }
         });
@@ -95,8 +90,6 @@ public class CurrentConditionsController {
      * Starting the parsing!
      */
     public void startParsing() {
-        StreamedSource source = new ClassPathFileSource(GARMIN_DIAGNOSTIC_FEED);
-        reader = new NMEA0183DelayedReader(eventBus, source, 100);
         reader.start();
     }
 

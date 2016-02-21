@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
@@ -16,13 +17,17 @@ import com.svhelloworld.knotlog.engine.sources.StreamedSource;
  * Takes an {@link StreamedSource} and reads sentences out of the stream and posts 
  * them as events on to the event bus.
  */
-public class NMEA0183Reader {
+public class NMEA0183Reader implements Runnable {
 
     private static Logger log = LoggerFactory.getLogger(NMEA0183Reader.class);
 
     private final EventBus eventBus;
 
     private final StreamedSource source;
+
+    private BufferedReader reader;
+
+    private final AtomicBoolean isReading;
 
     /**
      * Constructor
@@ -36,6 +41,15 @@ public class NMEA0183Reader {
         this.eventBus = eventBus;
         eventBus.register(this);
         this.source = source;
+        isReading = new AtomicBoolean(false);
+    }
+
+    /**
+     * @see java.lang.Runnable#run()
+     */
+    @Override
+    public void run() {
+        start();
     }
 
     /**
@@ -43,19 +57,37 @@ public class NMEA0183Reader {
      */
     public void start() {
         log.info("Starting parse");
-        BufferedReader reader = openSource();
+        isReading.set(true);
+        reader = openSource();
         String line;
         try {
-            while ((line = reader.readLine()) != null) {
+            while ((line = fetchNextLine()) != null) {
                 handleLine(line);
             }
         } catch (IOException e) {
             throw new ParseException(e);
         } finally {
             closeSource(reader);
+            isReading.set(false);
             eventBus.unregister(this);
         }
         log.info("Parse complete");
+    }
+
+    /**
+     * @return true if this reader is actively reading
+     */
+    public boolean isReading() {
+        return isReading.get();
+    }
+
+    /**
+     * Hook to override how this reader reads from the buffered reader.
+     * @return return the next line in the reader, will return null if reader is empty
+     * @throws IOException 
+     */
+    protected String fetchNextLine() throws IOException {
+        return reader.readLine();
     }
 
     /**
@@ -72,7 +104,7 @@ public class NMEA0183Reader {
      * @return a BufferedReader object from the source.
      * @throws NullPointerException if the underlying source is null.
      */
-    protected BufferedReader openSource() {
+    private BufferedReader openSource() {
         log.debug("Opening source");
         if (source == null) {
             throw new NullPointerException("source cannot be null");
@@ -86,7 +118,7 @@ public class NMEA0183Reader {
      * Close source stream
      * @param stream
      */
-    protected void closeSource(BufferedReader stream) {
+    private void closeSource(BufferedReader stream) {
         log.debug("Closing source");
         try {
             eventBus.unregister(this);
@@ -97,10 +129,10 @@ public class NMEA0183Reader {
     }
 
     /**
-     * @return instance of the event bus to post to, will not return null
+     * @return the buffered reader being used to read the source
      */
-    protected EventBus getEventBus() {
-        return eventBus;
+    protected BufferedReader getReader() {
+        return reader;
     }
 
 }

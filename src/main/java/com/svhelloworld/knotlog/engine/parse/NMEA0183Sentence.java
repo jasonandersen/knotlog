@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
  * 
  */
 public class NMEA0183Sentence {
-    
+
     /**
      * Indicates the validity of a NMEA 0183 sentence.
      */
@@ -57,7 +57,7 @@ public class NMEA0183Sentence {
          */
         INVALID_CHECKSUM
     }
-    
+
     /**
      * Regex pattern to validate timestamp field. Expected pattern
      * is a non-negative Java <tt>long</tt> datatype.
@@ -112,7 +112,7 @@ public class NMEA0183Sentence {
      * Validity of sentence
      */
     private final Validity validity;
-    
+
     /**
      * Constructs a sentence from a single comma seperated line. If the
      * line is a malformed sentence, this constructor will pull as much
@@ -126,7 +126,7 @@ public class NMEA0183Sentence {
         if (line == null) {
             throw new NullPointerException("line cannot be null");
         }
-        
+
         //setup
         Validity sentenceValidity = Validity.VALID;
         originalSentence = line;
@@ -136,17 +136,17 @@ public class NMEA0183Sentence {
          * fields won't get created.
          */
         String[] tokens = line.split("(,|\\*)", -1);
-        
+
         int index = 0;
         //check for valid timestamp in the first field
-        if (index < tokens.length && tokens[index] != null && 
+        if (index < tokens.length && tokens[index] != null &&
                 timestampPattern.matcher(tokens[index]).matches()) {
             timestamp = Long.parseLong(tokens[index]);
             index++;
         } else {
             timestamp = -1;
         }
-        
+
         //cycle through tokens until a valid tag field is found
         String tagField = null;
         while (index < tokens.length && tagField == null) {
@@ -160,7 +160,7 @@ public class NMEA0183Sentence {
             int position = tagField.startsWith("$") ? 1 : 0;
             talkerId = tagField.substring(position, position + 2);
             tag = tagField.substring(position + 2, position + 5);
-            
+
             //fill out fields
             while (index < tokens.length - 1) {
                 fields.add(tokens[index]);
@@ -188,7 +188,7 @@ public class NMEA0183Sentence {
         }
         validity = sentenceValidity;
     }
-    
+
     /**
      * @return the timestamp for this sentence. If timestamp was
      * not found in the sentence fields, then -1 will be returned.
@@ -196,6 +196,7 @@ public class NMEA0183Sentence {
     public long getTimestamp() {
         return timestamp;
     }
+
     /**
      * @return the originalSentence
      */
@@ -237,7 +238,7 @@ public class NMEA0183Sentence {
     public Validity getValidity() {
         return validity;
     }
-    
+
     /**
      * @return true if sentence is in a valid state, false if
      * sentence is not in a valid state
@@ -248,8 +249,16 @@ public class NMEA0183Sentence {
          * state since Garmin diagnostics tend to cut off the
          * checksum anyways.
          */
-        return Validity.VALID.equals(validity) || 
+        return Validity.VALID.equals(validity) ||
                 Validity.MALFORMED_CHECKSUM.equals(validity);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return String.format("[NMEA0183Sentence] %s", originalSentence);
     }
 
 }
