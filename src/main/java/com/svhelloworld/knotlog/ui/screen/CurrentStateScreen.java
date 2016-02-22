@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.Context;
-import com.svhelloworld.knotlog.ui.controller.CurrentConditionsController;
+import com.svhelloworld.knotlog.ui.controller.CurrentStateController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,9 +16,18 @@ import javafx.scene.control.Label;
 /**
  * The UI screen to display the current conditions.
  */
-public class CurrentConditionsScreen implements Initializable {
+public class CurrentStateScreen implements Initializable {
 
-    private static Logger log = LoggerFactory.getLogger(CurrentConditionsScreen.class);
+    private static Logger log = LoggerFactory.getLogger(CurrentStateScreen.class);
+
+    @FXML
+    private Label windSpeedLabel;
+
+    @FXML
+    private Label waterDepthLabel;
+
+    @FXML
+    private Label positionLabel;
 
     @FXML
     private Label currentWaterDepth;
@@ -26,7 +35,10 @@ public class CurrentConditionsScreen implements Initializable {
     @FXML
     private Label currentWindSpeed;
 
-    private CurrentConditionsController controller;
+    @FXML
+    private Label currentPosition;
+
+    private CurrentStateController controller;
 
     /**
      * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
@@ -34,9 +46,14 @@ public class CurrentConditionsScreen implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.info("initializing current conditions screen");
-        controller = Context.getBean(CurrentConditionsController.class);
+        controller = Context.getBean(CurrentStateController.class);
         currentWaterDepth.textProperty().bind(controller.waterDepthProperty());
         currentWindSpeed.textProperty().bind(controller.windSpeedProperty());
+        currentPosition.textProperty().bind(controller.positionProperty());
+        windSpeedLabel.textProperty().bind(controller.windSpeedLabelProperty());
+        waterDepthLabel.textProperty().bind(controller.waterDepthLabelProperty());
+        positionLabel.textProperty().bind(controller.positionLabelProperty());
+
     }
 
     /**

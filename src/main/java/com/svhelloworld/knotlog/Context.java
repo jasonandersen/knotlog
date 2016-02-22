@@ -14,6 +14,9 @@ public class Context {
 
     private static ClassPathXmlApplicationContext context;
 
+    /**
+     * Private constructor.
+     */
     private Context() {
         //no instantiation for you!
     }
@@ -24,10 +27,7 @@ public class Context {
      * @return
      */
     public static <T> T getBean(Class<T> type) {
-        if (context == null) {
-            initContext();
-        }
-        return context.getBean(type);
+        return getContext().getBean(type);
     }
 
     /**
@@ -37,7 +37,18 @@ public class Context {
         log.warn("shutting down application context");
         if (context != null) {
             context.close();
+            context = null;
         }
+    }
+
+    /**
+     * @return lazy loaded application context
+     */
+    private static ClassPathXmlApplicationContext getContext() {
+        if (context == null) {
+            initContext();
+        }
+        return context;
     }
 
     /**
