@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import com.svhelloworld.knotlog.Path;
 import com.svhelloworld.knotlog.engine.parse.NMEA0183DelayedReader;
-import com.svhelloworld.knotlog.engine.parse.NMEA0183Reader;
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
 import com.svhelloworld.knotlog.events.StartNMEA0183SimulationRequest;
@@ -28,15 +28,13 @@ public class NMEA0183Simulator {
 
     private static Logger log = LoggerFactory.getLogger(NMEA0183Simulator.class);
 
-    private static final String FEED = "data/GarminDiagFeed.csv";
-
     private final EventBus eventBus;
 
-    private long delay = 100;
+    private long delay = 250;
 
     private ScheduledThreadPoolExecutor threadPool;
 
-    private NMEA0183Reader reader;
+    private NMEA0183DelayedReader reader;
 
     /**
      * @param eventBus
@@ -86,8 +84,8 @@ public class NMEA0183Simulator {
             stop();
         }
         initThreadPool();
-        StreamedSource source = new ClassPathFileSource(FEED);
-        reader = new NMEA0183DelayedReader(eventBus, source, 100);
+        StreamedSource source = new ClassPathFileSource(Path.SIMULATION_FEED);
+        reader = new NMEA0183DelayedReader(eventBus, source, delay);
         threadPool.schedule(reader, delay, TimeUnit.MILLISECONDS);
     }
 
@@ -114,7 +112,10 @@ public class NMEA0183Simulator {
      */
     public void stop() {
         log.info("stopping simulation");
-        if (!(threadPool == null)) {
+        if (reader != null) {
+            reader.stop();
+        }
+        if (threadPool != null) {
             threadPool.shutdownNow();
             threadPool.getQueue().clear();
         }

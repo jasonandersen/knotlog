@@ -2,7 +2,6 @@ package com.svhelloworld.knotlog.messages;
 
 import java.time.Instant;
 
-import com.svhelloworld.knotlog.measure.Distance;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
 
 /**
@@ -14,7 +13,7 @@ import com.svhelloworld.knotlog.measure.DistanceUnit;
  *
  */
 public class PositionPrecision extends BaseQuantitativeMessage<DistanceUnit>
-        implements Distance {
+        implements DistanceMessage {
 
     /**
      * Constructor.

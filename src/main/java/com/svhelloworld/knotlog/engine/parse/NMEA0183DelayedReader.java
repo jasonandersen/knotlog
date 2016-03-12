@@ -31,6 +31,12 @@ public class NMEA0183DelayedReader extends NMEA0183Reader {
      */
     @Override
     protected String fetchNextLine() {
+        if (!isReading()) {
+            /*
+             * Don't attempt to read from the buffer if the flag has been set to stop reading
+             */
+            return null;
+        }
         try {
             Thread.sleep(delayInterval);
             return getReader().readLine();
@@ -43,8 +49,8 @@ public class NMEA0183DelayedReader extends NMEA0183Reader {
      * Stop the delayed reading, clear out the queue.
      */
     public void stop() {
-        log.info("parsing halted");
-        throw new UnsupportedOperationException("not implemented yet!");
+        log.info("stopping");
+        stopReading();
     }
 
 }

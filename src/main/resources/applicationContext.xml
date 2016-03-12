@@ -9,12 +9,17 @@
     
     <context:component-scan base-package="com.svhelloworld.knotlog" />
     
-    <bean id="eventBus" class="com.google.common.eventbus.EventBus" />
+    <bean id="eventBusExceptionHandler" class="com.svhelloworld.knotlog.events.EventBusExceptionHandler" />
+    
+    <bean id="eventBus" class="com.google.common.eventbus.EventBus">
+        <constructor-arg ref="eventBusExceptionHandler" />
+    </bean>
     
     <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
             <list>
                 <bean class="com.svhelloworld.knotlog.convert.StringToDistanceUnitConverter" />
+                <bean class="com.svhelloworld.knotlog.ui.currentstate.VesselMessageViewConverter" />
             </list>
         </property>
     </bean>

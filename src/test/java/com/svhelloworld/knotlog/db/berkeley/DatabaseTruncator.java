@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.sleepycat.je.Environment;
 import com.sleepycat.je.Transaction;
@@ -13,7 +12,8 @@ import com.sleepycat.je.Transaction;
 /**
  * Truncates the database. Use with caution, there's no rolling this shit back.
  */
-@Service
+//FIXME - Berkeley DB not behaving well, removing from tests for now
+//@Service
 public class DatabaseTruncator {
 
     private static Logger log = LoggerFactory.getLogger(DatabaseTruncator.class);

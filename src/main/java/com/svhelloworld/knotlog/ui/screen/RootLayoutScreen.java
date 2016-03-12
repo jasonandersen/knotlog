@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.svhelloworld.knotlog.Path;
 import com.svhelloworld.knotlog.boot.KnotlogApplication;
 
 import javafx.application.Platform;
@@ -24,8 +25,6 @@ public class RootLayoutScreen implements Initializable {
 
     private static Logger log = LoggerFactory.getLogger(RootLayoutScreen.class);
 
-    private static final String CURRENT_STATE = "/fxml/CurrentState.fxml";
-
     @FXML
     private VBox rootLayout;
 
@@ -42,7 +41,7 @@ public class RootLayoutScreen implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.info("initializing");
-        setContentPane(CURRENT_STATE);
+        setContentPane(Path.FXML_CURRENT_STATE);
     }
 
     /**

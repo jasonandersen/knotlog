@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.Context;
+import com.svhelloworld.knotlog.Path;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,19 +40,15 @@ public class KnotlogApplication extends Application {
 
     /**
      * Initializes the root layout.
+     * @throws IOException 
      */
-    private void initRootLayout() {
-        try {
-            loader = new FXMLLoader();
-            loader.setLocation(KnotlogApplication.class.getResource("/fxml/RootLayout.fxml"));
-            rootLayout = (Pane) loader.load(); // Show the scene containing the root layout. 
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            log.error("initRootLayout() method crapped out", e);
-            throw new RuntimeException("initRootLayout crapped out!", e);
-        }
+    private void initRootLayout() throws IOException {
+        loader = new FXMLLoader();
+        loader.setLocation(KnotlogApplication.class.getResource(Path.FXML_ROOT_LAYOUT));
+        rootLayout = (Pane) loader.load(); // Show the scene containing the root layout. 
+        Scene scene = new Scene(rootLayout);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     @Override

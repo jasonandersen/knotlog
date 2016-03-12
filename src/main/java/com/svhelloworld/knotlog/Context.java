@@ -2,11 +2,10 @@ package com.svhelloworld.knotlog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Singleton holding reference to a Spring {@link ApplicationContext} instance.
+ * Provides access to any lifecycle-managed beans in the dependency injection container.
  */
 public class Context {
 

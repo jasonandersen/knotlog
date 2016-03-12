@@ -30,7 +30,7 @@ public abstract class BaseCucumberSteps {
     private EventBus eventBus;
 
     @Autowired
-    private TestContext context;
+    private TestContext textContext;
 
     /**
      * Set the event bus and register this instance to it.
@@ -62,7 +62,7 @@ public abstract class BaseCucumberSteps {
      */
     protected void tearDownTestContext() {
         log.debug("tearing down");
-        context.reset();
+        textContext.reset();
         Now.resetNowProvider();
     }
 
@@ -72,7 +72,7 @@ public abstract class BaseCucumberSteps {
      * @return
      */
     protected <T> T get(String key) {
-        return context.get(key);
+        return textContext.get(key);
     }
 
     /**
@@ -81,7 +81,7 @@ public abstract class BaseCucumberSteps {
      * @param value
      */
     protected void set(String key, Object value) {
-        context.set(key, value);
+        textContext.set(key, value);
     }
 
     /**

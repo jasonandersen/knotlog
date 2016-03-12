@@ -1,12 +1,13 @@
 package com.svhelloworld.knotlog.engine.parse;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
 
 /**
@@ -23,6 +25,8 @@ import com.svhelloworld.knotlog.engine.sources.StreamedSource;
 public class NMEA0183DelayedReaderTest {
 
     private static Logger log = LoggerFactory.getLogger(NMEA0183DelayedReaderTest.class);
+
+    private static final String FEED = "com/svhelloworld/knotlog/engine/parse/GarminDiagFeed.csv";
 
     private NMEA0183DelayedReader reader;
 
@@ -38,29 +42,25 @@ public class NMEA0183DelayedReaderTest {
     }
 
     @Test
-    public void testSentenceIsNotPostedImmediately() {
-        initReader(500);
-        reader.handleLine("I LIKE MONKEYS");
-        assertTrue(events.isEmpty());
-    }
-
-    @Test
     public void testSentenceIsPostedAfter500Ms() throws InterruptedException {
         initReader(500);
-        reader.handleLine("I LIKE MONKEYS");
+        reader.processLine("I LIKE MONKEYS");
         Thread.sleep(1000);
         assertFalse(events.isEmpty());
     }
 
     @Test
-    public void testEachSentenceIsDelayedInSequence() throws InterruptedException {
-        initReader(500);
-        reader.handleLine("this is the first sentence");
-        reader.handleLine("this is the second sentence");
-        Thread.sleep(600);
-        assertEquals(1, events.size());
-        Thread.sleep(600);
-        assertEquals(2, events.size());
+    public void testStop() throws InterruptedException {
+        ScheduledThreadPoolExecutor threadPool = new ScheduledThreadPoolExecutor(1);
+        StreamedSource source = new ClassPathFileSource(FEED);
+        reader = new NMEA0183DelayedReader(eventBus, source, 100);
+        threadPool.schedule(reader, 0, TimeUnit.MILLISECONDS);
+        Thread.sleep(100);
+        assertTrue(reader.isReading());
+        reader.stop();
+        Thread.sleep(100);
+        assertFalse(reader.isReading());
+
     }
 
     @Subscribe

@@ -60,8 +60,8 @@ public class NMEA0183Reader implements Runnable {
         reader = openSource();
         String line;
         try {
-            while ((line = fetchNextLine()) != null) {
-                handleLine(line);
+            while (isReading() && (line = fetchNextLine()) != null) {
+                processLine(line);
             }
         } catch (IOException e) {
             throw new ParseException(e);
@@ -81,6 +81,14 @@ public class NMEA0183Reader implements Runnable {
     }
 
     /**
+     * Allows subclasses to stop reading.
+     */
+    protected void stopReading() {
+        log.info("stop reading");
+        isReading.set(false);
+    }
+
+    /**
      * Hook to override how this reader reads from the buffered reader.
      * @return return the next line in the reader, will return null if reader is empty
      * @throws IOException 
@@ -94,7 +102,7 @@ public class NMEA0183Reader implements Runnable {
      * wanting to change how source text lines are handled.
      * @param line
      */
-    protected void handleLine(String line) {
+    protected void processLine(String line) {
         NMEA0183Sentence sentence = new NMEA0183Sentence(line);
         eventBus.post(sentence);
     }

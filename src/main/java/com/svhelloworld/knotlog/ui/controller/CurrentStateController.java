@@ -1,25 +1,40 @@
 package com.svhelloworld.knotlog.ui.controller;
 
+import java.time.Instant;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.svhelloworld.knotlog.events.StartNMEA0183SimulationRequest;
 import com.svhelloworld.knotlog.events.StopNMEA0183SimulationRequest;
-import com.svhelloworld.knotlog.i18n.BabelFish;
+import com.svhelloworld.knotlog.measure.AngleUnit;
+import com.svhelloworld.knotlog.measure.DistanceUnit;
+import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
+import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
+import com.svhelloworld.knotlog.measure.MeasurementBasis;
+import com.svhelloworld.knotlog.measure.SpeedUnit;
 import com.svhelloworld.knotlog.messages.GPSPosition;
-import com.svhelloworld.knotlog.messages.PositionFormat;
+import com.svhelloworld.knotlog.messages.SpeedRelativeToGround;
 import com.svhelloworld.knotlog.messages.ValidVesselMessage;
+import com.svhelloworld.knotlog.messages.VesselHeading;
+import com.svhelloworld.knotlog.messages.VesselMessage;
+import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.messages.WaterDepth;
 import com.svhelloworld.knotlog.messages.WindSpeed;
+import com.svhelloworld.knotlog.ui.UI;
+import com.svhelloworld.knotlog.ui.currentstate.VesselMessageView;
 import com.svhelloworld.knotlog.ui.screen.CurrentStateScreen;
 
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Controller for the {@link CurrentStateScreen}. This controller will act as session state
@@ -30,40 +45,27 @@ public class CurrentStateController {
 
     private static Logger log = LoggerFactory.getLogger(CurrentStateController.class);
 
-    private StringProperty waterDepthLabel = new SimpleStringProperty();
-
-    private StringProperty waterDepth = new SimpleStringProperty();
-
-    private StringProperty windSpeedLabel = new SimpleStringProperty();
-
-    private StringProperty windSpeed = new SimpleStringProperty();
-
-    private StringProperty positionLabel = new SimpleStringProperty();
-
-    private StringProperty position = new SimpleStringProperty();
-
     private final EventBus eventBus;
 
-    /*
-     * wind direction
-     * speed over ground
-     * altitude
-     * water temperature
-     * rudder angle
-     * vessel heading
-     */
+    private final ConversionService conversionService;
+
+    private final ObservableList<VesselMessageView<?>> messages;
+
+    private final ListProperty<VesselMessageView<?>> messagesProperty;
 
     /**
      * Constructor
      */
     @Autowired
-    public CurrentStateController(EventBus eventBus) {
+    public CurrentStateController(EventBus eventBus, ConversionService conversionService) {
         log.info("initializing");
+        this.conversionService = conversionService;
         this.eventBus = eventBus;
         eventBus.register(this);
-        waterDepthLabel.set(BabelFish.localizeKey("name.water.depth"));
-        windSpeedLabel.set(BabelFish.localizeKey("name.wind.speed"));
-        positionLabel.set(BabelFish.localizeKey("name.gps.position"));
+
+        messages = FXCollections.observableArrayList();
+        messagesProperty = new SimpleListProperty<VesselMessageView<?>>(messages);
+        initializeMessages();
     }
 
     /**
@@ -73,134 +75,125 @@ public class CurrentStateController {
     @Subscribe
     public void handleVesselMessages(ValidVesselMessage message) {
         log.debug("handleMessage {}", message);
-        if (message instanceof WaterDepth) {
-            updateWaterDepth((WaterDepth) message);
-        } else if (message instanceof WindSpeed) {
-            updateWindSpeed((WindSpeed) message);
-        } else if (message instanceof GPSPosition) {
-            updatePosition((GPSPosition) message);
+        VesselMessageView<?> view = convertMessageToView(message);
+        if (view != null) {
+            updateCurrentStateMessages(view);
         }
     }
 
     /**
-     * Update position property
-     * @param message
+     * Clears out any state. Useful for testing purposes.
      */
-    private void updatePosition(GPSPosition message) {
-        String text = PositionFormat.DEGREES_MINUTES.format(message);
-        updateProperty(position, text);
+    public void reset() {
+        messages.clear();
+        initializeMessages();
     }
 
     /**
-     * Update wind speed property
+     * Converts a {@link VesselMessage} to a {@link VesselMessageView}.
      * @param message
+     * @return will return the view object if successful, if the conversion failed will return null
      */
-    private void updateWindSpeed(WindSpeed message) {
-        String text = String.format("%.1f %s", message.getSpeed(), BabelFish.localize(message.getSpeedUnit()));
-        updateProperty(windSpeed, text);
-    }
-
-    /**
-     * Update water depth property
-     * @param message
-     */
-    private void updateWaterDepth(WaterDepth message) {
-        String text = String.format("%.1f %s", message.getDistance(), BabelFish.localize(message.getDistanceUnit()));
-        updateProperty(waterDepth, text);
-    }
-
-    /**
-     * Updates property.
-     * @param message
-     */
-    private void updateProperty(StringProperty property, String message) {
-        log.debug("update property: {}", message);
+    private VesselMessageView<?> convertMessageToView(ValidVesselMessage message) {
+        VesselMessageView<?> view = null;
         try {
+            view = conversionService.convert(message, VesselMessageView.class);
+        } catch (Exception e) {
             /*
-             * We have to make sure this update takes place on a JavaFX managed thread
+             * Unable to convert this message to a view, just return null.
+             * FIXME - I should just be catching IllegalArgumentException because that's what gets
+             * thrown from the conversion service but when I do, it doesn't seem to get caught by 
+             * this catch for reasons I'm too lazy to figure out right now. So for now, we're just
+             * catching all exceptions.
              */
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    property.set(message);
-                }
-            });
-        } catch (IllegalStateException e) {
-            log.warn("setting property values outside of the JavaFX framework");
-            /*
-             * This means the JavaFX toolkit hasn't been booted up. Most likely, we're running
-             * unit tests against the controller so just set the property value outside of the
-             * JavaFX threading.
-             */
-            property.set(message);
         }
+        return view;
+    }
 
+    /**
+     * Add this view to the current messages.
+     * @param view
+     */
+    private void updateCurrentStateMessages(VesselMessageView<?> view) {
+        if (view == null) {
+            return;
+        }
+        log.debug("uppdate current state messages");
+        UI.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                addUniqueMessage(view);
+            }
+
+        });
+    }
+
+    /**
+     * If this message type already exists in the list, replace it. Otherwise add it.
+     * @param view
+     */
+    private void addUniqueMessage(VesselMessageView<?> view) {
+        Class<?> messageClass = view.getVesselMessage().getClass();
+        for (int index = 0; index < messages.size(); index++) {
+            /*
+             * attempt to find the VesselMessage type already in the list and replace it
+             */
+            VesselMessage currentMessage = messages.get(index).getVesselMessage();
+            if (messageClass.equals(currentMessage.getClass())) {
+                messages.set(index, view);
+                return;
+            }
+        }
+        /*
+         * if the message type was not found, add it
+         */
+        messages.add(view);
+    }
+
+    /**
+     * Create initial messages to load up the display in the proper order.
+     */
+    private void initializeMessages() {
+        VesselMessageSource source = VesselMessageSource.NMEA0183;
+        Instant now = Instant.now();
+        WaterDepth waterDepth = new WaterDepth(source, now, 0.0f, DistanceUnit.FEET);
+        SpeedRelativeToGround sog = new SpeedRelativeToGround(source, now, 0.0f, SpeedUnit.KNOTS);
+        GPSPosition position = new GPSPosition(source, now, "0000.00", LatitudinalHemisphere.NORTH, "00000.00",
+                LongitudinalHemisphere.WEST);
+        WindSpeed windSpeed = new WindSpeed(source, now, 0.0f, SpeedUnit.KNOTS, MeasurementBasis.RELATIVE);
+        VesselHeading heading = new VesselHeading(source, now, 0.0f, AngleUnit.DEGREES_MAGNETIC);
+
+        handleVesselMessages(waterDepth);
+        handleVesselMessages(windSpeed);
+        handleVesselMessages(position);
+        handleVesselMessages(heading);
+        handleVesselMessages(sog);
     }
 
     /**
      * Starting the parsing!
      */
-    public void startParsing() {
+    public void startSimulation() {
         eventBus.post(new StartNMEA0183SimulationRequest());
     }
 
     /**
      * Stop the parsing.
      */
-    public void stopParsing() {
+    public void stopSimulation() {
         eventBus.post(new StopNMEA0183SimulationRequest());
     }
 
     /*
-     * Property accessor methods
+     * Accessor methods
      */
 
-    public String getWaterDepth() {
-        return waterDepth.get();
+    public List<VesselMessageView<?>> getCurrentStateMessages() {
+        return messages;
     }
 
-    public StringProperty waterDepthProperty() {
-        return waterDepth;
-    }
-
-    public String getWindSpeed() {
-        return windSpeed.get();
-    }
-
-    public StringProperty windSpeedProperty() {
-        return windSpeed;
-    }
-
-    public String getWaterDepthLabel() {
-        return waterDepthLabel.get();
-    }
-
-    public StringProperty waterDepthLabelProperty() {
-        return waterDepthLabel;
-    }
-
-    public StringProperty windSpeedLabelProperty() {
-        return windSpeedLabel;
-    }
-
-    public String getWindSpeedLabel() {
-        return windSpeedLabel.get();
-    }
-
-    public StringProperty positionLabelProperty() {
-        return positionLabel;
-    }
-
-    public String getPositionLabel() {
-        return positionLabel.get();
-    }
-
-    public StringProperty positionProperty() {
-        return position;
-    }
-
-    public String getPosition() {
-        return position.get();
+    public ListProperty<VesselMessageView<?>> currentStateMessagesProperty() {
+        return messagesProperty;
     }
 
 }

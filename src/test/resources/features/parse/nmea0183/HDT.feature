@@ -18,7 +18,7 @@
 @HDT
 Feature: NMEA0183 HDT sentence
     As a vessel operator using a compass that transmits NMEA0183
-    I want HDT (Heading - Magnetic) sentences parsed 
+    I want HDT (Heading - True) sentences parsed 
     So that I can accurately plot my vessel heading to stay on course
 
     Background:

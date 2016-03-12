@@ -8,10 +8,13 @@ import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.Context;
 import com.svhelloworld.knotlog.ui.controller.CurrentStateController;
+import com.svhelloworld.knotlog.ui.currentstate.VesselMessageView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * The UI screen to display the current conditions.
@@ -21,22 +24,16 @@ public class CurrentStateScreen implements Initializable {
     private static Logger log = LoggerFactory.getLogger(CurrentStateScreen.class);
 
     @FXML
-    private Label windSpeedLabel;
+    private TableView<VesselMessageView<?>> messages;
 
     @FXML
-    private Label waterDepthLabel;
+    private TableColumn<VesselMessageView<?>, String> nameColumn;
 
     @FXML
-    private Label positionLabel;
+    private TableColumn<VesselMessageView<?>, String> valueColumn;
 
     @FXML
-    private Label currentWaterDepth;
-
-    @FXML
-    private Label currentWindSpeed;
-
-    @FXML
-    private Label currentPosition;
+    private TableColumn<VesselMessageView<?>, String> sourceColumn;
 
     private CurrentStateController controller;
 
@@ -45,28 +42,43 @@ public class CurrentStateScreen implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        log.info("initializing current conditions screen");
+        log.info("initializing");
+        initController();
+        initControllerPropertyBindings();
+        startSimulation();
+    }
+
+    /**
+     * Initialize controller.
+     */
+    private void initController() {
         controller = Context.getBean(CurrentStateController.class);
-        currentWaterDepth.textProperty().bind(controller.waterDepthProperty());
-        currentWindSpeed.textProperty().bind(controller.windSpeedProperty());
-        currentPosition.textProperty().bind(controller.positionProperty());
-        windSpeedLabel.textProperty().bind(controller.windSpeedLabelProperty());
-        waterDepthLabel.textProperty().bind(controller.waterDepthLabelProperty());
-        positionLabel.textProperty().bind(controller.positionLabelProperty());
+    }
+
+    /**
+     * Initialize all the bindings between the JavaFX controls and the properties of
+     * the controller.
+     */
+    private void initControllerPropertyBindings() {
+        messages.itemsProperty().bind(controller.currentStateMessagesProperty());
+        nameColumn.setCellValueFactory(new PropertyValueFactory<VesselMessageView<?>, String>("label"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<VesselMessageView<?>, String>("value"));
+        sourceColumn.setCellValueFactory(new PropertyValueFactory<VesselMessageView<?>, String>("source"));
 
     }
 
     /**
-     * Kick of the parsing.
+     * Kick off the real-time NMEA0183 simulation.
      */
-    @FXML
-    public void startParsing() {
-        controller.startParsing();
+    public void startSimulation() {
+        controller.startSimulation();
     }
 
-    @FXML
-    public void stopParsing() {
-        controller.stopParsing();
+    /**
+     * Stop the real-time NMEA0183 simulation.
+     */
+    public void stopSimulation() {
+        controller.stopSimulation();
     }
 
 }

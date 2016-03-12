@@ -2,7 +2,6 @@ package com.svhelloworld.knotlog.messages;
 
 import java.time.Instant;
 
-import com.svhelloworld.knotlog.measure.Speed;
 import com.svhelloworld.knotlog.measure.SpeedUnit;
 
 /**
@@ -16,7 +15,7 @@ import com.svhelloworld.knotlog.measure.SpeedUnit;
  *
  */
 public abstract class VesselSpeed
-        extends BaseQuantitativeMessage<SpeedUnit>implements Speed {
+        extends BaseQuantitativeMessage<SpeedUnit> implements SpeedMessage {
 
     /**
      * Constructor.

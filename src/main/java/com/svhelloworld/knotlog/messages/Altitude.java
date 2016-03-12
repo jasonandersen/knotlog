@@ -2,7 +2,6 @@ package com.svhelloworld.knotlog.messages;
 
 import java.time.Instant;
 
-import com.svhelloworld.knotlog.measure.Distance;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
 
 /**
@@ -12,7 +11,7 @@ import com.svhelloworld.knotlog.measure.DistanceUnit;
  * @since Feb 24, 2010
  *
  */
-public class Altitude extends BaseQuantitativeMessage<DistanceUnit>implements Distance {
+public class Altitude extends BaseQuantitativeMessage<DistanceUnit> implements DistanceMessage {
 
     /**
      * Constructor.
