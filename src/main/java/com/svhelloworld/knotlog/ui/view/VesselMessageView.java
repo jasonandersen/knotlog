@@ -1,45 +1,17 @@
 package com.svhelloworld.knotlog.ui.view;
 
-import org.apache.commons.lang.Validate;
-
-import com.svhelloworld.knotlog.i18n.BabelFish;
 import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.messages.WaterDepth;
-import com.svhelloworld.knotlog.messages.WindSpeed;
 
 /**
- * @see com.svhelloworld.knotlog.ui.currentstate.WaterDepthView
+ * Defines a view wrapper around a {@link VesselMessage} to display the message.
  */
-@Deprecated
-public enum VesselMessageView {
+public interface VesselMessageView<V extends VesselMessage> {
 
-    WATER_DEPTH(WaterDepth.class) {
-        @Override
-        protected String getValue(VesselMessage message) {
-            Validate.notNull(message);
-            WaterDepth depth = (WaterDepth) message;
-            return String.format("%.1f %s", depth.getDistance(), BabelFish.localize(depth.getDistanceUnit()));
-        }
-    },
-    WIND_SPEED(WindSpeed.class) {
-        @Override
-        protected String getValue(VesselMessage message) {
-            Validate.notNull(message);
-            WindSpeed speed = (WindSpeed) message;
-            return String.format("%.1f %s", speed.getSpeed(), BabelFish.localize(speed.getSpeedUnit()));
-        }
-    };
+    public V getVesselMessage();
 
-    private Class<? extends VesselMessage> type;
+    public String getLabel();
 
-    VesselMessageView(Class<? extends VesselMessage> type) {
-        this.type = type;
-    }
+    public String getValue();
 
-    protected abstract String getValue(VesselMessage message);
-
-    public static String getMessageValue(VesselMessage message) {
-        return null;
-    }
-
+    public String getSource();
 }

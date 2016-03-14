@@ -13,7 +13,7 @@ import com.svhelloworld.knotlog.measure.VesselArea;
 import com.svhelloworld.knotlog.messages.RudderAngle;
 import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.messages.WaterDepth;
-import com.svhelloworld.knotlog.ui.currentstate.WaterDepthView;
+import com.svhelloworld.knotlog.ui.view.WaterDepthView;
 
 /**
  * Testing the {@link VesselMessageViewFactory} class.

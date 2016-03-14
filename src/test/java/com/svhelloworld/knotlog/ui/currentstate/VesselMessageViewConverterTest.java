@@ -23,6 +23,12 @@ import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.messages.WaterDepth;
 import com.svhelloworld.knotlog.messages.WindSpeed;
 import com.svhelloworld.knotlog.test.BaseIntegrationTest;
+import com.svhelloworld.knotlog.ui.view.DistanceView;
+import com.svhelloworld.knotlog.ui.view.PositionView;
+import com.svhelloworld.knotlog.ui.view.SpeedView;
+import com.svhelloworld.knotlog.ui.view.VesselMessageView;
+import com.svhelloworld.knotlog.ui.view.VesselMessageViewConverter;
+import com.svhelloworld.knotlog.ui.view.WindSpeedView;
 
 /**
  * Test the {@link VesselMessageViewConverter} class.

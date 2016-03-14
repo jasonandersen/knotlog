@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.currentstate;
+package com.svhelloworld.knotlog.ui.view;
 
 import com.svhelloworld.knotlog.messages.WindSpeed;
 
@@ -16,7 +16,7 @@ public class WindSpeedView extends BaseVesselMessageView<WindSpeed> {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.ui.currentstate.VesselMessageView#getValue()
+     * @see com.svhelloworld.knotlog.ui.view.VesselMessageView#getValue()
      */
     @Override
     public String getValue() {

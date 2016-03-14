@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.screen;
+package com.svhelloworld.knotlog.ui.root;
 
 import java.io.IOException;
 import java.net.URL;

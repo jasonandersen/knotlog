@@ -1,5 +1,7 @@
 package com.svhelloworld.knotlog.ui.controller;
 
+import com.svhelloworld.knotlog.ui.currentstate.CurrentStateController;
+
 /**
  * Tests the {@link CurrentStateController} class.
  */

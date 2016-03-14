@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.currentstate;
+package com.svhelloworld.knotlog.ui.view;
 
 import org.apache.commons.lang.Validate;
 
@@ -21,7 +21,7 @@ public abstract class BaseVesselMessageView<M extends VesselMessage> implements 
     }
 
     /**
-     * @see com.svhelloworld.knotlog.ui.currentstate.VesselMessageView#getVesselMessage()
+     * @see com.svhelloworld.knotlog.ui.view.VesselMessageView#getVesselMessage()
      */
     @Override
     public M getVesselMessage() {
@@ -29,7 +29,7 @@ public abstract class BaseVesselMessageView<M extends VesselMessage> implements 
     }
 
     /**
-     * @see com.svhelloworld.knotlog.ui.currentstate.VesselMessageView#getLabel()
+     * @see com.svhelloworld.knotlog.ui.view.VesselMessageView#getLabel()
      */
     @Override
     public String getLabel() {
@@ -37,7 +37,7 @@ public abstract class BaseVesselMessageView<M extends VesselMessage> implements 
     }
 
     /**
-     * @see com.svhelloworld.knotlog.ui.currentstate.VesselMessageView#getSource()
+     * @see com.svhelloworld.knotlog.ui.view.VesselMessageView#getSource()
      */
     @Override
     public String getSource() {

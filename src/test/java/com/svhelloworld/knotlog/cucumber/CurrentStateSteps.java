@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.engine.parse.NMEA0183Sentence;
-import com.svhelloworld.knotlog.ui.controller.CurrentStateController;
-import com.svhelloworld.knotlog.ui.currentstate.VesselMessageView;
+import com.svhelloworld.knotlog.ui.currentstate.CurrentStateController;
+import com.svhelloworld.knotlog.ui.view.VesselMessageView;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;

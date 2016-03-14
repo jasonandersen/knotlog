@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.controller;
+package com.svhelloworld.knotlog.ui.currentstate;
 
 import java.time.Instant;
 import java.util.List;
@@ -28,8 +28,7 @@ import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.messages.WaterDepth;
 import com.svhelloworld.knotlog.messages.WindSpeed;
 import com.svhelloworld.knotlog.ui.UI;
-import com.svhelloworld.knotlog.ui.currentstate.VesselMessageView;
-import com.svhelloworld.knotlog.ui.screen.CurrentStateScreen;
+import com.svhelloworld.knotlog.ui.view.VesselMessageView;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;

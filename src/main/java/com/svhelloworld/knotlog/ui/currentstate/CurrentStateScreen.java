@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.screen;
+package com.svhelloworld.knotlog.ui.currentstate;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,8 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.Context;
-import com.svhelloworld.knotlog.ui.controller.CurrentStateController;
-import com.svhelloworld.knotlog.ui.currentstate.VesselMessageView;
+import com.svhelloworld.knotlog.ui.view.VesselMessageView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
