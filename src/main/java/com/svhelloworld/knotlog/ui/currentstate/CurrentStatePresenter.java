@@ -36,13 +36,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Controller for the {@link CurrentStateScreen}. This controller will act as session state
+ * Presenter for the {@link CurrentStateScreen}. This presenter will act as session state
  * for current conditions being reported by vessel instruments.
  */
 @Component
-public class CurrentStateController {
+public class CurrentStatePresenter {
 
-    private static Logger log = LoggerFactory.getLogger(CurrentStateController.class);
+    private static Logger log = LoggerFactory.getLogger(CurrentStatePresenter.class);
 
     private final EventBus eventBus;
 
@@ -56,7 +56,7 @@ public class CurrentStateController {
      * Constructor
      */
     @Autowired
-    public CurrentStateController(EventBus eventBus, ConversionService conversionService) {
+    public CurrentStatePresenter(EventBus eventBus, ConversionService conversionService) {
         log.info("initializing");
         this.conversionService = conversionService;
         this.eventBus = eventBus;

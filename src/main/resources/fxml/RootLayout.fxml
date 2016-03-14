@@ -8,7 +8,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="rootLayout" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.svhelloworld.knotlog.ui.screen.RootLayoutScreen">
+<VBox fx:id="rootLayout" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.svhelloworld.knotlog.ui.root.RootLayoutScreen">
   <children>
     <MenuBar fx:id="menu" VBox.vgrow="NEVER">
       <menus>
@@ -25,6 +25,11 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu mnemonicParsing="false" onAction="#raiseDialog" text="Raise a Dialog">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
             <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>

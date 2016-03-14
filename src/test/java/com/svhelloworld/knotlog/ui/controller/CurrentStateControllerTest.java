@@ -1,9 +1,9 @@
 package com.svhelloworld.knotlog.ui.controller;
 
-import com.svhelloworld.knotlog.ui.currentstate.CurrentStateController;
+import com.svhelloworld.knotlog.ui.currentstate.CurrentStatePresenter;
 
 /**
- * Tests the {@link CurrentStateController} class.
+ * Tests the {@link CurrentStatePresenter} class.
  */
 @Deprecated
 public class CurrentStateControllerTest {

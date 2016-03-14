@@ -15,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -68,6 +70,18 @@ public class RootLayoutScreen implements Initializable {
             log.error("Could not initialize root layout screen", e);
             Platform.exit();
         }
+    }
+
+    /**
+     * Raise a modal dialog.
+     */
+    @FXML
+    private void raiseDialog() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText("I have a great message for you!");
+        alert.showAndWait();
     }
 
     /**

@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.engine.parse.NMEA0183Sentence;
-import com.svhelloworld.knotlog.ui.currentstate.CurrentStateController;
+import com.svhelloworld.knotlog.ui.currentstate.CurrentStatePresenter;
 import com.svhelloworld.knotlog.ui.view.VesselMessageView;
 
 import cucumber.api.java.After;
@@ -26,7 +26,7 @@ public class CurrentStateSteps extends BaseCucumberSteps {
     private static Logger log = LoggerFactory.getLogger(CurrentStateSteps.class);
 
     @Autowired
-    private CurrentStateController controller;
+    private CurrentStatePresenter controller;
 
     /**
      * @see com.svhelloworld.knotlog.cucumber.BaseCucumberSteps#tearDown()

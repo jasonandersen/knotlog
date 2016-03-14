@@ -34,7 +34,7 @@ public class CurrentStateScreen implements Initializable {
     @FXML
     private TableColumn<VesselMessageView<?>, String> sourceColumn;
 
-    private CurrentStateController controller;
+    private CurrentStatePresenter presenter;
 
     /**
      * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
@@ -42,42 +42,41 @@ public class CurrentStateScreen implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.info("initializing");
-        initController();
-        initControllerPropertyBindings();
+        initPresenter();
+        initPresenterPropertyBindings();
         startSimulation();
     }
 
     /**
      * Initialize controller.
      */
-    private void initController() {
-        controller = Context.getBean(CurrentStateController.class);
+    private void initPresenter() {
+        presenter = Context.getBean(CurrentStatePresenter.class);
     }
 
     /**
      * Initialize all the bindings between the JavaFX controls and the properties of
-     * the controller.
+     * the presenter.
      */
-    private void initControllerPropertyBindings() {
-        messages.itemsProperty().bind(controller.currentStateMessagesProperty());
+    private void initPresenterPropertyBindings() {
+        messages.itemsProperty().bind(presenter.currentStateMessagesProperty());
         nameColumn.setCellValueFactory(new PropertyValueFactory<VesselMessageView<?>, String>("label"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<VesselMessageView<?>, String>("value"));
         sourceColumn.setCellValueFactory(new PropertyValueFactory<VesselMessageView<?>, String>("source"));
-
     }
 
     /**
      * Kick off the real-time NMEA0183 simulation.
      */
     public void startSimulation() {
-        controller.startSimulation();
+        presenter.startSimulation();
     }
 
     /**
      * Stop the real-time NMEA0183 simulation.
      */
     public void stopSimulation() {
-        controller.stopSimulation();
+        presenter.stopSimulation();
     }
 
 }
