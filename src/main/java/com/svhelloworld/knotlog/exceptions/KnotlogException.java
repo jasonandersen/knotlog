@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog;
+package com.svhelloworld.knotlog.exceptions;
 
 /**
  * Base exception class for all application exceptions.

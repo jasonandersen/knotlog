@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.engine.parse;
 
-import com.svhelloworld.knotlog.KnotlogException;
+import com.svhelloworld.knotlog.exceptions.KnotlogException;
 
 /**
  * Generic exception thrown during the parsing process.

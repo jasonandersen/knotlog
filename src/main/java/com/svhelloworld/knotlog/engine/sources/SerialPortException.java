@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.engine.sources;
 
-import com.svhelloworld.knotlog.KnotlogException;
+import com.svhelloworld.knotlog.exceptions.KnotlogException;
 
 /**
  * An exception relating to operations against a serial port.

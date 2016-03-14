@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.measure;
 
-import com.svhelloworld.knotlog.KnotlogException;
+import com.svhelloworld.knotlog.exceptions.KnotlogException;
 
 /**
  * An exception while converting measurement units.

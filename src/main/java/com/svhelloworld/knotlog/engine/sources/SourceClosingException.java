@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.engine.sources;
 
-import com.svhelloworld.knotlog.KnotlogException;
+import com.svhelloworld.knotlog.exceptions.KnotlogException;
 
 /**
  * Thrown from a failure while attempting to close a source.

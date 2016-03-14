@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.output;
 
-import com.svhelloworld.knotlog.KnotlogException;
+import com.svhelloworld.knotlog.exceptions.KnotlogException;
 
 /**
  * Exception during the output process.

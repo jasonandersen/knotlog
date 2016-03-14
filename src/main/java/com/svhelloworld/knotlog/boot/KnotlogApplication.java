@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.Context;
 import com.svhelloworld.knotlog.Path;
+import com.svhelloworld.knotlog.exceptions.ExceptionHandler;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -33,9 +34,18 @@ public class KnotlogApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         log.info("starting up");
+        initExceptionHandler();
         this.primaryStage = stage;
         this.primaryStage.setTitle("Knotlog");
         initRootLayout();
+    }
+
+    /**
+     * Initializes default exception handling for all application threads.
+     */
+    private void initExceptionHandler() {
+        ExceptionHandler handler = Context.getBean(ExceptionHandler.class);
+        Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 
     /**
