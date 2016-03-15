@@ -68,15 +68,8 @@ public class CurrentStateScreen implements Initializable {
     /**
      * Kick off the real-time NMEA0183 simulation.
      */
-    public void startSimulation() {
+    private void startSimulation() {
         presenter.startSimulation();
-    }
-
-    /**
-     * Stop the real-time NMEA0183 simulation.
-     */
-    public void stopSimulation() {
-        presenter.stopSimulation();
     }
 
 }

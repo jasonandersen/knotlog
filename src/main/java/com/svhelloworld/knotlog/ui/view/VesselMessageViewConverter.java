@@ -5,6 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 
 import com.svhelloworld.knotlog.messages.DistanceMessage;
 import com.svhelloworld.knotlog.messages.PositionMessage;
+import com.svhelloworld.knotlog.messages.RudderAngle;
 import com.svhelloworld.knotlog.messages.SpeedMessage;
 import com.svhelloworld.knotlog.messages.VesselMessage;
 import com.svhelloworld.knotlog.messages.WaterDepth;
@@ -29,6 +30,9 @@ public class VesselMessageViewConverter implements Converter<VesselMessage, Vess
         }
         if (source instanceof PositionMessage) {
             return new PositionView((PositionMessage) source);
+        }
+        if (source instanceof RudderAngle) {
+            return new RudderAngleView((RudderAngle) source);
         }
         if (source instanceof SpeedMessage) {
             return new SpeedView((SpeedMessage) source);
