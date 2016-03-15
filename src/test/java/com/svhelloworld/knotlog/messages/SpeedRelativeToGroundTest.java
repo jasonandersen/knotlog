@@ -8,6 +8,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.SpeedRelativeToGround;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.measure.SpeedUnit;
 
 /**
@@ -35,7 +37,7 @@ public class SpeedRelativeToGroundTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.SpeedRelativeToGround#SpeedRelativeToGround(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.SpeedUnit)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.SpeedRelativeToGround#SpeedRelativeToGround(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.SpeedUnit)}.
      */
     @Test
     public void testConstructorNegativeSpeed() {
@@ -49,7 +51,7 @@ public class SpeedRelativeToGroundTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.VesselSpeed#getSpeed()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.VesselSpeed#getSpeed()}.
      */
     @Test
     public void testGetSpeed() {
@@ -57,7 +59,7 @@ public class SpeedRelativeToGroundTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.VesselSpeed#getSpeedUnit()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.VesselSpeed#getSpeedUnit()}.
      */
     @Test
     public void testGetSpeedUnit() {
@@ -81,7 +83,7 @@ public class SpeedRelativeToGroundTest extends
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
+     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
     protected SpeedRelativeToGround getInstance(VesselMessageSource source, Instant timestamp, SpeedUnit unit) {

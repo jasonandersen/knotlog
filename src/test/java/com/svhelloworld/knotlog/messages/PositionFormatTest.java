@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.PositionFormat;
+import com.svhelloworld.knotlog.domain.messages.PositionImpl;
 import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
 
@@ -28,7 +30,7 @@ public class PositionFormatTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionFormat#pattern(com.svhelloworld.knotlog.messages.Position)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionFormat#pattern(com.svhelloworld.knotlog.messages.Position)}.
      */
     @Test
     public void testFormatDeg() {
@@ -39,7 +41,7 @@ public class PositionFormatTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionFormat#pattern(com.svhelloworld.knotlog.messages.Position)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionFormat#pattern(com.svhelloworld.knotlog.messages.Position)}.
      */
     @Test
     public void testFormatDegMin() {
@@ -48,7 +50,7 @@ public class PositionFormatTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionFormat#pattern(com.svhelloworld.knotlog.messages.Position)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionFormat#pattern(com.svhelloworld.knotlog.messages.Position)}.
      */
     @Test
     public void testFormatDegMinSec() {

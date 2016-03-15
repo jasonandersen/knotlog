@@ -1,11 +1,11 @@
 package com.svhelloworld.knotlog.cucumber;
 
 import com.google.common.eventbus.Subscribe;
+import com.svhelloworld.knotlog.domain.messages.UnrecognizedMessage;
+import com.svhelloworld.knotlog.domain.messages.ValidVesselMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessages;
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
 import com.svhelloworld.knotlog.engine.parse.NMEA0183Sentence;
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.ValidVesselMessage;
-import com.svhelloworld.knotlog.messages.VesselMessages;
 
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;

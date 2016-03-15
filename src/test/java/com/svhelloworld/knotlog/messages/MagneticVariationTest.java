@@ -8,6 +8,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.MagneticVariation;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.measure.AngleUnit;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
 
@@ -45,7 +47,7 @@ public class MagneticVariationTest extends
      */
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.MagneticVariation#MagneticVariation(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.MagneticVariation#MagneticVariation(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorVariationLessThan0() {
@@ -58,7 +60,7 @@ public class MagneticVariationTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.MagneticVariation#MagneticVariation(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.MagneticVariation#MagneticVariation(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorVariationGreaterThan90() {
@@ -71,7 +73,7 @@ public class MagneticVariationTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.MagneticVariation#MagneticVariation(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.MagneticVariation#MagneticVariation(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorVariationHemNull() {
@@ -84,7 +86,7 @@ public class MagneticVariationTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.MagneticVariation#getMagneticVariation()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.MagneticVariation#getMagneticVariation()}.
      */
     @Test
     public void testGetMagneticVariation() {
@@ -92,7 +94,7 @@ public class MagneticVariationTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.MagneticVariation#getMagneticVariationDirection()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.MagneticVariation#getMagneticVariationDirection()}.
      */
     @Test
     public void testGetMagneticVariationDirection() {
@@ -116,7 +118,7 @@ public class MagneticVariationTest extends
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
+     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
     protected MagneticVariation getInstance(VesselMessageSource source, Instant timestamp, AngleUnit unit) {

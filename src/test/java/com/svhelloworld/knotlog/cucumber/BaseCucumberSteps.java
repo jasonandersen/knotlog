@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.google.common.eventbus.EventBus;
+import com.svhelloworld.knotlog.domain.messages.UnrecognizedMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessages;
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.messages.VesselMessages;
 import com.svhelloworld.knotlog.util.Now;
 
 /**

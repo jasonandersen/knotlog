@@ -8,6 +8,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
+import com.svhelloworld.knotlog.domain.messages.WindDirection;
 import com.svhelloworld.knotlog.measure.MeasurementBasis;
 import com.svhelloworld.knotlog.measure.VesselArea;
 
@@ -38,7 +40,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirLessThan0() {
@@ -52,7 +54,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorGreaterThan360() {
@@ -66,7 +68,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals0() {
@@ -77,7 +79,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals360() {
@@ -88,7 +90,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals179() {
@@ -99,7 +101,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals180() {
@@ -110,7 +112,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals181() {
@@ -121,7 +123,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals45() {
@@ -132,7 +134,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals90() {
@@ -143,7 +145,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals135() {
@@ -154,7 +156,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals225() {
@@ -165,7 +167,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals270() {
@@ -176,7 +178,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals315() {
@@ -187,7 +189,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorLessThan180PORT() {
@@ -198,7 +200,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorLessThan180STARBOARD() {
@@ -209,7 +211,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorGreaterThan180PORT() {
@@ -220,7 +222,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorGreaterThan180STARBOARD() {
@@ -231,7 +233,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals180STARBOARD() {
@@ -242,7 +244,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals180PORT() {
@@ -253,7 +255,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals0STARBOARD() {
@@ -264,7 +266,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#WindDirection(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementBasis, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorDirEquals0PORT() {
@@ -275,7 +277,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#getBasis()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#getBasis()}.
      */
     @Test
     public void testGetBasis() {
@@ -283,7 +285,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WindDirection#getVesselSide()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WindDirection#getVesselSide()}.
      */
     @Test
     public void testGetVesselSide() {
@@ -307,7 +309,7 @@ public class WindDirectionTest extends
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
+     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
     protected WindDirection getInstance(VesselMessageSource source, Instant timestamp, MeasurementBasis basis) {

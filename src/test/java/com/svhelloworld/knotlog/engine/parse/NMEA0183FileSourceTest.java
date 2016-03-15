@@ -8,11 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.eventbus.Subscribe;
+import com.svhelloworld.knotlog.domain.messages.UnrecognizedMessage;
+import com.svhelloworld.knotlog.domain.messages.ValidVesselMessage;
 import com.svhelloworld.knotlog.engine.sources.ClassPathFileSource;
 import com.svhelloworld.knotlog.engine.sources.NMEA0183StreamedSource;
 import com.svhelloworld.knotlog.engine.sources.StreamedSource;
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.ValidVesselMessage;
 import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**

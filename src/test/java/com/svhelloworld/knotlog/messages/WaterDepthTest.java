@@ -7,6 +7,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
+import com.svhelloworld.knotlog.domain.messages.WaterDepth;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
 
 /**
@@ -34,7 +36,7 @@ public class WaterDepthTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WaterDepth#getDistance()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WaterDepth#getDistance()}.
      */
     @Test
     public void testGetDistance() {
@@ -42,7 +44,7 @@ public class WaterDepthTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.WaterDepth#getDistanceUnit()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.WaterDepth#getDistanceUnit()}.
      */
     @Test
     public void testGetDistanceUnit() {
@@ -66,7 +68,7 @@ public class WaterDepthTest extends
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
+     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
     protected WaterDepth getInstance(VesselMessageSource source, Instant timestamp, DistanceUnit unit) {

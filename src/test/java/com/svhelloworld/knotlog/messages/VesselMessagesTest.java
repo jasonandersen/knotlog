@@ -8,6 +8,12 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.GPSPosition;
+import com.svhelloworld.knotlog.domain.messages.PositionMessage;
+import com.svhelloworld.knotlog.domain.messages.QuantitativeMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
+import com.svhelloworld.knotlog.domain.messages.VesselMessages;
+import com.svhelloworld.knotlog.domain.messages.WaterDepth;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
 import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;

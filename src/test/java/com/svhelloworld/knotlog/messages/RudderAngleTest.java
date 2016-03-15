@@ -8,6 +8,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.RudderAngle;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.measure.VesselArea;
 
 /**
@@ -42,7 +44,7 @@ public class RudderAngleTest extends
      */
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.RudderAngle#RudderAngle(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.RudderAngle#RudderAngle(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorAngleLess180() {
@@ -55,7 +57,7 @@ public class RudderAngleTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.RudderAngle#RudderAngle(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.RudderAngle#RudderAngle(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorAngleGreaterThan180() {
@@ -68,7 +70,7 @@ public class RudderAngleTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.RudderAngle#RudderAngle(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.VesselArea)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.RudderAngle#RudderAngle(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.VesselArea)}.
      */
     @Test
     public void testConstructorVesselSideNull() {
@@ -78,7 +80,7 @@ public class RudderAngleTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.RudderAngle#getRudderAngle()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.RudderAngle#getRudderAngle()}.
      */
     @Test
     public void testGetRudderAngle() {
@@ -86,7 +88,7 @@ public class RudderAngleTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.RudderAngle#getRudderVesselSide()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.RudderAngle#getRudderVesselSide()}.
      */
     @Test
     public void testGetRudderVesselSide() {
@@ -110,7 +112,7 @@ public class RudderAngleTest extends
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
+     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
     protected RudderAngle getInstance(VesselMessageSource source, Instant timestamp, VesselArea unit) {

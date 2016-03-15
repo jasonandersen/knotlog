@@ -2,18 +2,18 @@ package com.svhelloworld.knotlog.cucumber;
 
 import java.util.Map;
 
-import com.svhelloworld.knotlog.messages.Altitude;
-import com.svhelloworld.knotlog.messages.GPSPosition;
-import com.svhelloworld.knotlog.messages.MagneticVariation;
+import com.svhelloworld.knotlog.domain.messages.Altitude;
+import com.svhelloworld.knotlog.domain.messages.GPSPosition;
+import com.svhelloworld.knotlog.domain.messages.MagneticVariation;
+import com.svhelloworld.knotlog.domain.messages.PositionFormat;
+import com.svhelloworld.knotlog.domain.messages.PositionPrecision;
+import com.svhelloworld.knotlog.domain.messages.TimeOfDay;
+import com.svhelloworld.knotlog.domain.messages.VesselHeading;
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
+import com.svhelloworld.knotlog.domain.messages.WaterDepth;
+import com.svhelloworld.knotlog.domain.messages.WindDirection;
+import com.svhelloworld.knotlog.domain.messages.WindSpeed;
 import com.svhelloworld.knotlog.messages.MessageAttributeValidator;
-import com.svhelloworld.knotlog.messages.PositionFormat;
-import com.svhelloworld.knotlog.messages.PositionPrecision;
-import com.svhelloworld.knotlog.messages.TimeOfDay;
-import com.svhelloworld.knotlog.messages.VesselHeading;
-import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.messages.WaterDepth;
-import com.svhelloworld.knotlog.messages.WindDirection;
-import com.svhelloworld.knotlog.messages.WindSpeed;
 
 /**
  * Attributes specific to a {@link VesselMessage} used for testing and validation.

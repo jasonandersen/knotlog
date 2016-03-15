@@ -8,6 +8,8 @@ import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.DateZulu;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.util.Now;
 
 /**
@@ -49,7 +51,7 @@ public class DateZuluTest {
      */
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.DateZulu#DateZulu(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, java.lang.String)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.DateZulu#DateZulu(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, java.lang.String)}.
      */
     @Test
     public void testConstructorNullDate() {
@@ -61,7 +63,7 @@ public class DateZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.DateZulu#DateZulu(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, java.lang.String)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.DateZulu#DateZulu(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, java.lang.String)}.
      */
     @Test
     public void testConstructorMalformedDate() {
@@ -73,7 +75,7 @@ public class DateZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.DateZulu#getDateMilliseconds()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.DateZulu#getDateMilliseconds()}.
      */
     @Test
     public void testGetDateMilliseconds() {
@@ -81,7 +83,7 @@ public class DateZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getSource()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getSource()}.
      */
     @Test
     public void testGetSource() {
@@ -89,7 +91,7 @@ public class DateZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getTimestamp()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getTimestamp()}.
      */
     @Test
     public void testGetTimestamp() {
@@ -97,7 +99,7 @@ public class DateZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getDisplayMessage()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getDisplayMessage()}.
      */
     @Test
     public void testGetDisplayMessage() {
@@ -105,7 +107,7 @@ public class DateZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getName()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getName()}.
      */
     @Test
     public void testGetName() {
@@ -113,7 +115,7 @@ public class DateZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getLocalizeKey()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getLocalizeKey()}.
      */
     @Test
     public void testGetLocalizeKey() {
@@ -121,7 +123,7 @@ public class DateZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#toString()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#toString()}.
      */
     @Test
     public void testToString() {

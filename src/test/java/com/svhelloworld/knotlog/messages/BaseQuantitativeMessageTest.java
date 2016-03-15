@@ -9,6 +9,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.BaseQuantitativeMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.i18n.BabelFish;
 import com.svhelloworld.knotlog.measure.MeasurementUnit;
 import com.svhelloworld.knotlog.util.Now;
@@ -80,7 +82,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     protected abstract String getExpectedName();
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseQuantitativeMessage#BaseQuantitativeMessage(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementUnit)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseQuantitativeMessage#BaseQuantitativeMessage(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementUnit)}.
      */
     @Test
     public void testConstructorSourceNull() {
@@ -94,7 +96,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseQuantitativeMessage#BaseQuantitativeMessage(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementUnit)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseQuantitativeMessage#BaseQuantitativeMessage(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementUnit)}.
      */
     @Test
     public void testConstructorTimestampNull() {
@@ -108,7 +110,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseQuantitativeMessage#BaseQuantitativeMessage(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementUnit)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseQuantitativeMessage#BaseQuantitativeMessage(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.MeasurementUnit)}.
      */
     @Test
     public void testConstructorUnitNull() {
@@ -122,7 +124,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseQuantitativeMessage#getMeasurementUnit()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseQuantitativeMessage#getMeasurementUnit()}.
      */
     @Test
     public void testGetMeasurementUnit() {
@@ -130,7 +132,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseQuantitativeMessage#getQuantity()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseQuantitativeMessage#getQuantity()}.
      */
     @Test
     public void testGetQuantity() {
@@ -138,7 +140,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getSource()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getSource()}.
      */
     @Test
     public void testGetSource() {
@@ -146,7 +148,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getTimestamp()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getTimestamp()}.
      */
     @Test
     public void testGetTimestamp() {
@@ -154,7 +156,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getDisplayMessage()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getDisplayMessage()}.
      */
     @Test
     public void testGetDisplayMessage() {
@@ -162,7 +164,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getName()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getName()}.
      */
     @Test
     public void testGetName() {
@@ -170,7 +172,7 @@ public abstract class BaseQuantitativeMessageTest<T extends BaseQuantitativeMess
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#toString()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#toString()}.
      */
     @Test
     public void testToString() {

@@ -1,8 +1,8 @@
 package com.svhelloworld.knotlog.output;
 
+import com.svhelloworld.knotlog.domain.messages.UnrecognizedMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
 import com.svhelloworld.knotlog.i18n.BabelFish;
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.VesselMessage;
 
 /**
  * Each message output is preceded by a current timestamp formatted 
@@ -36,7 +36,7 @@ public class TimestampedPlainTextProtocol implements OutputProtocol {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.output.OutputProtocol#unrecognizedMessage(com.svhelloworld.knotlog.messages.UnrecognizedMessage)
+     * @see com.svhelloworld.knotlog.output.OutputProtocol#unrecognizedMessage(com.svhelloworld.knotlog.domain.messages.UnrecognizedMessage)
      */
     @Override
     public String unrecognizedMessage(UnrecognizedMessage message) {
@@ -45,7 +45,7 @@ public class TimestampedPlainTextProtocol implements OutputProtocol {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.output.OutputProtocol#vesselMessage(com.svhelloworld.knotlog.messages.VesselMessage)
+     * @see com.svhelloworld.knotlog.output.OutputProtocol#vesselMessage(com.svhelloworld.knotlog.domain.messages.VesselMessage)
      */
     @Override
     public String vesselMessage(VesselMessage message) {

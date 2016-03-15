@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.ui.view;
 
-import com.svhelloworld.knotlog.messages.RudderAngle;
+import com.svhelloworld.knotlog.domain.messages.RudderAngle;
 
 /**
  * View wrapper for a {@link RudderAngle} message.

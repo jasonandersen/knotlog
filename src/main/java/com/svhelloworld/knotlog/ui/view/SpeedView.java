@@ -1,7 +1,7 @@
 package com.svhelloworld.knotlog.ui.view;
 
+import com.svhelloworld.knotlog.domain.messages.SpeedMessage;
 import com.svhelloworld.knotlog.measure.Speed;
-import com.svhelloworld.knotlog.messages.SpeedMessage;
 
 /**
  * View wrapper around {@link Speed} messages.

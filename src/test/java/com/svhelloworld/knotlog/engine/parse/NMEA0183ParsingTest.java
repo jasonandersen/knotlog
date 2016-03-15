@@ -10,9 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.eventbus.Subscribe;
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.ValidVesselMessage;
-import com.svhelloworld.knotlog.messages.VesselMessages;
+import com.svhelloworld.knotlog.domain.messages.UnrecognizedMessage;
+import com.svhelloworld.knotlog.domain.messages.ValidVesselMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessages;
 import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**

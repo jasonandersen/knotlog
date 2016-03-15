@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.junit.Assert;
 
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
+
 /**
  * Provides some basic functionality for validating common attributes.
  */

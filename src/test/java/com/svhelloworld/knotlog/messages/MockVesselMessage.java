@@ -3,6 +3,8 @@ package com.svhelloworld.knotlog.messages;
 import java.time.Instant;
 import java.util.List;
 
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.util.Now;
 
 /**
@@ -23,7 +25,7 @@ public class MockVesselMessage implements VesselMessage {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.VesselMessage#getDisplayMessage()
+     * @see com.svhelloworld.knotlog.domain.messages.VesselMessage#getDisplayMessage()
      */
     @Override
     public String getDisplayMessage() {
@@ -31,7 +33,7 @@ public class MockVesselMessage implements VesselMessage {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.VesselMessage#getName()
+     * @see com.svhelloworld.knotlog.domain.messages.VesselMessage#getName()
      */
     @Override
     public String getName() {
@@ -39,7 +41,7 @@ public class MockVesselMessage implements VesselMessage {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.VesselMessage#getTimestamp()
+     * @see com.svhelloworld.knotlog.domain.messages.VesselMessage#getTimestamp()
      */
     @Override
     public Instant getTimestamp() {
@@ -63,7 +65,7 @@ public class MockVesselMessage implements VesselMessage {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.VesselMessage#setTimestamp(java.util.Date)
+     * @see com.svhelloworld.knotlog.domain.messages.VesselMessage#setTimestamp(java.util.Date)
      */
     @Override
     public void setTimestamp(Instant timestamp) {
@@ -71,7 +73,7 @@ public class MockVesselMessage implements VesselMessage {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.VesselMessage#getSource()
+     * @see com.svhelloworld.knotlog.domain.messages.VesselMessage#getSource()
      */
     @Override
     public VesselMessageSource getSource() {

@@ -1,7 +1,7 @@
 package com.svhelloworld.knotlog.ui.view;
 
-import com.svhelloworld.knotlog.messages.PositionFormat;
-import com.svhelloworld.knotlog.messages.PositionMessage;
+import com.svhelloworld.knotlog.domain.messages.PositionFormat;
+import com.svhelloworld.knotlog.domain.messages.PositionMessage;
 
 /**
  * View wrapper for {@link PositionMessage}s.

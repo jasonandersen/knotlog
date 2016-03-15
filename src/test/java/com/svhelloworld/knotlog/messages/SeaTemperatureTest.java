@@ -7,6 +7,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.SeaTemperature;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.measure.TemperatureUnit;
 
 /**
@@ -34,7 +36,7 @@ public class SeaTemperatureTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.Temperature#getTemperature()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.Temperature#getTemperature()}.
      */
     @Test
     public void testGetTemperature() {
@@ -58,7 +60,7 @@ public class SeaTemperatureTest extends
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
+     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
     protected SeaTemperature getInstance(VesselMessageSource source, Instant timestamp, TemperatureUnit unit) {

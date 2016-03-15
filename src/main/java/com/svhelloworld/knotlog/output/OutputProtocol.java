@@ -1,7 +1,7 @@
 package com.svhelloworld.knotlog.output;
 
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.VesselMessage;
+import com.svhelloworld.knotlog.domain.messages.UnrecognizedMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
 
 /**
  * Defines a protocol to format message objects for text output.

@@ -3,13 +3,13 @@ package com.svhelloworld.knotlog.ui.view;
 import org.apache.commons.lang.Validate;
 import org.springframework.core.convert.converter.Converter;
 
-import com.svhelloworld.knotlog.messages.DistanceMessage;
-import com.svhelloworld.knotlog.messages.PositionMessage;
-import com.svhelloworld.knotlog.messages.RudderAngle;
-import com.svhelloworld.knotlog.messages.SpeedMessage;
-import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.messages.WaterDepth;
-import com.svhelloworld.knotlog.messages.WindSpeed;
+import com.svhelloworld.knotlog.domain.messages.DistanceMessage;
+import com.svhelloworld.knotlog.domain.messages.PositionMessage;
+import com.svhelloworld.knotlog.domain.messages.RudderAngle;
+import com.svhelloworld.knotlog.domain.messages.SpeedMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
+import com.svhelloworld.knotlog.domain.messages.WaterDepth;
+import com.svhelloworld.knotlog.domain.messages.WindSpeed;
 
 /**
  * Creates {@link VesselMessageView}s from {@link VesselMessage} objects.

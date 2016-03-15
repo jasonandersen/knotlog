@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.PositionImpl;
 import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
 
@@ -41,7 +42,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatHemFloatHemNullLatHem() {
@@ -54,7 +55,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatHemFloatHemNullLonHem() {
@@ -67,7 +68,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatHemFloatHemLatLT0() {
@@ -80,7 +81,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatHemFloatHemLatGT90() {
@@ -93,7 +94,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatHemFloatHemLonLT0() {
@@ -106,7 +107,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatHemFloatHemLonGT180() {
@@ -119,7 +120,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatHemFloatHem() {
@@ -131,7 +132,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatFloatLatLTNeg90() {
@@ -144,7 +145,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatFloatLatGT90() {
@@ -157,7 +158,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatFloatLonLTNeg180() {
@@ -170,7 +171,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatFloatLonGT180() {
@@ -183,7 +184,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatFloatPosLatLon() {
@@ -195,7 +196,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatFloatNegLat() {
@@ -207,7 +208,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(float, float)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(float, float)}.
      */
     @Test
     public void testConstructorFloatFloatNegLon() {
@@ -219,7 +220,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorStringHemStringHemNullLatitude() {
@@ -232,7 +233,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorStringHemStringHemNullLongitude() {
@@ -245,7 +246,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorStringHemStringHemEmptyLatitude() {
@@ -258,7 +259,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorStringHemStringHemEmptyLongitude() {
@@ -271,7 +272,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorStringHemStringHemNullLatHem() {
@@ -284,7 +285,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorStringHemStringHemNullLonHem() {
@@ -297,7 +298,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorStringHemStringHemMalformedLatitude() {
@@ -310,7 +311,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#PositionImpl(java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere, java.lang.String, com.svhelloworld.knotlog.measure.LatitudinalHemisphere)}.
      */
     @Test
     public void testConstructorStringHemStringHemMalformedLongitude() {
@@ -323,7 +324,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#getLatitude()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#getLatitude()}.
      */
     @Test
     public void testGetLatitude() {
@@ -331,7 +332,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#getLatitudinalHemisphere()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#getLatitudinalHemisphere()}.
      */
     @Test
     public void testGetLatitudeHemisphere() {
@@ -339,7 +340,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#getLongitude()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#getLongitude()}.
      */
     @Test
     public void testGetLongitude() {
@@ -347,7 +348,7 @@ public class PositionImplTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionImpl#getLongitudinalHemisphere()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionImpl#getLongitudinalHemisphere()}.
      */
     @Test
     public void testGetLongitudeHemisphere() {

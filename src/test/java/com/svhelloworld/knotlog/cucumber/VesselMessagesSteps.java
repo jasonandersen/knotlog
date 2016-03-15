@@ -6,10 +6,10 @@ import java.util.Map;
 
 import org.junit.Assert;
 
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessages;
 import com.svhelloworld.knotlog.engine.parse.MessageFailure;
 import com.svhelloworld.knotlog.messages.MessageAttributeValidator;
-import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.messages.VesselMessages;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.After;

@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.ui.view;
 
-import com.svhelloworld.knotlog.messages.WindSpeed;
+import com.svhelloworld.knotlog.domain.messages.WindSpeed;
 
 /**
  * View wrapper for a {@link WindSpeed} message.

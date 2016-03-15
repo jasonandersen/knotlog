@@ -2,7 +2,7 @@ package com.svhelloworld.knotlog.ui.view;
 
 import org.apache.commons.lang.Validate;
 
-import com.svhelloworld.knotlog.messages.VesselMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
 
 /**
  * The base {@link VesselMessageView} class for implementations to build off.

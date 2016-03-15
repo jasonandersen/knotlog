@@ -8,6 +8,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.VesselHeading;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.measure.AngleUnit;
 
 /**
@@ -34,7 +36,7 @@ public class VesselHeadingTest
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.VesselHeading#VesselHeading(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.AngleUnit)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.VesselHeading#VesselHeading(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.AngleUnit)}.
      */
     @Test
     public void testConstructorHeadingLessThan0() {
@@ -47,7 +49,7 @@ public class VesselHeadingTest
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.VesselHeading#VesselHeading(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.AngleUnit)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.VesselHeading#VesselHeading(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.AngleUnit)}.
      */
     @Test
     public void testConstructorHeadingGreaterThan360() {
@@ -60,7 +62,7 @@ public class VesselHeadingTest
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.VesselHeading#VesselHeading(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.AngleUnit)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.VesselHeading#VesselHeading(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.AngleUnit)}.
      */
     @Test
     public void testConstructorUnitEqualsDEGREES() {
@@ -73,7 +75,7 @@ public class VesselHeadingTest
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.VesselHeading#getVesselHeading()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.VesselHeading#getVesselHeading()}.
      */
     @Test
     public void testGetVesselHeading() {
@@ -97,7 +99,7 @@ public class VesselHeadingTest
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
+     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
     protected VesselHeading getInstance(VesselMessageSource source, Instant timestamp, AngleUnit unit) {

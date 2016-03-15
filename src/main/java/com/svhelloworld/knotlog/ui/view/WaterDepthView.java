@@ -1,7 +1,7 @@
 package com.svhelloworld.knotlog.ui.view;
 
+import com.svhelloworld.knotlog.domain.messages.WaterDepth;
 import com.svhelloworld.knotlog.i18n.BabelFish;
-import com.svhelloworld.knotlog.messages.WaterDepth;
 
 /**
  * View wrapper for {@link WaterDepth} class.

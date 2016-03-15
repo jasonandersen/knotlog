@@ -7,6 +7,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.GPSPosition;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.measure.LatitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
 import com.svhelloworld.knotlog.util.Now;
@@ -48,7 +50,7 @@ public class GPSPositionTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionMessage#getLatitude()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionMessage#getLatitude()}.
      */
     @Test
     public void testGetLatitude() {
@@ -56,7 +58,7 @@ public class GPSPositionTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionMessage#getLatitudinalHemisphere()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionMessage#getLatitudinalHemisphere()}.
      */
     @Test
     public void testGetLatitudeHemisphere() {
@@ -64,7 +66,7 @@ public class GPSPositionTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionMessage#getLongitude()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionMessage#getLongitude()}.
      */
     @Test
     public void testGetLongitude() {
@@ -72,7 +74,7 @@ public class GPSPositionTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionMessage#getLongitudinalHemisphere()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionMessage#getLongitudinalHemisphere()}.
      */
     @Test
     public void testGetLongitudeHemisphere() {
@@ -80,7 +82,7 @@ public class GPSPositionTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getSource()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getSource()}.
      */
     @Test
     public void testGetSource() {
@@ -88,7 +90,7 @@ public class GPSPositionTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getTimestamp()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getTimestamp()}.
      */
     @Test
     public void testGetTimestamp() {
@@ -96,7 +98,7 @@ public class GPSPositionTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getDisplayMessage()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getDisplayMessage()}.
      */
     @Test
     public void testGetDisplayMessage() {
@@ -105,7 +107,7 @@ public class GPSPositionTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getName()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getName()}.
      */
     @Test
     public void testGetName() {
@@ -113,7 +115,7 @@ public class GPSPositionTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#toString()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#toString()}.
      */
     @Test
     public void testToString() {

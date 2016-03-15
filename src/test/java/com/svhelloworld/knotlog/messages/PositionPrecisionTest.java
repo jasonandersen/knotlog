@@ -8,6 +8,8 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.PositionPrecision;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
 
 /**
@@ -35,7 +37,7 @@ public class PositionPrecisionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionPrecision#HorizontalPrecision(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.DistanceUnit)}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionPrecision#HorizontalPrecision(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, float, com.svhelloworld.knotlog.measure.DistanceUnit)}.
      */
     @Test
     public void testConstructorNegativePrecision() {
@@ -50,7 +52,7 @@ public class PositionPrecisionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionPrecision#getPositionPrecision()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionPrecision#getPositionPrecision()}.
      */
     @Test
     public void testGetHorizontalPrecision() {
@@ -58,7 +60,7 @@ public class PositionPrecisionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionPrecision#getDistance()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionPrecision#getDistance()}.
      */
     @Test
     public void testGetDistance() {
@@ -66,7 +68,7 @@ public class PositionPrecisionTest extends
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.PositionPrecision#getDistanceUnit()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.PositionPrecision#getDistanceUnit()}.
      */
     @Test
     public void testGetDistanceUnit() {
@@ -90,7 +92,7 @@ public class PositionPrecisionTest extends
     }
 
     /**
-     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
+     * @see com.svhelloworld.knotlog.messages.BaseQuantitativeMessageTest#getInstance(com.svhelloworld.knotlog.domain.messages.VesselMessageSource, java.util.Date, com.svhelloworld.knotlog.measure.MeasurementUnit)
      */
     @Override
     protected PositionPrecision getInstance(

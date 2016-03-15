@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.svhelloworld.knotlog.domain.messages.TimeOfDay;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.util.Now;
 
 /**
@@ -42,7 +44,7 @@ public class TimeOfDayZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getTimeOfDay()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getTimeOfDay()}.
      */
     @Test
     public void testGetTimeOfDay() {
@@ -51,7 +53,7 @@ public class TimeOfDayZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getSource()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getSource()}.
      */
     @Test
     public void testGetSource() {
@@ -59,7 +61,7 @@ public class TimeOfDayZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getTimestamp()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getTimestamp()}.
      */
     @Test
     public void testGetTimestamp() {
@@ -67,7 +69,7 @@ public class TimeOfDayZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getName()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getName()}.
      */
     @Test
     public void testGetName() {
@@ -75,7 +77,7 @@ public class TimeOfDayZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#getLocalizeKey()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#getLocalizeKey()}.
      */
     @Test
     public void testGetDisplayMessage() {
@@ -83,7 +85,7 @@ public class TimeOfDayZuluTest {
     }
 
     /**
-     * Test method for {@link com.svhelloworld.knotlog.messages.BaseInstrumentMessage#toString()}.
+     * Test method for {@link com.svhelloworld.knotlog.domain.messages.BaseInstrumentMessage#toString()}.
      */
     @Test
     public void testToString() {

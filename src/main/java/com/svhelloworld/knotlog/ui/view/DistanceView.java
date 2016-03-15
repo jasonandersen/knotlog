@@ -1,6 +1,6 @@
 package com.svhelloworld.knotlog.ui.view;
 
-import com.svhelloworld.knotlog.messages.DistanceMessage;
+import com.svhelloworld.knotlog.domain.messages.DistanceMessage;
 
 /**
  * View wrapper around {@link DistanceMessage}s.

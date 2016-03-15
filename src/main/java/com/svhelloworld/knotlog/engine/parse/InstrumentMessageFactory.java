@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
+import com.svhelloworld.knotlog.domain.messages.UnrecognizedMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessage;
+import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.measure.MeasurementUnit;
-import com.svhelloworld.knotlog.messages.UnrecognizedMessage;
-import com.svhelloworld.knotlog.messages.VesselMessage;
-import com.svhelloworld.knotlog.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.util.StringUtil;
 
 /**
@@ -28,7 +28,7 @@ public class InstrumentMessageFactory {
     /**
      * Default package to look into for message classes.
      */
-    private static final String DEFAULT_MESSAGE_PKG = "com.svhelloworld.knotlog.messages";
+    private static final String DEFAULT_MESSAGE_PKG = "com.svhelloworld.knotlog.domain.messages";
 
     @Autowired
     private ConversionService conversionService;
