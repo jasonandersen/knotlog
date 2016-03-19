@@ -5,6 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 
 import com.svhelloworld.knotlog.domain.messages.DistanceMessage;
 import com.svhelloworld.knotlog.domain.messages.PositionMessage;
+import com.svhelloworld.knotlog.domain.messages.QuantitativeMessage;
 import com.svhelloworld.knotlog.domain.messages.RudderAngle;
 import com.svhelloworld.knotlog.domain.messages.SpeedMessage;
 import com.svhelloworld.knotlog.domain.messages.VesselMessage;
@@ -39,6 +40,9 @@ public class VesselMessageViewConverter implements Converter<VesselMessage, Vess
         }
         if (source instanceof DistanceMessage) {
             return new DistanceView((DistanceMessage) source);
+        }
+        if (source instanceof QuantitativeMessage) {
+            return new QuantitativeMessageView((QuantitativeMessage) source);
         }
         String message = String.format("source could not be converted - type=%s;value=%s", source.getClass(), source.toString());
         throw new IllegalArgumentException(message);

@@ -9,14 +9,13 @@ import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.Path;
 import com.svhelloworld.knotlog.boot.KnotlogApplication;
+import com.svhelloworld.knotlog.ui.UI;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -32,10 +31,6 @@ public class RootLayoutScreen implements Initializable {
 
     @FXML
     private AnchorPane contentPane;
-
-    public RootLayoutScreen() {
-        log.info("constructor");
-    }
 
     /**
      * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
@@ -73,15 +68,16 @@ public class RootLayoutScreen implements Initializable {
     }
 
     /**
-     * Raise a modal dialog.
+     * This will always throw an exception. Use for testing only!!!
      */
     @FXML
-    private void raiseDialog() {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText("I have a great message for you!");
-        alert.showAndWait();
+    private void doBadThings() {
+        UI.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                throw new UnsupportedOperationException("DON'T CLICK THAT BUTTON FOR FUCK'S SAKE.");
+            }
+        });
     }
 
     /**

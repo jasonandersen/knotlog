@@ -23,13 +23,9 @@
             <MenuItem mnemonicParsing="false" text="Save As…" />
             <MenuItem mnemonicParsing="false" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#doBadThings" text="Do Bad Things" />
             <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-                  <Menu mnemonicParsing="false" onAction="#raiseDialog" text="Raise a Dialog">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                    </items>
-                  </Menu>
             <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
