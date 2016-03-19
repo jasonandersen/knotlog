@@ -18,10 +18,10 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 /**
- * Presenter for the {@link ExceptionScreen}. Any exception that gets thrown by either an
+ * Presenter for the {@link ExceptionDialog}. Any exception that gets thrown by either an
  * event bus subscriber or on any application thread will captured by the {@link ExceptionHandler}.
  * This class will listen for any exceptions. When they occur, it will populate it's properties
- * with information about that exception. The {@link ExceptionScreen} can then display an error
+ * with information about that exception. The {@link ExceptionDialog} can then display an error
  * dialog and bind to those properties.
  */
 @Component

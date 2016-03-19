@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.view;
+package com.svhelloworld.knotlog.ui.views;
 
 import com.svhelloworld.knotlog.domain.messages.WaterDepth;
 import com.svhelloworld.knotlog.i18n.BabelFish;
@@ -16,7 +16,7 @@ public class WaterDepthView extends BaseVesselMessageView<WaterDepth> {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.ui.view.VesselMessageView#getValue()
+     * @see com.svhelloworld.knotlog.ui.views.VesselMessageView#getValue()
      */
     @Override
     public String getValue() {
@@ -25,7 +25,7 @@ public class WaterDepthView extends BaseVesselMessageView<WaterDepth> {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.ui.view.VesselMessageView#getSource()
+     * @see com.svhelloworld.knotlog.ui.views.VesselMessageView#getSource()
      */
     @Override
     public String getSource() {

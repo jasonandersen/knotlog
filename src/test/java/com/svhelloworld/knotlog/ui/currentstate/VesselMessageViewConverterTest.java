@@ -23,12 +23,12 @@ import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.MeasurementBasis;
 import com.svhelloworld.knotlog.measure.SpeedUnit;
 import com.svhelloworld.knotlog.test.BaseIntegrationTest;
-import com.svhelloworld.knotlog.ui.view.DistanceView;
-import com.svhelloworld.knotlog.ui.view.PositionView;
-import com.svhelloworld.knotlog.ui.view.SpeedView;
-import com.svhelloworld.knotlog.ui.view.VesselMessageView;
-import com.svhelloworld.knotlog.ui.view.VesselMessageViewConverter;
-import com.svhelloworld.knotlog.ui.view.WindSpeedView;
+import com.svhelloworld.knotlog.ui.views.DistanceView;
+import com.svhelloworld.knotlog.ui.views.PositionView;
+import com.svhelloworld.knotlog.ui.views.SpeedView;
+import com.svhelloworld.knotlog.ui.views.VesselMessageView;
+import com.svhelloworld.knotlog.ui.views.VesselMessageViewConverter;
+import com.svhelloworld.knotlog.ui.views.WindSpeedView;
 
 /**
  * Test the {@link VesselMessageViewConverter} class.

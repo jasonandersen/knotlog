@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.engine.parse.NMEA0183Sentence;
 import com.svhelloworld.knotlog.ui.currentstate.CurrentStatePresenter;
-import com.svhelloworld.knotlog.ui.view.VesselMessageView;
+import com.svhelloworld.knotlog.ui.views.VesselMessageView;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;

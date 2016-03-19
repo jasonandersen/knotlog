@@ -15,8 +15,8 @@ import com.google.common.eventbus.SubscriberExceptionContext;
 import com.google.common.eventbus.SubscriberExceptionHandler;
 
 /**
- * Exception handler for the {@link EventBus} that wraps the exception in a {@link ExceptionEvent} along
- * with some additional information about the event.
+ * Exception handler for uncaught exceptions. Will grab whatever context is available and ensure
+ * the exception event is logged and passed on to any other components listening to this compoent.
  */
 public class ExceptionHandler implements SubscriberExceptionHandler, UncaughtExceptionHandler {
 

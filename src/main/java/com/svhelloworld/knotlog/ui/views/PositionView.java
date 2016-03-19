@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.view;
+package com.svhelloworld.knotlog.ui.views;
 
 import com.svhelloworld.knotlog.domain.messages.PositionFormat;
 import com.svhelloworld.knotlog.domain.messages.PositionMessage;
@@ -17,7 +17,7 @@ public class PositionView extends BaseVesselMessageView<PositionMessage> {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.ui.view.VesselMessageView#getValue()
+     * @see com.svhelloworld.knotlog.ui.views.VesselMessageView#getValue()
      */
     @Override
     public String getValue() {

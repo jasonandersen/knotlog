@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.view;
+package com.svhelloworld.knotlog.ui.views;
 
 import com.svhelloworld.knotlog.domain.messages.SpeedMessage;
 import com.svhelloworld.knotlog.measure.Speed;
@@ -17,7 +17,7 @@ public class SpeedView extends BaseVesselMessageView<SpeedMessage> {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.ui.view.VesselMessageView#getValue()
+     * @see com.svhelloworld.knotlog.ui.views.VesselMessageView#getValue()
      */
     @Override
     public String getValue() {

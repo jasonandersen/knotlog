@@ -28,7 +28,7 @@ import com.svhelloworld.knotlog.measure.LongitudinalHemisphere;
 import com.svhelloworld.knotlog.measure.MeasurementBasis;
 import com.svhelloworld.knotlog.measure.SpeedUnit;
 import com.svhelloworld.knotlog.ui.UI;
-import com.svhelloworld.knotlog.ui.view.VesselMessageView;
+import com.svhelloworld.knotlog.ui.views.VesselMessageView;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;

@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.Context;
-import com.svhelloworld.knotlog.ui.view.VesselMessageView;
+import com.svhelloworld.knotlog.ui.views.VesselMessageView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

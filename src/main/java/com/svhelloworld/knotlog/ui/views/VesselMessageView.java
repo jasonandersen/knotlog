@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.view;
+package com.svhelloworld.knotlog.ui.views;
 
 import com.svhelloworld.knotlog.domain.messages.VesselMessage;
 

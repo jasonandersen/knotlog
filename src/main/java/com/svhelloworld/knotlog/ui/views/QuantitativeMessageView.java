@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.view;
+package com.svhelloworld.knotlog.ui.views;
 
 import com.svhelloworld.knotlog.domain.messages.QuantitativeMessage;
 
@@ -15,7 +15,7 @@ public class QuantitativeMessageView extends BaseVesselMessageView<QuantitativeM
     }
 
     /**
-     * @see com.svhelloworld.knotlog.ui.view.VesselMessageView#getValue()
+     * @see com.svhelloworld.knotlog.ui.views.VesselMessageView#getValue()
      */
     @Override
     public String getValue() {

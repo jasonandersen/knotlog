@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.svhelloworld.knotlog.domain.messages.VesselMessageSource;
 import com.svhelloworld.knotlog.domain.messages.WaterDepth;
 import com.svhelloworld.knotlog.measure.DistanceUnit;
-import com.svhelloworld.knotlog.ui.view.WaterDepthView;
+import com.svhelloworld.knotlog.ui.views.WaterDepthView;
 
 /**
  * Testing the {@link WaterDepthView} class.

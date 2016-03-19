@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.ui.view;
+package com.svhelloworld.knotlog.ui.views;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.core.convert.converter.Converter;

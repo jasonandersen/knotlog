@@ -17,6 +17,8 @@ import javafx.scene.layout.Priority;
 
 /**
  * Displays a dialog giving information about an uncaught exception.
+ * 
+ * @see com.svhelloworld.knotlog.ui.exception.ExceptionPresenter
  */
 @Component
 public class ExceptionDialog {
