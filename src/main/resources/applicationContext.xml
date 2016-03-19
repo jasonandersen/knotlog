@@ -19,7 +19,7 @@
         <property name="converters">
             <list>
                 <bean class="com.svhelloworld.knotlog.convert.StringToDistanceUnitConverter" />
-                <bean class="com.svhelloworld.knotlog.ui.view.VesselMessageViewConverter" />
+                <bean class="com.svhelloworld.knotlog.ui.views.VesselMessageViewConverter" />
             </list>
         </property>
     </bean>

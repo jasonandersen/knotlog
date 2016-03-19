@@ -258,7 +258,7 @@ public class NMEA0183Sentence {
      */
     @Override
     public String toString() {
-        return String.format("[NMEA0183Sentence] %s", originalSentence);
+        return getOriginalSentence();
     }
 
 }

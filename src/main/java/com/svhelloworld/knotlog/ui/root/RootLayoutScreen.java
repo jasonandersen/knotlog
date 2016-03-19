@@ -7,8 +7,10 @@ import java.util.ResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.svhelloworld.knotlog.Context;
 import com.svhelloworld.knotlog.Path;
 import com.svhelloworld.knotlog.boot.KnotlogApplication;
+import com.svhelloworld.knotlog.ui.NMEA0183Simulator;
 import com.svhelloworld.knotlog.ui.UI;
 
 import javafx.application.Platform;
@@ -32,13 +34,16 @@ public class RootLayoutScreen implements Initializable {
     @FXML
     private AnchorPane contentPane;
 
+    private NMEA0183Simulator simulator;
+
     /**
      * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         log.info("initializing");
-        setContentPane(Path.FXML_CURRENT_STATE);
+        setContentPane(Path.FXML_RAW_NMEA0183);
+        startSimulation();
     }
 
     /**
@@ -65,6 +70,14 @@ public class RootLayoutScreen implements Initializable {
             log.error("Could not initialize root layout screen", e);
             Platform.exit();
         }
+    }
+
+    /**
+     * Start the NMEA0183 simulation.
+     */
+    private void startSimulation() {
+        simulator = Context.getBean(NMEA0183Simulator.class);
+        simulator.start();
     }
 
     /**

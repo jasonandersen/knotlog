@@ -8,8 +8,10 @@ public class Path {
     /*
      * FXML paths
      */
-    public static final String FXML_ROOT_LAYOUT = "/com/svhelloworld/knotlog/ui/root/RootLayout.fxml";
-    public static final String FXML_CURRENT_STATE = "/com/svhelloworld/knotlog/ui/currentstate/CurrentState.fxml";
+    private static final String BASE_PACKAGE = "/com/svhelloworld/knotlog/ui/";
+    public static final String FXML_ROOT_LAYOUT = BASE_PACKAGE + "root/RootLayout.fxml";
+    public static final String FXML_CURRENT_STATE = BASE_PACKAGE + "currentstate/CurrentState.fxml";
+    public static final String FXML_RAW_NMEA0183 = BASE_PACKAGE + "raw/RawNMEA0183.fxml";
 
     /*
      * NMEA0183 simulation backing data

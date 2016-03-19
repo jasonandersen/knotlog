@@ -5,25 +5,19 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.svhelloworld.knotlog.engine.parse.NMEA0183Sentence;
 import com.svhelloworld.knotlog.ui.currentstate.CurrentStatePresenter;
 import com.svhelloworld.knotlog.ui.views.VesselMessageView;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
 /**
  * Cucumber steps to validate the current state UI.
  */
 public class CurrentStateSteps extends BaseCucumberSteps {
-
-    private static Logger log = LoggerFactory.getLogger(CurrentStateSteps.class);
 
     @Autowired
     private CurrentStatePresenter controller;
@@ -40,14 +34,6 @@ public class CurrentStateSteps extends BaseCucumberSteps {
     @Before
     public void setup() {
         controller.reset();
-    }
-
-    @Given("^these NMEA0183 sentences from instruments:$")
-    public void theseNMEASentencesFromInstruments(List<String> sentences) throws Throwable {
-        for (String sentence : sentences) {
-            log.debug("posting sentence: {}", sentence);
-            postEvent(new NMEA0183Sentence(sentence));
-        }
     }
 
     @Then("^my current state display should read:$")

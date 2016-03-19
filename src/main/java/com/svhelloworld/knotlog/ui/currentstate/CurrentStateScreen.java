@@ -44,7 +44,6 @@ public class CurrentStateScreen implements Initializable {
         log.info("initializing");
         initPresenter();
         initPresenterPropertyBindings();
-        startSimulation();
     }
 
     /**
@@ -63,13 +62,6 @@ public class CurrentStateScreen implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<VesselMessageView<?>, String>("label"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<VesselMessageView<?>, String>("value"));
         sourceColumn.setCellValueFactory(new PropertyValueFactory<VesselMessageView<?>, String>("source"));
-    }
-
-    /**
-     * Kick off the real-time NMEA0183 simulation.
-     */
-    private void startSimulation() {
-        presenter.startSimulation();
     }
 
 }
