@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.svhelloworld.knotlog.service.Preferences;
+import com.svhelloworld.knotlog.preferences.Preferences;
 
 /**
  * Provides abstraction around interactions with the local file system and where

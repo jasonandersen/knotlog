@@ -35,7 +35,7 @@ public class UI {
              */
             Platform.runLater(task);
         } catch (IllegalStateException e) {
-            log.warn("JavaFX framework not initialized - running task on calling thread");
+            log.debug("JavaFX framework not initialized - running task on calling thread");
             /*
              * This means the JavaFX toolkit hasn't been booted up. Most likely, we're running
              * unit tests against the controller so just set the property value outside of the

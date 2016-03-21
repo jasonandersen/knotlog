@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.service.impl;
+package com.svhelloworld.knotlog.preferences;
 
 import java.util.prefs.Preferences;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * Implementation of {@link Preferences} using the Java Preferences API.
  */
 @Service
-public class PreferencesImpl implements com.svhelloworld.knotlog.service.Preferences {
+public class PreferencesImpl implements com.svhelloworld.knotlog.preferences.Preferences {
 
     private static final Logger log = LoggerFactory.getLogger(PreferencesImpl.class);
 
@@ -34,7 +34,7 @@ public class PreferencesImpl implements com.svhelloworld.knotlog.service.Prefere
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.Preferences#get(java.lang.String)
+     * @see com.svhelloworld.knotlog.preferences.Preferences#get(java.lang.String)
      */
     @Override
     public String get(String key) {
@@ -43,7 +43,7 @@ public class PreferencesImpl implements com.svhelloworld.knotlog.service.Prefere
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.Preferences#get(java.lang.String, java.lang.String)
+     * @see com.svhelloworld.knotlog.preferences.Preferences#get(java.lang.String, java.lang.String)
      */
     @Override
     public String get(String key, String defaultValue) {
@@ -52,7 +52,7 @@ public class PreferencesImpl implements com.svhelloworld.knotlog.service.Prefere
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.Preferences#getEnum(java.lang.String, java.lang.Class)
+     * @see com.svhelloworld.knotlog.preferences.Preferences#getEnum(java.lang.String, java.lang.Class)
      */
     @SuppressWarnings("rawtypes")
     @Override
@@ -68,7 +68,7 @@ public class PreferencesImpl implements com.svhelloworld.knotlog.service.Prefere
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.Preferences#put(java.lang.String, java.lang.Object)
+     * @see com.svhelloworld.knotlog.preferences.Preferences#put(java.lang.String, java.lang.Object)
      */
     @Override
     public void put(String key, Object value) {

@@ -20,7 +20,34 @@ public class ExceptionEventLogger {
      */
     public void logExceptionEvent(ExceptionEvent event) {
         logException(event.getException());
+        logCausalException(event.getException());
         logContext(event.getContext());
+    }
+
+    /**
+     * Log exception.
+     * @param exception
+     */
+    private void logException(Throwable exception) {
+        if (exception == null) {
+            return;
+        }
+        String message = String.format("[%s] %s", exception.getClass().getSimpleName(), exception.getMessage());
+        log.error(message, exception);
+    }
+
+    /**
+     * Log the exception's causal exception.
+     * @param exception
+     */
+    private void logCausalException(Throwable exception) {
+        if (exception == null) {
+            return;
+        }
+        if (exception.getCause() == null) {
+            return;
+        }
+        logException(exception.getCause());
     }
 
     /**
@@ -41,15 +68,4 @@ public class ExceptionEventLogger {
         }
     }
 
-    /**
-     * Log exception.
-     * @param exception
-     */
-    private void logException(Throwable exception) {
-        if (exception == null) {
-            return;
-        }
-        String message = String.format("[%s] %s", exception.getClass().getSimpleName(), exception.getMessage());
-        log.error(message, exception);
-    }
 }

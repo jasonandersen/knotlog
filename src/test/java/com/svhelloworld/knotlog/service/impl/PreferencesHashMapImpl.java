@@ -6,7 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.svhelloworld.knotlog.service.Preferences;
+import com.svhelloworld.knotlog.preferences.Preferences;
 
 /**
  * Implementation to use for testing based on a {@link HashMap}. Will not persist any preferences
@@ -19,7 +19,7 @@ public class PreferencesHashMapImpl implements Preferences {
     private Map<String, String> preferences = new HashMap<String, String>();
 
     /**
-     * @see com.svhelloworld.knotlog.service.Preferences#get(java.lang.String)
+     * @see com.svhelloworld.knotlog.preferences.Preferences#get(java.lang.String)
      */
     @Override
     public String get(String key) {
@@ -27,7 +27,7 @@ public class PreferencesHashMapImpl implements Preferences {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.Preferences#get(java.lang.String, java.lang.String)
+     * @see com.svhelloworld.knotlog.preferences.Preferences#get(java.lang.String, java.lang.String)
      */
     @Override
     public String get(String key, String defaultValue) {
@@ -36,7 +36,7 @@ public class PreferencesHashMapImpl implements Preferences {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.Preferences#getEnum(java.lang.String, java.lang.Class)
+     * @see com.svhelloworld.knotlog.preferences.Preferences#getEnum(java.lang.String, java.lang.Class)
      */
     @SuppressWarnings("rawtypes")
     @Override
@@ -45,7 +45,7 @@ public class PreferencesHashMapImpl implements Preferences {
     }
 
     /**
-     * @see com.svhelloworld.knotlog.service.Preferences#put(java.lang.String, java.lang.Object)
+     * @see com.svhelloworld.knotlog.preferences.Preferences#put(java.lang.String, java.lang.Object)
      */
     @Override
     public void put(String key, Object value) {

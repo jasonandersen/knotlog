@@ -51,13 +51,13 @@ public class WayPointSet {
     
     /**
      * add waypoints to the collection
-     * @param points waypoints to add to the collection
+     * @param wayPoints waypoints to add to the collection
      */
-    public void addPoints(WayPoint...points) {
+    public void addPoints(WayPoint...wayPoints) {
         if (this.points == null) {
             initCollection();
         }
-        this.points.addAll(Arrays.asList(points));
+        this.points.addAll(Arrays.asList(wayPoints));
     }
     
     /**

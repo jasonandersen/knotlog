@@ -5,8 +5,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import com.svhelloworld.knotlog.domain.messages.UnrecognizedMessage;
@@ -29,9 +27,6 @@ public class InstrumentMessageFactory {
      * Default package to look into for message classes.
      */
     private static final String DEFAULT_MESSAGE_PKG = "com.svhelloworld.knotlog.domain.messages";
-
-    @Autowired
-    private ConversionService conversionService;
 
     /**
      * Constructs an instrument vessel message based on an instrument
@@ -256,7 +251,7 @@ public class InstrumentMessageFactory {
      * @return converted argument, returns the original argument if it
      *          cannot be converted
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private Object coerceArgument(
             final Object argument,
             final Class paramType) {

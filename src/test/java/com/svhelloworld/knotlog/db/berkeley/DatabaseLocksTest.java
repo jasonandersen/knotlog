@@ -13,7 +13,7 @@ import com.sleepycat.je.EnvironmentStats;
 import com.sleepycat.persist.EntityStore;
 import com.sleepycat.persist.StoreConfig;
 import com.svhelloworld.knotlog.LocalFiles;
-import com.svhelloworld.knotlog.service.Preferences;
+import com.svhelloworld.knotlog.preferences.Preferences;
 import com.svhelloworld.knotlog.service.impl.PreferencesHashMapImpl;
 
 /**

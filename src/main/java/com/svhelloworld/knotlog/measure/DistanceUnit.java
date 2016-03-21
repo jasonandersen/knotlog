@@ -12,7 +12,7 @@ import com.svhelloworld.knotlog.i18n.Localizable;
  * @since Feb 15, 2010
  *
  */
-public enum DistanceUnit implements MeasurementUnit, Localizable {
+public enum DistanceUnit implements MeasurementUnit,Localizable {
     /**
      * imperial feet
      */
@@ -33,7 +33,7 @@ public enum DistanceUnit implements MeasurementUnit, Localizable {
      * 1 statute mile = 5,280 feet
      */
     STATUTE_MILES("distance.statute.miles", "distance.statute.miles.suffix", "miles", "miles", "MILES");
-    
+
     /**
      * Description
      */
@@ -46,7 +46,7 @@ public enum DistanceUnit implements MeasurementUnit, Localizable {
      * An array of abbreviations used to define this distance unit
      */
     private String[] abbreviations;
-    
+
     /**
      * Constructor
      */
@@ -71,10 +71,11 @@ public enum DistanceUnit implements MeasurementUnit, Localizable {
     public String getSuffix() {
         return BabelFish.localizeKey(suffixKey);
     }
-    
+
     /**
      * @return returns an array of abbreviations used for this measurement
      */
+    @Override
     public String[] getAbbreviations() {
         return abbreviations;
     }
@@ -94,7 +95,7 @@ public enum DistanceUnit implements MeasurementUnit, Localizable {
     public List<Object> getLocalizeParams() {
         return null;
     }
-    
+
     /**
      * @see java.lang.Enum#toString()
      */

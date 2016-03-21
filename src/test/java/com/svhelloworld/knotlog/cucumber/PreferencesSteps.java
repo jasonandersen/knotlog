@@ -3,7 +3,7 @@ package com.svhelloworld.knotlog.cucumber;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.measure.DistanceUnit;
-import com.svhelloworld.knotlog.service.Preferences;
+import com.svhelloworld.knotlog.preferences.Preferences;
 
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;

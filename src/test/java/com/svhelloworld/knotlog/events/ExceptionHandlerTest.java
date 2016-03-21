@@ -10,6 +10,8 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.eventbus.EventBus;
@@ -23,6 +25,8 @@ import com.svhelloworld.knotlog.test.BaseIntegrationTest;
  * Testing the {@link ExceptionHandler} class.
  */
 public class ExceptionHandlerTest extends BaseIntegrationTest implements Listener {
+
+    private static Logger log = LoggerFactory.getLogger(ExceptionHandlerTest.class);
 
     private static final String EXCEPTION_MESSAGE = "I'm gonna baaarrrrfffffffasdflkjeggghccchh....";
 
@@ -39,10 +43,13 @@ public class ExceptionHandlerTest extends BaseIntegrationTest implements Listene
     private ExceptionEvent event;
 
     @Before
-    public void setup() {
+    public void setup() throws InterruptedException {
+        log.info("about to throw an Epicac");
         exceptionHandler.addListener(this);
         eventBus.register(this);
         eventBus.post(new Epicac());
+        log.info("Epicac thrown");
+        Thread.sleep(200);
     }
 
     @Test
@@ -58,6 +65,7 @@ public class ExceptionHandlerTest extends BaseIntegrationTest implements Listene
 
     @Test
     public void testAdditionalInfoFromEventBusException() {
+        assertNotNull(event);
         Map<String, Object> info = event.getContext();
         assertNotNull(info);
         assertFalse(info.isEmpty());
@@ -74,11 +82,12 @@ public class ExceptionHandlerTest extends BaseIntegrationTest implements Listene
 
     /**
      * Suscribe to epicac events so we can trigger the exception.
-     * @param barf
+     * @param puke
      */
     @Subscribe
-    public void barf(Epicac barf) {
-        barf.barf();
+    public void barf(Epicac puke) {
+        log.info("received Epicac from event bus");
+        puke.barf();
     }
 
     /**

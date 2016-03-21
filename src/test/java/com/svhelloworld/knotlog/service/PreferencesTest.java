@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.svhelloworld.knotlog.measure.DistanceUnit;
+import com.svhelloworld.knotlog.preferences.Preferences;
 import com.svhelloworld.knotlog.test.BaseIntegrationTest;
 
 /**

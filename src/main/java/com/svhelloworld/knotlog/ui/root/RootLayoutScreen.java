@@ -56,10 +56,10 @@ public class RootLayoutScreen implements Initializable {
         Node node;
         try {
             node = loader.load();
-            AnchorPane.setTopAnchor(node, 10.0);
-            AnchorPane.setBottomAnchor(node, 10.0);
-            AnchorPane.setLeftAnchor(node, 10.0);
-            AnchorPane.setRightAnchor(node, 10.0);
+            AnchorPane.setTopAnchor(node, 5.0);
+            AnchorPane.setBottomAnchor(node, 5.0);
+            AnchorPane.setLeftAnchor(node, 5.0);
+            AnchorPane.setRightAnchor(node, 5.0);
             contentPane.getChildren().clear();
             contentPane.getChildren().add(node);
             log.debug("successfully loaded FXML {}", fxmlPath);
@@ -98,7 +98,15 @@ public class RootLayoutScreen implements Initializable {
      */
     @FXML
     public void viewCurrentConditions() {
-        log.info("view current conditions screen");
+        setContentPane(Path.FXML_CURRENT_STATE);
+    }
+
+    /**
+     * Load the raw NMEA0183 screen.
+     */
+    @FXML
+    public void viewRawNMEA0183() {
+        setContentPane(Path.FXML_RAW_NMEA0183);
     }
 
 }

@@ -81,13 +81,13 @@ public class UnrecognizedMessage implements VesselMessage {
         this.debugInfo = Arrays.asList(debugInfo);
 
         //if a message class was passed in, pull it and store it seperately
-        Class messageClass = null;
+        Class msgClass = null;
         for (Object debug : debugInfo) {
             if (debug instanceof Class) {
-                messageClass = (Class) debug;
+                msgClass = (Class) debug;
             }
         }
-        this.messageClass = messageClass;
+        this.messageClass = msgClass;
     }
 
     /**

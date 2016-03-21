@@ -1,4 +1,4 @@
-package com.svhelloworld.knotlog.service;
+package com.svhelloworld.knotlog.preferences;
 
 /**
  * Provides application preferences.

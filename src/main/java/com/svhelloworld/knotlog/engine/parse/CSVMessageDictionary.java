@@ -55,7 +55,7 @@ public class CSVMessageDictionary implements MessageDictionary {
      * Message definitions
      */
     private List<InstrumentMessageDefinition> definitions;
-    
+
     /**
      * @param identifier sentence identifier
      * @return all message definitions for a given sentence identifier.
@@ -88,15 +88,16 @@ public class CSVMessageDictionary implements MessageDictionary {
         String path = params[0].toString();
         loadCsvFile(path);
     }
-    
+
     /**
      * @return all definitions, initialize() must be called before
      *          this method.
      */
+    @Override
     public List<InstrumentMessageDefinition> getAllDefinitions() {
         return definitions;
     }
-    
+
     /**
      * Loads file from class path.
      * @param path class path to CSV file
@@ -112,7 +113,7 @@ public class CSVMessageDictionary implements MessageDictionary {
             throw new MessageDictionaryException("Read message dictionary failed: " + path, e);
         }
     }
-    
+
     /**
      * Reads the CSV file from the specified path.
      * @param is InputStream object to read from
@@ -123,18 +124,18 @@ public class CSVMessageDictionary implements MessageDictionary {
         assert is != null;
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader reader = new BufferedReader(isr);
-        
+
         //read through the stream and parse each line
         String line;
         InstrumentMessageDefinition definition;
-        while((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) {
             definition = parseLine(line);
             if (definition != null) {
                 definitions.add(definition);
             }
         }
     }
-    
+
     /**
      * Parses a single line in the file.
      * @param line 
@@ -150,22 +151,22 @@ public class CSVMessageDictionary implements MessageDictionary {
             return null;
         }
         String[] tokens = line.split(",");
-        
+
         //ensure line contains at least identifier and class name
         if (tokens.length < 2) {
             throw new MessageDictionaryException("Malformed message definition: " + line);
         }
-        
+
         //pull out identifier and class name
         String ident = tokens[IDENT_IDX];
         String className = tokens[CLASS_IDX];
-        
+
         //pull out definition parameters
         List<String> parameters = new ArrayList<String>();
         for (int idx = CLASS_IDX + 1; idx < tokens.length; idx++) {
             parameters.add(tokens[idx]);
         }
-        
+
         InstrumentMessageDefinition out = new InstrumentMessageDefinition(
                 ident, className, parameters);
         return out;

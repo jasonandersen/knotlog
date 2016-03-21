@@ -2,6 +2,8 @@ package com.svhelloworld.knotlog.ui.exception;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,8 @@ import javafx.scene.layout.Priority;
 @Component
 public class ExceptionDialog {
 
+    private static Logger log = LoggerFactory.getLogger(ExceptionDialog.class);
+
     @Autowired
     private ExceptionPresenter presenter;
 
@@ -39,14 +43,23 @@ public class ExceptionDialog {
         });
     }
 
+    /*
+     * FIXME - this is getting called when exceptions are thrown from within unit tests
+     * when the JavaFX toolkit is not instantiated.
+     */
+
     /**
      * Raise a modal dialog.
      */
     private void raise() {
-        Alert alert = configureAlert();
-        Pane expandableContent = configureExpandableContent();
-        alert.getDialogPane().setExpandableContent(expandableContent);
-        alert.showAndWait();
+        try {
+            Alert alert = configureAlert();
+            Pane expandableContent = configureExpandableContent();
+            alert.getDialogPane().setExpandableContent(expandableContent);
+            alert.showAndWait();
+        } catch (ExceptionInInitializerError e) {
+            log.error("Attempted to raise the exception dialog when the JavaFX toolkit was not initialized.", e);
+        }
     }
 
     /**

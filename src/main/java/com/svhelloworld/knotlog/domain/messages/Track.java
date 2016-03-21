@@ -73,18 +73,18 @@ public class Track extends BaseInstrumentMessage implements ValidVesselMessage {
 
     /**
      * Add track points to this track
-     * @param points
+     * @param trackPoints
      */
-    public void addTrackPoints(TrackPoint... points) {
-        this.points.addAll(Arrays.asList(points));
+    public void addTrackPoints(TrackPoint... trackPoints) {
+        this.points.addAll(Arrays.asList(trackPoints));
     }
 
     /**
      * Add track points to this track
-     * @param points
+     * @param trackPoints
      */
-    public void addTrackPoints(Collection<TrackPoint> points) {
-        this.points.addAll(points);
+    public void addTrackPoints(Collection<TrackPoint> trackPoints) {
+        this.points.addAll(trackPoints);
     }
 
     /**

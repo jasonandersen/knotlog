@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.svhelloworld.knotlog.LocalFiles;
-import com.svhelloworld.knotlog.service.Preferences;
+import com.svhelloworld.knotlog.preferences.Preferences;
 import com.svhelloworld.knotlog.service.impl.PreferencesHashMapImpl;
 import com.svhelloworld.knotlog.util.TestUtils;
 

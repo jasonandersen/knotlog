@@ -12,7 +12,7 @@ import com.svhelloworld.knotlog.i18n.Localizable;
  * @since Feb 15, 2010
  *
  */
-public enum SpeedUnit implements MeasurementUnit, Localizable {
+public enum SpeedUnit implements MeasurementUnit,Localizable {
     /**
      * 1 knot = 1 nautical mile per hour
      */
@@ -34,7 +34,7 @@ public enum SpeedUnit implements MeasurementUnit, Localizable {
      * Kilometers per hour
      */
     KILOMETERS_PER_HOUR("speed.kph", "speed.kph.suffix", "kilometers per hour", "kph", "KPH");
-    
+
     /**
      * Description key
      */
@@ -47,6 +47,7 @@ public enum SpeedUnit implements MeasurementUnit, Localizable {
      * Abbreviations for speed measurement unit.
      */
     private String[] abbreviations;
+
     /**
      * Constructor
      */
@@ -71,10 +72,11 @@ public enum SpeedUnit implements MeasurementUnit, Localizable {
     public String getSuffix() {
         return BabelFish.localizeKey(suffixKey);
     }
-    
+
     /**
      * @return an array of abbreviations for this unit
      */
+    @Override
     public String[] getAbbreviations() {
         return abbreviations;
     }
@@ -94,7 +96,7 @@ public enum SpeedUnit implements MeasurementUnit, Localizable {
     public List<Object> getLocalizeParams() {
         return null;
     }
-    
+
     /**
      * @see java.lang.Enum#toString()
      */
